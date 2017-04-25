@@ -8,7 +8,7 @@ Our Kount-PHP-SDK Page includes all the documentation related to PHP SDK. Everyt
 * [Wiki](https://github.com/Kount/kount-ris-php-sdk/wiki)
 * [Installation](https://github.com/Kount/kount-ris-php-sdk/wiki/Installation)
 * Sample
-* Make your First SDK Call
+* [Make your First SDK Call](https://github.com/Kount/kount-ris-php-sdk/wiki/Making-First-Call)
 * Kount Developer Docs
 
 ## Latest Updates
