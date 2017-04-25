@@ -5,8 +5,8 @@ Repository for Kount RIS PHP SDK source code and wiki.
 
 ## SDK Documentation
 Our Kount-PHP-SDK Page includes all the documentation related to PHP SDK. Everything from SDK Wiki, to Sample Codes, to Releases. Here are few quick links to get you there faster.
-* Wiki
-* Installation
+* [Wiki](https://github.com/Kount/kount-ris-php-sdk/wiki)
+* [Installation](https://github.com/Kount/kount-ris-php-sdk/wiki/Installation)
 * Sample
 * Make your First SDK Call
 * Kount Developer Docs
