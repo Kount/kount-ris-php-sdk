@@ -1,0 +1,16 @@
+
+# Coverage-clover build
+build/**
+
+# IDE
+.idea
+
+#Composer
+vendor
+composer.lock
+composer.phar
+
+#phpDocs will remove from ignore once I am done with tests
+docs
+phpdocs
+
