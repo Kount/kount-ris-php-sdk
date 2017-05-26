@@ -2,12 +2,12 @@
   "name": "kount/kount-ris-php-sdk",
   "description": "PHP client for Kount Risk Inquiry Service",
   "keywords": ["test", "payments", "sdk"],
-  "homepage": "https://github.com/preslav-anev/test-ris-php-sdk",
+  "homepage": "https://github.com/Kount/kount-ris-php-sdk",
   "type" : "Library",
-  "license": "MIT",
+  "license": "Custom",
   "authors": [{
     "name": "Kount",
-    "email": "kount@example.com"
+    "email": "support@kount.com"
   }],
   "require": {
     "php": ">=5.5",
