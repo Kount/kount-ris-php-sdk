@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ris_validation>
+  <param name="VERS">
+    <required />
+    <reg_ex>^\d{4}$</reg_ex>
+  </param>
+  <param name="MODE">
+    <required />
+    <reg_ex>^Q|P|U|X|W|J$</reg_ex>
+  </param>
+  <param name="MERC">
+    <required />
+    <reg_ex>^\d{6}$</reg_ex>
+  </param>
+  <param name="SESS">
+    <required>
+      <mode>Q</mode>
+      <mode>P</mode>
+      <mode>X</mode>
+      <mode>U</mode>
+      <mode>W</mode>
+    </required>
+    <max_length>32</max_length>
+  </param>
+  <param name="ORDR">
+    <max_length>32</max_length>
+  </param>
+  <param name="CURR">
+    <required>
+      <mode>Q</mode>
+      <mode>P</mode>
+      <mode>W</mode>
+      <mode>J</mode>
+    </required>
+    <reg_ex>^[A-Z]{3}$</reg_ex>
+  </param>
+  <param name="TOTL">
+    <required>
+      <mode>Q</mode>
+      <mode>P</mode>
+      <mode>W</mode>
+      <mode>J</mode>
+    </required>
+    <reg_ex>^\d{1,15}$</reg_ex>
+  </param>
+  <param name="CASH">
+    <reg_ex>^\d{1,15}$</reg_ex>
+  </param>
+  <param name="EMAL">
+    <reg_ex>^.+@.+\..+$</reg_ex>
+    <max_length>64</max_length>
+  </param>
+  <param name="CUSTOMER_ID">
+    <required>
+      <mode>W</mode>
+      <mode>J</mode>
+    </required>
+  </param>
+  <param name="GENDER">
+    <reg_ex>^[MFmf]?$</reg_ex>
+  </param>
+  <param name="DOB">
+    <reg_ex>^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$</reg_ex>
+  </param>
+  <param name="NAME">
+    <max_length>64</max_length>
+  </param>
+  <param name="B2A1">
+    <max_length>256</max_length>
+  </param>
+  <param name="B2A2">
+    <max_length>256</max_length>
+  </param>
+  <param name="BPREMISE">
+    <max_length>256</max_length>
+  </param>
+  <param name="BSTREET">
+    <max_length>256</max_length>
+  </param>
+  <param name="B2CI">
+    <max_length>256</max_length>
+  </param>
+  <param name="B2ST">
+    <max_length>256</max_length>
+  </param>
+  <param name="B2CC">
+    <max_length>2</max_length>
+  </param>
+  <param name="B2PN">
+    <max_length>32</max_length>
+  </param>
+  <param name="S2NM">
+    <max_length>64</max_length>
+  </param>
+  <param name="S2EM">
+    <reg_ex>^.+@.+\..+$</reg_ex>
+    <max_length>64</max_length>
+  </param>
+  <param name="S2A1">
+    <max_length>256</max_length>
+  </param>
+  <param name="S2A2">
+    <max_length>256</max_length>
+  </param>
+  <param name="SPREMISE">
+    <max_length>256</max_length>
+  </param>
+  <param name="SSTREET">
+    <max_length>256</max_length>
+  </param>
+  <param name="S2CI">
+    <max_length>256</max_length>
+  </param>
+  <param name="S2ST">
+    <max_length>256</max_length>
+  </param>
+  <param name="S2CC">
+    <max_length>2</max_length>
+  </param>
+  <param name="S2PN">
+    <max_length>32</max_length>
+  </param>
+  <param name="PTYP">
+    <required>
+      <mode>Q</mode>
+      <mode>P</mode>
+      <mode>W</mode>
+      <mode>J</mode>
+    </required>
+    <reg_ex>^.+$</reg_ex>
+  </param>
+  <param name="LAST4">
+    <reg_ex>^([a-zA-Z0-9]{4})?$</reg_ex>
+  </param>
+  <param name="UNIQ">
+    <max_length>32</max_length>
+  </param>
+  <param name="EPOC">
+    <reg_ex>^\d{9,10}$</reg_ex>
+  </param>
+  <param name="IPAD">
+    <required>
+      <mode>Q</mode>
+      <mode>P</mode>
+      <mode>W</mode>
+      <mode>J</mode>
+    </required>
+    <max_length>16</max_length>
+    <reg_ex>^\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b$</reg_ex>
+  </param>
+  <param name="UAGT">
+    <max_length>1024</max_length>
+  </param>
+  <param name="CAT1">
+    <max_length>16</max_length>
+  </param>
+  <param name="CAT2">
+    <max_length>16</max_length>
+  </param>
+  <param name="SHTP">
+    <reg_ex>^(SD|ND|2D|ST)?$</reg_ex>
+  </param>
+  <param name="MACK">
+    <required>
+      <mode>Q</mode>
+      <mode>P</mode>
+      <mode>X</mode>
+      <mode>U</mode>
+      <mode>W</mode>
+    </required>
+    <reg_ex>^[YN]$</reg_ex>
+  </param>
+  <param name="AUTH">
+    <reg_ex>^[AD]$</reg_ex>
+  </param>
+  <param name="AVSZ">
+    <reg_ex>^[MNX]?$</reg_ex>
+  </param>
+  <param name="AVST">
+    <reg_ex>^[MNX]?$</reg_ex>
+  </param>
+  <param name="CVVR">
+    <reg_ex>^[MNX]?$</reg_ex>
+  </param>
+  <param name="TRAN">
+    <required>
+      <mode>U</mode>
+      <mode>X</mode>
+    </required>
+    <max_length>32</max_length>
+  </param>
+  <param name="RFCB">
+    <reg_ex>^[RC]?$</reg_ex>
+  </param>
+  <param name="PROD_TYPE">
+    <required>
+      <mode>Q</mode>
+      <mode>P</mode>
+      <mode>W</mode>
+    </required>
+    <max_length>255</max_length>
+  </param>
+  <param name="PROD_ITEM">
+    <required>
+      <mode>Q</mode>
+      <mode>P</mode>
+      <mode>W</mode>
+    </required>
+    <max_length>255</max_length>
+  </param>
+  <param name="PROD_DESC">
+    <max_length>255</max_length>
+  </param>
+  <param name="PROD_QUANT">
+    <required>
+      <mode>Q</mode>
+      <mode>P</mode>
+      <mode>W</mode>
+    </required>
+    <reg_ex>^[0-9]+$</reg_ex>
+  </param>
+  <param name="PROD_PRICE">
+    <required>
+      <mode>Q</mode>
+      <mode>P</mode>
+      <mode>W</mode>
+    </required>
+    <reg_ex>^[0-9]+$</reg_ex>
+  </param>
+  <param name="B2PC">
+    <max_length>16</max_length>
+  </param>
+  <param name="S2PC">
+    <max_length>16</max_length>
+  </param>
+  <param name="SITE">
+    <required>
+      <mode>Q</mode>
+      <mode>P</mode>
+      <mode>W</mode>
+    </required>
+    <max_length>8</max_length>
+  </param>
+  <param name="ANID">
+    <required>
+      <mode>P</mode>
+    </required>
+    <max_length>64</max_length>
+  </param>
+</ris_validation>

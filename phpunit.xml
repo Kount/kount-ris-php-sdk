@@ -1,0 +1,24 @@
+<phpunit bootstrap="tests/bootstrap.php"
+         colors="true"
+         processIsolation="false"
+         syntaxCheck="false">
+
+  <testsuites>
+    <testsuite name="unit">
+      <directory suffix=".php">./tests/Kount/Ris/unit/</directory>
+    </testsuite>
+  </testsuites>
+
+  <logging>
+    <log type="coverage-html" target="build/coverage/clover.html" lowUpperBound="35" charset="UTF-8"
+         highlight="true" highLowerBound="75"/>
+  </logging>
+
+  <filter>
+    <whitelist>
+      <directory suffix=".php">./src/Kount/</directory>
+      <exclude>
+      </exclude>
+    </whitelist>
+  </filter>
+</phpunit>
