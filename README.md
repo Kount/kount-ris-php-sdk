@@ -1,29 +1,26 @@
-# README #
+# Kount RIS PHP SDK 
+Repository for Kount RIS PHP SDK source code and wiki.
 
-This README would normally document whatever steps are necessary to get your application up and running.
+## Please Note
 
-### What is this repository for? ###
+## SDK Documentation
+Our Kount-PHP-SDK Page includes all the documentation related to PHP SDK. Everything from SDK Wiki, to Sample Codes, to Releases. Here are few quick links to get you there faster.
+* [Wiki](https://github.com/Kount/kount-ris-php-sdk/wiki)
+* [Installation](https://github.com/Kount/kount-ris-php-sdk/wiki/Installation)
+* Sample
+* [Make your First SDK Call](https://github.com/Kount/kount-ris-php-sdk/wiki/Making-First-Call)
+* Kount Developer Docs
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+## Latest Updates
+* Now we have a Github Page, that helps you find all helpful resources building applications using Kount-PHP-SDK.
 
-### How do I get set up? ###
+## Prerequisities
+* PHP 5.5 or above
+* curl, json & openssl extensions must be enabled
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+## License
+Read *License* for more licensing information.
 
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
+## Contributing
+Read *here* for more information.
 * Other community or team contact
