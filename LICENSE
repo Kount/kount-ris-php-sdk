@@ -1,0 +1,70 @@
+The Kount RIS PHP SDK is released under the following license:
+
+Copyright (c) 2017 KOUNT, INC.
+
+SDK LICENSE
+
+NOTICE TO USER:  Kount, Inc. is providing the Software and Documentation for use under the terms of
+this Agreement. Any use, reproduction, modification, or distribution of the Software or
+Documentation, or any derivatives or portions hereof, constitutes your acceptance of this Agreement.
+
+As used in this Agreement, "Kount" means Kount, Inc. and its affiliates. "Software" means the
+software code accompanying this agreement. "Documentation" means the documents, specifications, and
+all other items accompanying this Agreement other than the Software.
+
+1. LICENSE GRANT Subject to the terms of this Agreement, Kount hereby grants you a non-exclusive,
+worldwide, royalty free license to use the Software for performing calls to Kount’s Risk Inquiry
+Service. Furthermore, you must comply with all third party licenses in order to use the third party
+software contained in the Software.
+
+Subject to the terms of this Agreement, Kount hereby grants you a non-exclusive, worldwide, royalty
+free license to use the Documentation for performing calls to Kount’s Risk Inquiry Service.  You may
+not modify the Documentation.
+
+No title to the intellectual property in the Software or Documentation is transferred to you under
+the terms of this Agreement. You do not acquire any rights to the Software or the Documentation
+except as expressly set forth in this Agreement.
+
+You may not distribute the Software in any products, whether commercial or otherwise. By using the
+Software and Documentation you agree to defend, indemnify, and hold harmless Kount and its agents,
+principles, directors, affiliates, and employees against any losses, damages and costs arising from
+the claims, lawsuits, or other legal actions arising out of your use of the Software or
+Documentation. Additionally, you may not distribute the Software in object code form under any
+circumstances.
+
+2. DISCLAIMER OF WARRANTY KOUNT LICENSES THE SOFTWARE AND DOCUMENTATION TO YOU ONLY ON AN "AS IS"
+BASIS WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT
+LIMITATION ANY WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR FITNESS FOR A
+PARTICULAR PURPOSE. KOUNT MAKES NO WARRANTY THAT THE SOFTWARE OR DOCUMENTATION WILL BE ERROR-FREE.
+Each user of the Software or Documentation is solely responsible for determining the appropriateness
+of using the Software and Documentation and assumes all risks associated with its exercise of rights
+under this Agreement, including but not limited to the risks and costs of program errors, compliance
+with applicable laws, damage to or loss of data, programs, or equipment, and unavailability or
+interruption of operations. Use of the Software and Documentation is made with the understanding
+that Kount will not provide you with any technical or customer support or maintenance unless
+expressly agreed to in a separate agreement with Kount.
+
+3. LIMITATION OF LIABILITY KOUNT SHALL NOT BE LIABLE FOR LOSS OR DAMAGE ARISING OUT OF THIS
+AGREEMENT OR FROM THE USE OF THE SOFTWARE OR DOCUMENTATION. IN NO EVENT WILL KOUNT BE LIABLE TO YOU
+OR ANY THIRD PARTY FOR ANY DIRECT, INDIRECT, CONSEQUENTIAL, INCIDENTAL, OR SPECIAL DAMAGES INCLUDING
+LOST PROFITS, LOST SAVINGS, COSTS, FEES, OR EXPENSES OF ANY KIND ARISING OUT OF ANY PROVISION OF
+THIS AGREEMENT OR THE USE OR THE INABILITY TO USE THE SOFTWARE OR DOCUMENTATION, HOWEVER CAUSED AND
+UNDER ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT, INCLUDING NEGLIGENCE
+OR OTHERWISE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. KOUNT'S AGGREGATE LIABILITY UNDER
+OR IN CONNECTION WITH THIS AGREEMENT SHALL BE LIMITED TO THE AMOUNT PAID BY YOU FOR THE SOFTWARE AND
+DOCUMENTATION.
+
+4. TRADEMARK USAGE Kount is a trademark Kount, Inc. in the United States and other countries. Such
+trademarks may not be used to endorse or promote any product unless expressly permitted under
+separate agreement with Kount.
+
+5.  TERM Your rights under this Agreement shall terminate if you fail to comply with any of the
+material terms or conditions of this Agreement and do not cure such failure in a reasonable period
+of time after becoming aware of such noncompliance. If all your rights under this Agreement
+terminate, you agree to cease use and distribution of the Software and Documentation immediately.
+
+6. GOVERNING LAW AND JURISDICTION.  This Agreement is governed by the statutes and laws of the State
+of Idaho, without regard to the conflicts of law principles thereof. If any part of this Agreement
+is found void and unenforceable, it will not affect the validity of the balance of the Agreement,
+which shall remain valid and enforceable according to its terms. Any dispute arising out of or
+related to this Agreement shall be brought in the courts located in Boise, Idaho, USA.
