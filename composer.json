@@ -1,6 +1,6 @@
 {
   "name": "kount/kount-ris-php-sdk",
-  "description": "PHP client for Kount Risk Inquiry Service",
+  "description": "PHP client for Kount Risk Inquiry Service.",
   "keywords": ["test", "payments", "sdk"],
   "homepage": "https://github.com/Kount/kount-ris-php-sdk",
   "type" : "Library",
