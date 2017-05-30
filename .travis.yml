@@ -8,6 +8,10 @@ php:
 before_script:
   - composer install
 script:
+  - export BRANCH=$TRAVIS_BRANCH
+  - if [ ${BRANCH} != "master" ]; then
+      exit 0;
+    fi
   - vendor/bin/phpdoc -d src/ -t phpdocs/
   - ./release.sh
 before_deploy:
