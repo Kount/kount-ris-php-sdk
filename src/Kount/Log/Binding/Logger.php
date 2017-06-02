@@ -54,6 +54,9 @@ interface Kount_Log_Binding_Logger {
    */
   public function fatal ($message, $exception = null);
 
+  /**
+   * Getter function for receiving the value for configurable ris metrics log.
+   */
   public function getRisLogger();
 
 } // end Kount_Log_Binding_Logger

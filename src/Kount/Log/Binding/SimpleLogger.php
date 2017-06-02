@@ -84,6 +84,10 @@ class Kount_Log_Binding_SimpleLogger implements Kount_Log_Binding_Logger {
     $this->logger->fatal($message, $exception);
   }
 
+  /**
+   * Getter function for receiving the value for configurable ris metrics log.
+   * @return risLogger
+   */
   public function getRisLogger() {
     return $this->risLogger;
   }
