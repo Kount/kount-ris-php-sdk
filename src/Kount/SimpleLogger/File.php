@@ -17,7 +17,7 @@ class Kount_SimpleLogger_File {
    * Format for a time stamp.
    * @var string
    */
-  const TIME_FORMAT = 'Y-m-d\TH:i:sP';
+  const TIME_FORMAT = 'Y-m-d\TH:i:s.zP';
 
   /**
    * Logging levels
@@ -61,6 +61,7 @@ class Kount_SimpleLogger_File {
     $logPath = $configReader->getConfigSetting('SIMPLE_LOG_PATH');
     $this->logFilePath = $logPath . DIRECTORY_SEPARATOR . $logFile;
     $this->logLevel = $configReader->getConfigSetting('SIMPLE_LOG_LEVEL');
+    $this->isRisDebugEnabled = $configReader->getConfigSetting('SIMPLE_LOG_RIS_METRICS');
     if (!array_key_exists($this->logLevel, $this->logLevels)) {
       throw new Exception("Illegal log level [{$this->logLevel}] " .
           "defined in setting file");

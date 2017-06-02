@@ -199,6 +199,9 @@ abstract class Kount_Ris_Request {
           "]");
     }
 
+    $stopWatch = new \Symfony\Component\Stopwatch\Stopwatch();
+    $start = $stopWatch->start('ris');
+
     // validate first
     $errors = Kount_Ris_Validate::validate($this->data);
     if (count($errors) > 0) {
@@ -223,13 +226,14 @@ abstract class Kount_Ris_Request {
     curl_setopt($ch, CURLOPT_VERBOSE, 0);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
     curl_setopt($ch, CURLOPT_SSLVERSION, 6);
-    if($this->data['MERC']) {
-      curl_setopt($ch, CURLOPT_HTTPHEADER, array("X-Kount-Merc-Id: {$this->data['MERC']}"));
-    }
+    $this->logger->debug("Setting merchant ID custom header to RIS.");
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array("X-Kount-Merc-Id: {$this->data['MERC']}"));
+
 
     // try API key authentication first, then fall back to certificates
     // which are deprecated.
     if ($this->apiKey != "") {
+      $this->logger->debug("Setting API key header to RIS.");
       curl_setopt($ch, CURLOPT_HTTPHEADER,
         array("X-Kount-Api-Key: {$this->apiKey}"));
     } else {
@@ -272,6 +276,14 @@ abstract class Kount_Ris_Request {
       throw new Kount_Ris_Exception($result);
     }
     curl_close($ch);
+
+    $event = $stopWatch->stop('ris');
+    $timeElapsed = $event->getDuration() . "ms";
+
+    if($this->logger->getRisLogger()) {
+      $risLogMessage = "merc=" . $this->data['MERC'] . " " . "sess=" . $this->data['SESS'] . " " . "sdk_elapsed=" . $timeElapsed;
+      $this->logger->debug("{$risLogMessage}");
+    }
 
     $this->logger->debug(__METHOD__ . " Raw RIS response:\n {$output}");
 
