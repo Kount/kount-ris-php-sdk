@@ -20,11 +20,18 @@ class Kount_Log_Binding_SimpleLogger implements Kount_Log_Binding_Logger {
   protected $logger;
 
   /**
+   * Configurable flag containing the value for SIMPLE_LOG_RIS_METRICS in settings.ini file.
+   * @var risLogger
+   */
+  public $risLogger;
+
+  /**
    * Constructor for a simple logger binding.
    * @param string $name Name of the logger
    */
   public function __construct ($name) {
     $this->logger = new Kount_SimpleLogger_File($name);
+    $this->risLogger = $this->logger->isRisDebugEnabled;
   }
 
   /**
@@ -75,6 +82,14 @@ class Kount_Log_Binding_SimpleLogger implements Kount_Log_Binding_Logger {
    */
   public function fatal ($message, $exception = null) {
     $this->logger->fatal($message, $exception);
+  }
+
+  /**
+   * Getter function for receiving the value for configurable ris metrics log.
+   * @return risLogger
+   */
+  public function getRisLogger() {
+    return $this->risLogger;
   }
 
 } // end Kount_Log_Binding_SimpleLogger
