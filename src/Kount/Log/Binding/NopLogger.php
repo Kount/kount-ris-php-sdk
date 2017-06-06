@@ -66,4 +66,7 @@ class Kount_Log_Binding_NopLogger implements Kount_Log_Binding_Logger {
   public function fatal ($message, $exception = null) {
   }
 
+  public function getRisLogger() {
+  }
+
 } // end Kount_Log_Binding_NopLogger
