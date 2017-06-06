@@ -301,19 +301,15 @@ abstract class Kount_Ris_Request {
     curl_setopt($ch, CURLOPT_TIMEOUT, $this->connectionTimeout);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
-    curl_setopt($ch, CURLOPT_VERBOSE, 0);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
     curl_setopt($ch, CURLOPT_SSLVERSION, 6);
-    $this->logger->debug("Setting merchant ID custom header to RIS.");
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array("X-Kount-Merc-Id: {$this->data['MERC']}"));
-
 
     // try API key authentication first, then fall back to certificates
     // which are deprecated.
     if ($this->apiKey != "") {
       $this->logger->debug("Setting API key header to RIS.");
-      curl_setopt($ch, CURLOPT_HTTPHEADER,
-        array("X-Kount-Api-Key: {$this->apiKey}"));
+      $this->logger->debug("Setting merchant ID custom header to RIS.");
+      curl_setopt($ch, CURLOPT_HTTPHEADER, array("X-Kount-Api-Key: {$this->apiKey}", "X-Kount-Merc-Id: {$this->data['MERC']}"));
     } else {
       // Set RIS certificate in CURL.
       // If certificate is a .pk12 file then it must be converted to PEM format.
