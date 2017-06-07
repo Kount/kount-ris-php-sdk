@@ -161,7 +161,7 @@ abstract class Kount_Ris_Request {
    * Payment type: Mercado Pago
    * @var string
    */
-  const MERCADO_PAGO_TYPE = "MERCADO_PAGO";
+  const MERCADE_PAGO_TYPE = "MERCADE_PAGO";
 
   /**
    * Payment type: Neteller
@@ -739,7 +739,7 @@ abstract class Kount_Ris_Request {
    * @return this
    */
   public function setMercadoPagoPayment($mercadoPagoId) {
-    $this->data['PTYP'] = self::MERCADO_PAGO_TYPE;
+    $this->data['PTYP'] = self::MERCADE_PAGO_TYPE;
     return $this->setPaymentToken($mercadoPagoId);
   }
 
