@@ -122,6 +122,84 @@ abstract class Kount_Ris_Request {
   const BLML_TYPE = 'BLML';
 
   /**
+   * Payment type: Apple payment type
+   * @var string
+   */
+  const APAY_TYPE = "APAY";
+
+  /**
+   * Payment type: BPAY
+   * @var string
+   */
+  const BPAY_TYPE = "BPAY";
+
+  /**
+   * Payment type: Carte Bleue
+   * @var string
+   */
+  const CARTE_BLEUE_TYPE = "CARTE_BLEUE";
+
+  /**
+   * Payment type: ELV
+   * @var string
+   */
+  const ELV_TYPE = "ELV";
+
+  /**
+   * Payment type: GiroPay
+   * @var string
+   */
+  const GIROPAY_TYPE = "GIROPAY";
+
+  /**
+   * Payment type: Interac
+   * @var string
+   */
+  const INTERAC_TYPE = "INTERAC";
+
+  /**
+   * Payment type: Mercado Pago
+   * @var string
+   */
+  const MERCADE_PAGO_TYPE = "MERCADE_PAGO";
+
+  /**
+   * Payment type: Neteller
+   * @var string
+   */
+  const NETELLER_TYPE = "NETELLER";
+
+  /**
+   * Payment type: POLI
+   * @var string
+   */
+  const POLI_TYPE = "POLI";
+
+  /**
+   * Payment type: Single Euro Payments Area
+   * @var string
+   */
+  const SEPA_TYPE = "SEPA";
+
+  /**
+   * Payment type: Skrill/Moneybookers
+   * @var string
+   */
+  const SKRILL_TYPE = "SKRILL";
+
+  /**
+   * Payment type: Sofort
+   * @var string
+   */
+  const SOFORT_TYPE = "SOFORT";
+
+  /**
+   * Payment type: Token
+   * @var string
+   */
+  const TOKEN_TYPE = "TOKEN";
+
+  /**
    * A logger binding.
    * @var Kount_Log_Binding_Logger
    */
@@ -226,16 +304,13 @@ abstract class Kount_Ris_Request {
     curl_setopt($ch, CURLOPT_VERBOSE, 0);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
     curl_setopt($ch, CURLOPT_SSLVERSION, 6);
-    $this->logger->debug("Setting merchant ID custom header to RIS.");
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array("X-Kount-Merc-Id: {$this->data['MERC']}"));
-
 
     // try API key authentication first, then fall back to certificates
     // which are deprecated.
     if ($this->apiKey != "") {
       $this->logger->debug("Setting API key header to RIS.");
-      curl_setopt($ch, CURLOPT_HTTPHEADER,
-        array("X-Kount-Api-Key: {$this->apiKey}"));
+      $this->logger->debug("Setting merchant ID custom header to RIS.");
+      curl_setopt($ch, CURLOPT_HTTPHEADER, array("X-Kount-Api-Key: {$this->apiKey}", "X-Kount-Merc-Id: {$this->data['MERC']}"));
     } else {
       // Set RIS certificate in CURL.
       // If certificate is a .pk12 file then it must be converted to PEM format.
@@ -589,6 +664,149 @@ abstract class Kount_Ris_Request {
   public function setBillMeLaterPayment($blmlId) {
     $this->data['PTYP'] = self::BLML_TYPE;
     return $this->setPaymentToken($blmlId);
+  }
+
+  /**
+   * Set a apple pay payment type
+   *
+   * @param string $appleId apple pay id
+   * @return this
+   */
+  public function setApplePayment($appleId) {
+    $this->data['PTYP'] = self::APAY_TYPE;
+    return $this->setPaymentToken($appleId);
+  }
+
+  /**
+   * Set a BPAY payment type
+   *
+   * @param string $bppId BPAY id
+   * @return this
+   */
+  public function setBpayPayment($bppId) {
+    $this->data['PTYP'] = self::BPAY_TYPE;
+    return $this->setPaymentToken($bppId);
+  }
+
+  /**
+   * Set a Carte Bleue payment type
+   *
+   * @param string $cbpId Carte Bleue id
+   * @return this
+   */
+  public function setCarteBleuePayment($cbpId) {
+    $this->data['PTYP'] = self::CARTE_BLEUE_TYPE;
+    return $this->setPaymentToken($cbpId);
+  }
+
+  /**
+   * Set a ELV payment type
+   *
+   * @param string $elvpId ELV id
+   * @return this
+   */
+  public function setElvPayment($elvpId) {
+    $this->data['PTYP'] = self::ELV_TYPE;
+    return $this->setPaymentToken($elvpId);
+  }
+
+  /**
+   * Set a GiroPay payment type
+   *
+   * @param string $giroPayId GiroPay id
+   * @return this
+   */
+  public function setGiroPayPayment($giroPayId) {
+    $this->data['PTYP'] = self::GIROPAY_TYPE;
+    return $this->setPaymentToken($giroPayId);
+  }
+
+  /**
+   * Set a Interac payment type
+   *
+   * @param string $interacId Interac id
+   * @return this
+   */
+  public function setInteracPayment($interacId) {
+    $this->data['PTYP'] = self::INTERAC_TYPE;
+    return $this->setPaymentToken($interacId);
+  }
+
+  /**
+   * Set a Mercado Pago payment type
+   *
+   * @param string $mercadoPagoId Mercado Pago id
+   * @return this
+   */
+  public function setMercadoPagoPayment($mercadoPagoId) {
+    $this->data['PTYP'] = self::MERCADE_PAGO_TYPE;
+    return $this->setPaymentToken($mercadoPagoId);
+  }
+
+  /**
+   * Set a Neteller payment type
+   *
+   * @param string $netellerId Neteller id
+   * @return this
+   */
+  public function setNetellerPayment($netellerId) {
+    $this->data['PTYP'] = self::NETELLER_TYPE;
+    return $this->setPaymentToken($netellerId);
+  }
+
+  /**
+   * Set a POLI payment type
+   *
+   * @param string $popId POLI id
+   * @return this
+   */
+  public function setPoliPayment($popId) {
+    $this->data['PTYP'] = self::POLI_TYPE;
+    return $this->setPaymentToken($popId);
+  }
+
+  /**
+   * Set a Single Euro Payments Area payment type
+   *
+   * @param string $sepaId Single Euro Payments Area id
+   * @return this
+   */
+  public function setSepaPayment($sepaId) {
+    $this->data['PTYP'] = self::SEPA_TYPE;
+    return $this->setPaymentToken($sepaId);
+  }
+
+  /**
+   * Set a Skrill/Mooneybookers payment type
+   *
+   * @param string $skrillId Skrill/Mooneybookers id
+   * @return this
+   */
+  public function setSkrillPayment($skrillId) {
+    $this->data['PTYP'] = self::SKRILL_TYPE;
+    return $this->setPaymentToken($skrillId);
+  }
+
+  /**
+   * Set a Sofort payment type
+   *
+   * @param string $sofortId Sofort id
+   * @return this
+   */
+  public function setSofortPayment($sofortId) {
+    $this->data['PTYP'] = self::SOFORT_TYPE;
+    return $this->setPaymentToken($sofortId);
+  }
+
+  /**
+   * Set a Token payment type
+   *
+   * @param string $tokenId Token id
+   * @return this
+   */
+  public function setTokenPayment($tokenId) {
+    $this->data['PTYP'] = self::TOKEN_TYPE;
+    return $this->setPaymentToken($tokenId);
   }
 
   /**
