@@ -92,6 +92,16 @@ class UtilityHelperTest {
     return $inquiry;
   }
 
+  public function createInquiryForPayments($merchantId, $url, $apiKey) {
+    $inquiry = $this->defaultInquiry();
+
+    $inquiry->setMerchantId($merchantId);
+    $inquiry->setApiKey($apiKey);
+    $inquiry->setUrl($url);
+
+    return $inquiry;
+  }
+
   public function createMaskedInquiry($cardNumber, $url, $merchantId) {
     $inquiry = $this->defaultInquiry();
 
