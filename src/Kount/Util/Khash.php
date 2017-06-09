@@ -52,7 +52,7 @@ class Kount_Util_Khash {
   public static function hashPaymentToken ($token) {
     $firstSix = mb_substr($token, 0, 6, 'latin1');
     $hash = self::hash($token, 14);
-    return (null == $token) ? '' :  "{$firstSix}{$hash}";
+    return (null == $token) ? '' : "{$firstSix}{$hash}";
   }
 
   /**
