@@ -9,6 +9,8 @@
 define('RSA_PUBLIC_KEY', realpath(dirname(__FILE__) .
     DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'rsa.public.key'));
 
+require __DIR__ . "/../../../vendor/autoload.php";
+
 /**
  * Common abstract class for Kount_Ris_Request_Inquiry and Kount_Ris_Request_Update objects.
  * CURL support must be enabled.
