@@ -591,6 +591,24 @@ class Kount_Ris_Response {
   }
 
   /**
+   * Safely get all of the values from the RIS response.
+   *
+   * @return array Response fields
+   */
+  protected function safeGetResponseAsDict () {
+    return !is_null($this->response) ? $this->response : '';
+  }
+
+  /**
+   * Get an array with the fields from the RIS response
+   *
+   * @return array Response fields
+   */
+  public function getResponseAsDict () {
+    return $this->safeGetResponseAsDict();
+  }
+
+  /**
    * Get an array of the rules triggered by this Response.
    * @return array Rules triggered
    */

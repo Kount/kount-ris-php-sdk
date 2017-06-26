@@ -18,7 +18,6 @@
   },
   "require-dev": {
     "phpunit/phpunit": "4.8",
-    "phpdocumentor/phpdocumentor": "2.*",
-    "symfony/stopwatch": "*"
+    "phpdocumentor/phpdocumentor": "2.*"
   }
 }
