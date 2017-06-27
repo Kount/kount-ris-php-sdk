@@ -1,6 +1,25 @@
 Kount RIS PHP SDK CHANGELOG
 ===========================
 
+Version 6.5.2
+=====================
+06/27/2017
+1. Added getResponseAsDict() method for retrieving the response fields as array.
+2. Removed the stopwatch package and introduced php's native microtime() to track milliseconds.
+3. Added autoload configuration in composer.json, so that when the user opts for a composer installation he would have to only include the autoload in vendor folder.
+
+Version 6.5.1
+=====================
+06/23/2017
+1. Improved communication logging
+2. Added more information to connection headers
+3. Integrated more payment types, see https://api.test.kount.net/rpc/support/payments.html
+
+Version 6.5.0
+=====================
+05/29/2017
+1. SALT phrase configurable as a settings variable
+
 Version 6.4.2
 =====================
 04/07/2017

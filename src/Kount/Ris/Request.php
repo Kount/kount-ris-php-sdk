@@ -9,8 +9,6 @@
 define('RSA_PUBLIC_KEY', realpath(dirname(__FILE__) .
     DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'rsa.public.key'));
 
-require __DIR__ . "/../../../vendor/autoload.php";
-
 /**
  * Common abstract class for Kount_Ris_Request_Inquiry and Kount_Ris_Request_Update objects.
  * CURL support must be enabled.
@@ -279,8 +277,7 @@ abstract class Kount_Ris_Request {
           "]");
     }
 
-    $stopWatch = new \Symfony\Component\Stopwatch\Stopwatch();
-    $start = $stopWatch->start('ris');
+    $startTimer = microtime(true);
 
     // validate first
     $errors = Kount_Ris_Validate::validate($this->data);
@@ -354,11 +351,11 @@ abstract class Kount_Ris_Request {
     }
     curl_close($ch);
 
-    $event = $stopWatch->stop('ris');
-    $timeElapsed = $event->getDuration() . "ms";
+    $time = microtime(true) - $startTimer;
+    $timeInMs = round($time * 1000) . "ms";
 
     if($this->logger->getRisLogger()) {
-      $risLogMessage = "merc=" . $this->data['MERC'] . " " . "sess=" . $this->data['SESS'] . " " . "sdk_elapsed=" . $timeElapsed;
+      $risLogMessage = "merc=" . $this->data['MERC'] . " " . "sess=" . $this->data['SESS'] . " " . "sdk_elapsed=" . $timeInMs;
       $this->logger->debug("{$risLogMessage}");
     }
 
