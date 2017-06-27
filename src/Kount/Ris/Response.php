@@ -597,7 +597,6 @@ class Kount_Ris_Response {
    * @return array Response fields
    */
   public function getResponseAsDict () {
-
     return !is_null($this->response) ? $this->response : '';
   }
 
