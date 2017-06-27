@@ -277,6 +277,7 @@ abstract class Kount_Ris_Request {
           "]");
     }
 
+    //start RIS call timer
     $startTimer = microtime(true);
 
     // validate first
