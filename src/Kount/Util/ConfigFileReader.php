@@ -37,27 +37,46 @@ class Kount_Util_ConfigFileReader {
 
   /**
    * Private constructor to prevent direct object instantiation.
+   * @param string $path absolute path to custom settings file.
    * @throws Exception when reading a file fails.
    */
-  private function __construct () {
-    $file = KOUNT_SETTINGS_FILE;
-    if (!is_readable($file)) {
-      throw new Exception(
+  private function __construct ($path = null) {
+    if($path == null) {
+      $file = KOUNT_SETTINGS_FILE;
+      if (!is_readable($file)) {
+        throw new Exception(
           "Unable to read configuration file '{$file}'. " .
           "Check that the file exists and is readable by the process " .
           "running this script.");
-    }
+      }
 
-    $this->settings = parse_ini_file($file, false);
+      $this->settings = parse_ini_file($file, false);
+    } else {
+      $file = KOUNT_CUSTOM_SETTINGS_FILE;
+      if (!is_readable($file)) {
+        throw new Exception(
+          "Unable to read configuration file '{$file}'. " .
+          "Check that the file exists and is readable by the process " .
+          "running this script.");
+      }
+
+      $this->settings = parse_ini_file($file, false);
+    }
   }
 
   /**
    * Get an instance of this class.
+   * @param string @path Absolute path to custom settings file.
    * @return Kount_Util_ConfigFileReader
    */
-  public static function instance () {
+  public static function instance ($path = null) {
     if (null == self::$instance) {
-      self::$instance = new Kount_Util_ConfigFileReader();
+      if($path == null) {
+        self::$instance = new Kount_Util_ConfigFileReader();
+      } else {
+        define('KOUNT_CUSTOM_SETTINGS_FILE', realpath($path));
+        self::$instance = new Kount_Util_ConfigFileReader($path);
+      }
     }
     return self::$instance;
   }
