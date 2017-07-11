@@ -68,7 +68,6 @@ class Kount_Util_Khash {
    * @return Kount_Util_Khash
    */
   public static function createKhash($customSettingsPath) {
-    print_r("custom");
     if(self::$instance == null) {
       self::$instance = new Kount_Util_Khash($customSettingsPath);
     }
@@ -81,7 +80,6 @@ class Kount_Util_Khash {
    * @return Kount_Util_Khash
    */
   public static function createDefaultKhash() {
-    print_r("default");
     if(self::$instance == null) {
       self::$instance = new Kount_Util_Khash();
     }
