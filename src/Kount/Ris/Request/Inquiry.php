@@ -89,9 +89,10 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * sets the PHP SDK identifier.
    *
    * @param Kount_Ris_Settings $settings Configuration settings
+   * @param Kount_Util_Khash $customSettings enabling custom settings.
    */
-  public function __construct ($settings = null) {
-    parent::__construct($settings);
+  public function __construct ($customSettings = null, $settings = null) {
+    parent::__construct($customSettings, $settings);
     // defaults
     $this->setMode(self::MODE_Q);
     $this->setCurrency('USD');

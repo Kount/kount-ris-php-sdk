@@ -22,6 +22,12 @@ class Kount_Util_Khash {
   private static $salt;
 
   /**
+   * An instance of this class.
+   * @var Kount_Util_ConfigFileReader
+   */
+  protected static $instance = null;
+
+  /**
    * Set the salt phrase for hashing.
    *
    * @param string $salt - salt phrase set when user instantiates a RIS request.
@@ -38,6 +44,46 @@ class Kount_Util_Khash {
    */
   public static function getSaltPhrase() {
     return self::$salt;
+  }
+
+  /**
+   * Kount_Util_Khash constructor. Initializes the SALT phrase used in hashing operations.
+   * @param string $customSettingsPath - Path to custom settings file, provided by the developer.
+   */
+  private function __construct($customSettingsPath = null) {
+    if($customSettingsPath == null) {
+      $configReader = Kount_Util_ConfigFileReader::instance();
+      $settings = new Kount_Ris_ArraySettings($configReader->getSettings());
+      self::setSaltPhrase($settings->getSaltPhrase());
+    } else {
+      $configReader = Kount_Util_ConfigFileReader::instance($customSettingsPath);
+      $settings = new Kount_Ris_ArraySettings($configReader->getSettings());
+      self::setSaltPhrase($settings->getSaltPhrase());
+    }
+  }
+
+  /**
+   * Creates instance of this class using custom settings file.
+   * @param $customSettingsPath string absolute path to custom settings file.
+   * @return Kount_Util_Khash
+   */
+  public static function createKhash($customSettingsPath) {
+    if(self::$instance == null) {
+      self::$instance = new Kount_Util_Khash($customSettingsPath);
+    }
+    return self::$instance;
+  }
+
+  /**
+   * Creates instance of this class using default settings.ini.
+   *
+   * @return Kount_Util_Khash
+   */
+  public static function createDefaultKhash() {
+    if(self::$instance == null) {
+      self::$instance = new Kount_Util_Khash();
+    }
+    return self::$instance;
   }
 
   /**
@@ -75,9 +121,6 @@ class Kount_Util_Khash {
    * @return string Hashed data
    */
   public static function hash ($data, $len) {
-    $configReader = Kount_Util_ConfigFileReader::instance();
-    $settings = new Kount_Ris_ArraySettings($configReader->getSettings());
-    self::setSaltPhrase($settings->getSaltPhrase());
     $salt = self::getSaltPhrase();
     static $a = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 

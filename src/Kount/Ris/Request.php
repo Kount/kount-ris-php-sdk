@@ -226,11 +226,16 @@ abstract class Kount_Ris_Request {
    * for this file.
    *
    * @param Kount_Ris_Settings $settings Configuration settings
+   * @param Kount_Util_Khash $khashObject instance of the Khash utility class with the option for custom settings file.
    * @see Kount_Util_ConfigFileReader
    */
-  public function __construct($settings = null) {
+  public function __construct($khashObject, $settings = null) {
     $loggerFactory = Kount_Log_Factory_LogFactory::getLoggerFactory();
     $this->logger = $loggerFactory->getLogger(__CLASS__);
+
+    if($khashObject == NULL || !isset($khashObject)) {
+      Kount_Util_Khash::createDefaultKhash();
+    }
 
     if (null === $settings) {
       // try to load settings via ini file
