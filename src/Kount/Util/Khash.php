@@ -118,10 +118,15 @@ class Kount_Util_Khash {
    *
    * @param string $data Data to hash
    * @param int $len Length of hash to retain
+   * @throws Exception if $salt is not configured in src/settings.ini or custom settings file.
    * @return string Hashed data
    */
   public static function hash ($data, $len) {
     $salt = self::getSaltPhrase();
+    if($salt == null || !isset($salt)) {
+      throw new Exception("Unable to get configuration setting 'SALT_PHRASE'. " .
+        "Check that the SALT_PHRASE setting exists and is not set to null or empty string. ");
+    }
     static $a = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
     $r = sha1("{$data}.{$salt}");

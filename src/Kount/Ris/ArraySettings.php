@@ -112,17 +112,10 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
   /**
    * The Salt phrase for hashing credit card numbers.
    *
-   * @throws Exception when the SALT_PHRASE setting in settings.ini
-   * does not exist or is set to null or empty value.
    * @return string SALT PHRASE
    */
 
   public function getSaltPhrase() {
-    if(!$this->settings['SALT_PHRASE']) {
-      throw new Exception(
-        "Unable to get configuration setting 'SALT_PHRASE'. " .
-        "Check that the SALT_PHRASE setting exists and is not set to null or empty string. ");
-    }
     return $this->settings['SALT_PHRASE'];
   }
 
