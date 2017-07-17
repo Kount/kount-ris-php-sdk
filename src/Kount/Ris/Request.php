@@ -44,7 +44,7 @@ abstract class Kount_Ris_Request
 
     /**
      * Settings cache
-     * @var Kount_Ris_Settings
+     * @var Kount_Ris_ArraySettings
      */
     protected $settings;
 
@@ -225,7 +225,7 @@ abstract class Kount_Ris_Request
      * See Kount_Util_ConfigFileReader for details on setting an alternate path
      * for this file.
      *
-     * @param Kount_Ris_Settings|string $settings Configuration settings
+     * @param Kount_Ris_ArraySettings|string $settings Configuration settings
      * @see Kount_Util_ConfigFileReader
      */
     public function __construct($settings = null)
@@ -239,7 +239,10 @@ abstract class Kount_Ris_Request
         } else {
             $configReader = Kount_Util_ConfigFileReader::instance($settings);
             $this->settings = new Kount_Ris_ArraySettings($configReader->getSettings());
-            Kount_Util_Khash::createKhash($this->settings);
+            Kount_Util_Khash::createKhash($this->settings, false);
+        }
+        if ($this->settings->getSaltPhrase()) {
+            Kount_Util_Khash::setSaltPhrase($this->settings->getSaltPhrase());
         }
 
         $this->setMerchantId($this->settings->getMerchantId());
@@ -907,6 +910,9 @@ abstract class Kount_Ris_Request
         }
 
         if ($this->isSetKhashPaymentEncoding()) {
+            if ($this->settings->getSaltPhrase()) {
+                Kount_Util_Khash::setSaltPhrase($this->settings->getSaltPhrase());
+            }
             $token = (self::GIFT_CARD_TYPE == $this->data['PTYP']) ?
                 Kount_Util_Khash::hashGiftCard($this->data['MERC'], $token) :
                 Kount_Util_Khash::hashPaymentToken($token);
@@ -993,6 +999,9 @@ abstract class Kount_Ris_Request
             }
         }
 
+        if ($this->settings->getSaltPhrase()) {
+            Kount_Util_Khash::setSaltPhrase($this->settings->getSaltPhrase());
+        }
         $token = (self::GIFT_CARD_TYPE == $paymentType) ?
             Kount_Util_Khash::getInstance()::hashGiftCard($this->data['MERC'], $paymentToken) :
             Kount_Util_Khash::getInstance()::hashPaymentToken($paymentToken);
