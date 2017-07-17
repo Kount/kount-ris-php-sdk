@@ -47,25 +47,16 @@ class Kount_Util_Khash {
     }
 
     /**
-     * Get instance for custom settings
-     *
-     * @return Kount_Util_Khash
-     */
-    public static function getInstance() {
-        return self::$instance;
-    }
-
-    /**
      * Kount_Util_Khash constructor. Initializes the SALT phrase used in hashing operations.
      * @param Kount_Ris_ArraySettings|string $settings Existing settings or path to custom settings file.
      */
     private function __construct($settings = null) {
         if ($settings instanceof Kount_Ris_ArraySettings) {
-            self::setSaltPhrase($settings->getSaltPhrase());
+            self::$salt = $settings->getSaltPhrase();
         } else {
             $configReader = Kount_Util_ConfigFileReader::instance($settings);
             $settings = new Kount_Ris_ArraySettings($configReader->getSettings());
-            self::setSaltPhrase($settings->getSaltPhrase());
+            self::$salt = $settings->getSaltPhrase();
         }
     }
 

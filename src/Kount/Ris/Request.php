@@ -908,8 +908,8 @@ abstract class Kount_Ris_Request
 
         if ($this->isSetKhashPaymentEncoding()) {
             $token = (self::GIFT_CARD_TYPE == $this->data['PTYP']) ?
-                Kount_Util_Khash::getInstance()::hashGiftCard($this->data['MERC'], $token) :
-                Kount_Util_Khash::getInstance()::hashPaymentToken($token);
+                Kount_Util_Khash::hashGiftCard($this->data['MERC'], $token) :
+                Kount_Util_Khash::hashPaymentToken($token);
         }
         $this->data['PTOK'] = $token;
         return $this;
