@@ -118,7 +118,7 @@ class Kount_Util_Khash {
    *
    * @param string $data Data to hash
    * @param int $len Length of hash to retain
-   * @throws Exception if $salt is not configured.
+   * @throws Exception if $salt is not configured in src/settings.ini or custom settings file.
    * @return string Hashed data
    */
   public static function hash ($data, $len) {
