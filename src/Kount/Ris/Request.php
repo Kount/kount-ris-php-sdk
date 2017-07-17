@@ -908,8 +908,8 @@ abstract class Kount_Ris_Request
 
         if ($this->isSetKhashPaymentEncoding()) {
             $token = (self::GIFT_CARD_TYPE == $this->data['PTYP']) ?
-                Kount_Util_Khash::hashGiftCard($this->data['MERC'], $token) :
-                Kount_Util_Khash::hashPaymentToken($token);
+                Kount_Util_Khash::getInstance()::hashGiftCard($this->data['MERC'], $token) :
+                Kount_Util_Khash::getInstance()::hashPaymentToken($token);
         }
         $this->data['PTOK'] = $token;
         return $this;
@@ -994,8 +994,8 @@ abstract class Kount_Ris_Request
         }
 
         $token = (self::GIFT_CARD_TYPE == $paymentType) ?
-            Kount_Util_Khash::hashGiftCard($this->data['MERC'], $paymentToken) :
-            Kount_Util_Khash::hashPaymentToken($paymentToken);
+            Kount_Util_Khash::getInstance()::hashGiftCard($this->data['MERC'], $paymentToken) :
+            Kount_Util_Khash::getInstance()::hashPaymentToken($paymentToken);
 
         $this->data['PTYP'] = $paymentType;
         $this->data['PTOK'] = $token;

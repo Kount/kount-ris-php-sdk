@@ -23,7 +23,7 @@ class Kount_Util_Khash {
 
     /**
      * An instance of this class.
-     * @var Kount_Util_ConfigFileReader
+     * @var Kount_Util_Khash
      */
     protected static $instance = null;
 
@@ -44,6 +44,15 @@ class Kount_Util_Khash {
      */
     public static function getSaltPhrase() {
         return self::$salt;
+    }
+
+    /**
+     * Get instance for custom settings
+     *
+     * @return Kount_Util_Khash
+     */
+    public static function getInstance() {
+        return self::$instance;
     }
 
     /**
