@@ -1,6 +1,11 @@
 Kount RIS PHP SDK CHANGELOG
 ===========================
 
+Version 6.5.4
+=====================
+08/14/2017
+1. Removed request parameters CCMM and CCYY.
+
 Version 6.5.3
 =====================
 07/17/2017
