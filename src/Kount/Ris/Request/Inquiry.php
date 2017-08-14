@@ -408,30 +408,6 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
   }
 
   /**
-   * Set the expiration month of a credit card.
-   * Format: MM
-   *
-   * @param string $month Expiration month
-   * @return this
-   */
-  public function setExpirationMonth ($month) {
-    $this->data['CCMM'] = $month;
-    return $this;
-  }
-
-  /**
-   * Set the expiration year of a credit card.
-   * Format: YYYY
-   *
-   * @param string $year Expiration year
-   * @return this
-   */
-  public function setExpirationYear ($year) {
-    $this->data['CCYY'] = $year;
-    return $this;
-  }
-
-  /**
    * Set the shopping cart
    * @param array $cart Array of Kount_Ris_Data_CartItem objects
    * @throws Kount_Ris_IllegalArgumentException when $cart is not an array and
