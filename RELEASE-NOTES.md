@@ -1,10 +1,7 @@
-Kount RIS PHP SDK CHANGELOG
-===========================
-
 Version 6.5.4
 =====================
 08/14/2017
-1. Removed request parameters CCMM and CCYY.
+1. Removed request parameters CCYY(Expiration year) and CCMM(Expiration month) from the sdk.
 
 Version 6.5.3
 =====================
