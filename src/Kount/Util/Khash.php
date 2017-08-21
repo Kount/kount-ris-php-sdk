@@ -2,7 +2,6 @@
 /**
  * Khash.php file containing Kount_Util_Khash class.
  */
-
 /**
  * Kount payment token hashing class.
  *
@@ -18,15 +17,12 @@
  * @copyright 2011 Kount Inc. All Rights Reverved.
  */
 class Kount_Util_Khash {
-
   private static $salt;
-
   /**
    * An instance of this class.
-   * @var Kount_Util_ConfigFileReader
+   * @var Kount_Util_Khash
    */
   protected static $instance = null;
-
   /**
    * Set the salt phrase for hashing.
    *
@@ -36,7 +32,6 @@ class Kount_Util_Khash {
   public static function setSaltPhrase($salt) {
     self::$salt = $salt;
   }
-
   /**
    * Get function for the salt phrase.
    *
@@ -45,47 +40,31 @@ class Kount_Util_Khash {
   public static function getSaltPhrase() {
     return self::$salt;
   }
-
   /**
    * Kount_Util_Khash constructor. Initializes the SALT phrase used in hashing operations.
-   * @param string $customSettingsPath - Path to custom settings file, provided by the developer.
+   * @param Kount_Ris_ArraySettings|string $settings Existing settings or path to custom settings file.
    */
-  private function __construct($customSettingsPath = null) {
-    if($customSettingsPath == null) {
-      $configReader = Kount_Util_ConfigFileReader::instance();
-      $settings = new Kount_Ris_ArraySettings($configReader->getSettings());
-      self::setSaltPhrase($settings->getSaltPhrase());
+  private function __construct($settings = null) {
+    if ($settings instanceof Kount_Ris_ArraySettings) {
+      self::$salt = $settings->getSaltPhrase();
     } else {
-      $configReader = Kount_Util_ConfigFileReader::instance($customSettingsPath);
+      $configReader = Kount_Util_ConfigFileReader::instance($settings);
       $settings = new Kount_Ris_ArraySettings($configReader->getSettings());
-      self::setSaltPhrase($settings->getSaltPhrase());
+      self::$salt = $settings->getSaltPhrase();
     }
   }
-
   /**
-   * Creates instance of this class using custom settings file.
-   * @param $customSettingsPath string absolute path to custom settings file.
+   * Creates instance of this class.
+   * @param Kount_Ris_ArraySettings|string $settings Existing settings or path to custom settings file.
+   * @param bool $cached Whether or not to used the cached Khash
    * @return Kount_Util_Khash
    */
-  public static function createKhash($customSettingsPath) {
-    if(self::$instance == null) {
-      self::$instance = new Kount_Util_Khash($customSettingsPath);
+  public static function createKhash($settings = null, $cached = true) {
+    if(self::$instance == null && $cached) {
+      self::$instance = new Kount_Util_Khash($settings);
     }
     return self::$instance;
   }
-
-  /**
-   * Creates instance of this class using default settings.ini.
-   *
-   * @return Kount_Util_Khash
-   */
-  public static function createDefaultKhash() {
-    if(self::$instance == null) {
-      self::$instance = new Kount_Util_Khash();
-    }
-    return self::$instance;
-  }
-
   /**
    * Create a Kount hash of a provided payment token. Payment tokens that can be
    * hashed via this method include: credit card numbers, Paypal payment IDs,
@@ -100,7 +79,6 @@ class Kount_Util_Khash {
     $hash = self::hash($token, 14);
     return (null == $token) ? '' : "{$firstSix}{$hash}";
   }
-
   /**
    * Create a Kount hash of a gift card number.
    *
@@ -112,37 +90,31 @@ class Kount_Util_Khash {
     $hash = self::hash($cardNumber, 14);
     return "{$merchantId}{$hash}";
   }
-
   /**
    * Compute a Kount hash of the provided input string.
    *
    * @param string $data Data to hash
    * @param int $len Length of hash to retain
-   * @throws Exception if $salt is not configured in src/settings.ini or custom settings file.
+   * @throws Exception If $salt is not configured in src/settings.ini or custom settings file.
    * @return string Hashed data
    */
   public static function hash ($data, $len) {
+    $salt = self::getSaltPhrase();
     $salt = self::getSaltPhrase();
     if($salt == null || !isset($salt)) {
       throw new Exception("Unable to get configuration setting 'SALT_PHRASE'. " .
         "Check that the SALT_PHRASE setting exists and is not set to null or empty string. ");
     }
     static $a = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
     $r = sha1("{$data}.{$salt}");
     $c = '';
     if ($len > 17) {
       $len = 17;
     }
-
     $limit = 2 * $len;
     for ($i = 0; $i < $limit; $i += 2) {
       $c .= $a[hexdec(mb_substr($r, $i, 7, 'latin1')) % 36];
     }
-
     return $c;
   }
-
-  //TODO : sha256 validation of the salt phrase
-
 } // end Kount_Util_Khash

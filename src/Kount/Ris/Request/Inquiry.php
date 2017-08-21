@@ -13,7 +13,8 @@
  * @version $Id$
  * @copyright 2012 Kount, Inc. All Rights Reserved.
  */
-class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
+class Kount_Ris_Request_Inquiry extends Kount_Ris_Request
+{
 
   /**
    * Normal inquiry
@@ -74,25 +75,25 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @var string
    * @see setShipType()
    */
-  const SHIP_2ND  = '2D';
+  const SHIP_2ND = '2D';
 
   /**
    * Standard shipping
    * @var string
    * @see setShipType()
    */
-  const SHIP_STD  = 'ST';
+  const SHIP_STD = 'ST';
 
 
   /**
    * Inquiry constructor. Sets the RIS mode to "Inquiry" ("Q"), sets currency to "USD",
    * sets the PHP SDK identifier.
    *
-   * @param Kount_Ris_Settings $settings Configuration settings
-   * @param Kount_Util_Khash $customSettings enabling custom settings.
+   * @param Kount_Ris_Settings|string $settings Configuration settings
    */
-  public function __construct ($customSettings = null, $settings = null) {
-    parent::__construct($customSettings, $settings);
+  public function __construct($settings = null)
+  {
+    parent::__construct($settings);
     // defaults
     $this->setMode(self::MODE_Q);
     $this->setCurrency('USD');
@@ -107,7 +108,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param string $dob Date of birth
    * @return this
    */
-  public function setDateOfBirth ($dob) {
+  public function setDateOfBirth($dob)
+  {
     $this->data['DOB'] = $dob;
     return $this;
   }
@@ -119,7 +121,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param string $gender Gender ("M" or "F")
    * @return this
    */
-  public function setGender ($gender) {
+  public function setGender($gender)
+  {
     $this->data['GENDER'] = $gender;
     return $this;
   }
@@ -131,7 +134,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param string $value The user defined field value
    * @return this
    */
-  public function setUserDefinedField ($label, $value) {
+  public function setUserDefinedField($label, $value)
+  {
     $index = "UDF[{$label}]";
     $this->data[$index] = $value;
     return $this;
@@ -145,11 +149,12 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @throws Kount_Ris_IllegalArgumentException when $mode doesn't mach any of the defined inquiry modes.
    * @return this
    */
-  public function setMode ($mode) {
+  public function setMode($mode)
+  {
     if ((self::MODE_Q != $mode) && (self::MODE_P != $mode) &&
-        (self::MODE_W != $mode) && (self::MODE_J != $mode)) {
+      (self::MODE_W != $mode) && (self::MODE_J != $mode)) {
       throw new Kount_Ris_IllegalArgumentException(
-          "Invalid RIS inquiry mode [{$mode}]. Must be 'Q', 'P', 'W' or 'J'");
+        "Invalid RIS inquiry mode [{$mode}]. Must be 'Q', 'P', 'W' or 'J'");
     }
     $this->data['MODE'] = $mode;
     return $this;
@@ -162,7 +167,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    *    example USD: US Dollar, EUR: Euro.
    * @return this
    */
-  public function setCurrency ($currency) {
+  public function setCurrency($currency)
+  {
     $this->data['CURR'] = $currency;
     return $this;
   }
@@ -173,7 +179,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param int $total Transaction amount in pennies of currency.
    * @return this
    */
-  public function setTotal ($total) {
+  public function setTotal($total)
+  {
     $this->data['TOTL'] = $total;
     return $this;
   }
@@ -184,7 +191,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param string $ipAddress IP Address of the client
    * @return this
    */
-  public function setIpAddress ($ipAddress) {
+  public function setIpAddress($ipAddress)
+  {
     $this->data['IPAD'] = $ipAddress;
     return $this;
   }
@@ -195,7 +203,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param string $email Email address of the client
    * @return this
    */
-  public function setEmail ($email) {
+  public function setEmail($email)
+  {
     $this->data['EMAL'] = $email;
     return $this;
   }
@@ -207,7 +216,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param string $anid ANI of the client
    * @return this
    */
-  public function setAnid ($anid) {
+  public function setAnid($anid)
+  {
     $this->data['ANID'] = $anid;
     return $this;
   }
@@ -218,7 +228,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param string $name Name of the client or company
    * @return this
    */
-  public function setName ($name) {
+  public function setName($name)
+  {
     $this->data['NAME'] = $name;
     return $this;
   }
@@ -231,7 +242,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @deprecated version 4.0.0 - 2009. Use Kount_Ris_Inquiry->setUnique()
    *   instead.
    */
-  public function setUniqe ($unique) {
+  public function setUniqe($unique)
+  {
     $this->logger->info('The method Kount_Ris_Inquiry->setUniqe() is " +
         "deprecated. Use Kount_Ris_Inquiry->setUnique() instead.');
     return $this->setUnique($unique);
@@ -243,7 +255,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param string $unique Customer-unique ID or cookie set by merchant.
    * @return this
    */
-  public function setUnique ($unique) {
+  public function setUnique($unique)
+  {
     $this->data['UNIQ'] = $unique;
     return $this;
   }
@@ -254,7 +267,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param string $epoch Epoch when unique was set.
    * @return this
    */
-  public function setEpoch ($epoch) {
+  public function setEpoch($epoch)
+  {
     $this->data['EPOC'] = $epoch;
     return $this;
   }
@@ -265,7 +279,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param int $cash Cash amount of any feasible goods
    * @return this
    */
-  public function setCash ($cash) {
+  public function setCash($cash)
+  {
     $this->data['CASH'] = $cash;
     return $this;
   }
@@ -276,7 +291,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param string $shipType Ship type
    * @return this
    */
-  public function setShipType ($shipType) {
+  public function setShipType($shipType)
+  {
     $this->data['SHTP'] = $shipType;
     return $this;
   }
@@ -294,8 +310,9 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param string $street Billing street
    * @return this
    */
-  public function setBillingAddress ($address1, $address2, $city, $state,
-      $postalCode, $country, $premise = null, $street = null) {
+  public function setBillingAddress($address1, $address2, $city, $state,
+                                    $postalCode, $country, $premise = null, $street = null)
+  {
     $this->data['B2A1'] = $address1;
     $this->data['B2A2'] = $address2;
     $this->data['B2CI'] = $city;
@@ -317,7 +334,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param string $phoneNumber Billing phone number
    * @return this
    */
-  public function setBillingPhoneNumber ($phoneNumber) {
+  public function setBillingPhoneNumber($phoneNumber)
+  {
     $this->data['B2PN'] = $phoneNumber;
     return $this;
   }
@@ -335,8 +353,9 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param string $street Shipping street
    * @return this
    */
-  public function setShippingAddress ($address1, $address2, $city, $state,
-      $postalCode, $country, $premise = null, $street = null) {
+  public function setShippingAddress($address1, $address2, $city, $state,
+                                     $postalCode, $country, $premise = null, $street = null)
+  {
     $this->data['S2A1'] = $address1;
     $this->data['S2A2'] = $address2;
     $this->data['S2CI'] = $city;
@@ -358,7 +377,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param string $phoneNumber Shipping phone number
    * @return this
    */
-  public function setShippingPhoneNumber ($phoneNumber) {
+  public function setShippingPhoneNumber($phoneNumber)
+  {
     $this->data['S2PN'] = $phoneNumber;
     return $this;
   }
@@ -369,7 +389,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param string $shipName Shipping name
    * @return this
    */
-  public function setShippingName ($shipName) {
+  public function setShippingName($shipName)
+  {
     $this->data['S2NM'] = $shipName;
     return $this;
   }
@@ -380,7 +401,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param string $shipEmail Shipping email
    * @return this
    */
-  public function setShippingEmail ($shipEmail) {
+  public function setShippingEmail($shipEmail)
+  {
     $this->data['S2EM'] = $shipEmail;
     return $this;
   }
@@ -391,7 +413,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param string $userAgent User agent string of the client
    * @return this
    */
-  public function setUserAgent ($userAgent) {
+  public function setUserAgent($userAgent)
+  {
     $this->data['UAGT'] = $userAgent;
     return $this;
   }
@@ -402,7 +425,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    * @param string $site Website id
    * @return this
    */
-  public function setWebsite ($site) {
+  public function setWebsite($site)
+  {
     $this->data['SITE'] = $site;
     return $this;
   }
@@ -415,15 +439,16 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request {
    *
    * @return this
    */
-  public function setCart ($cart) {
+  public function setCart($cart)
+  {
     if (!is_array($cart)) {
       throw new Kount_Ris_IllegalArgumentException("Cart must be an array");
     }
     for ($i = 0; $i < count($cart); $i++) {
       if ('Kount_Ris_Data_CartItem' != get_class($cart[$i])) {
         throw new Kount_Ris_IllegalArgumentException("Cart item #{$i} " .
-            print_r($cart[$i], true) . " must be of type " .
-            "Kount_Ris_Data_CartItem");
+          print_r($cart[$i], true) . " must be of type " .
+          "Kount_Ris_Data_CartItem");
       }
       $this->data["PROD_TYPE[{$i}]"] = $cart[$i]->getProductType();
       $this->data["PROD_ITEM[{$i}]"] = $cart[$i]->getItemName();
