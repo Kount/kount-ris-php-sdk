@@ -17,40 +17,41 @@
  * @copyright 2011 Kount Inc. All Rights Reverved.
  */
 class Kount_Util_Khash {
-  private static $salt;
+
+  private static $configKey;
   /**
    * An instance of this class.
    * @var Kount_Util_Khash
    */
   protected static $instance = null;
   /**
-   * Set the salt phrase for hashing.
+   * Set the config key for hashing.
    *
-   * @param string $salt - salt phrase set when user instantiates a RIS request.
-   * @return string Salt phrase used for hashing in hash function
+   * @param $configKey|string - config key set when user instantiates a RIS request.
+   * @return string Config key used for hashing in hash function.
    */
-  public static function setSaltPhrase($salt) {
-    self::$salt = $salt;
+  public static function setConfigKey($configKey) {
+    self::$configKey = $configKey;
   }
   /**
-   * Get function for the salt phrase.
+   * Get function for the config key.
    *
-   * @return string Salt phrase used for hashing in hash function
+   * @return string Config key used for hashing in hash function
    */
-  public static function getSaltPhrase() {
-    return self::$salt;
+  public static function getConfigKey() {
+    return self::$configKey;
   }
   /**
-   * Kount_Util_Khash constructor. Initializes the SALT phrase used in hashing operations.
+   * Kount_Util_Khash constructor. Initializes the Config Key used in hashing operations.
    * @param Kount_Ris_ArraySettings|string $settings Existing settings or path to custom settings file.
    */
   private function __construct($settings = null) {
     if ($settings instanceof Kount_Ris_ArraySettings) {
-      self::$salt = $settings->getSaltPhrase();
+      self::$configKey = $settings->getConfigKey();
     } else {
       $configReader = Kount_Util_ConfigFileReader::instance($settings);
       $settings = new Kount_Ris_ArraySettings($configReader->getSettings());
-      self::$salt = $settings->getSaltPhrase();
+      self::$configKey = $settings->getConfigKey();
     }
   }
   /**
@@ -95,18 +96,17 @@ class Kount_Util_Khash {
    *
    * @param string $data Data to hash
    * @param int $len Length of hash to retain
-   * @throws Exception If $salt is not configured in src/settings.ini or custom settings file.
+   * @throws Exception If $configKey is not configured in src/settings.ini or custom settings file.
    * @return string Hashed data
    */
   public static function hash ($data, $len) {
-    $salt = self::getSaltPhrase();
-    $salt = self::getSaltPhrase();
-    if($salt == null || !isset($salt)) {
-      throw new Exception("Unable to get configuration setting 'SALT_PHRASE'. " .
-        "Check that the SALT_PHRASE setting exists and is not set to null or empty string. ");
+    $configKey = self::getConfigKey();
+    if($configKey == null || !isset($configKey)) {
+      throw new Exception("Unable to get configuration setting 'CONFIG_KEY'. " .
+        "Check that the CONFIG_KEY setting exists and is not set to null or empty string. ");
     }
     static $a = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $r = sha1("{$data}.{$salt}");
+    $r = sha1("{$data}.{$configKey}");
     $c = '';
     if ($len > 17) {
       $len = 17;

@@ -241,8 +241,8 @@ abstract class Kount_Ris_Request
       $this->settings = new Kount_Ris_ArraySettings($configReader->getSettings());
       Kount_Util_Khash::createKhash($this->settings, false);
     }
-    if ($this->settings->getSaltPhrase()) {
-      Kount_Util_Khash::setSaltPhrase($this->settings->getSaltPhrase());
+    if ($this->settings->getConfigKey()) {
+      Kount_Util_Khash::setConfigKey($this->settings->getConfigKey());
     }
 
     $this->setMerchantId($this->settings->getMerchantId());
@@ -910,8 +910,8 @@ abstract class Kount_Ris_Request
     }
 
     if ($this->isSetKhashPaymentEncoding()) {
-      if ($this->settings->getSaltPhrase()) {
-        Kount_Util_Khash::setSaltPhrase($this->settings->getSaltPhrase());
+      if ($this->settings->getConfigKey()) {
+        Kount_Util_Khash::setConfigKey($this->settings->getConfigKey());
       }
       $token = (self::GIFT_CARD_TYPE == $this->data['PTYP']) ?
         Kount_Util_Khash::hashGiftCard($this->data['MERC'], $token) :
@@ -999,8 +999,8 @@ abstract class Kount_Ris_Request
       }
     }
 
-    if ($this->settings->getSaltPhrase()) {
-      Kount_Util_Khash::setSaltPhrase($this->settings->getSaltPhrase());
+    if ($this->settings->getConfigKey()) {
+      Kount_Util_Khash::setConfigKey($this->settings->getConfigKey());
     }
     $token = (self::GIFT_CARD_TYPE == $paymentType) ?
       Kount_Util_Khash::hashGiftCard($this->data['MERC'], $paymentToken) :
