@@ -1,4 +1,7 @@
 <?php
+
+require __DIR__ . "/../resources/base85.class.php";
+
 /**
  * Khash.php file containing Kount_Util_Khash class.
  */
@@ -105,8 +108,11 @@ class Kount_Util_Khash {
       throw new Exception("Unable to get configuration setting 'CONFIG_KEY'. " .
         "Check that the CONFIG_KEY setting exists and is not set to null or empty string. ");
     }
+
+    $decodedConfigKey = base85::decode($configKey);
+
     static $a = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $r = sha1("{$data}.{$configKey}");
+    $r = sha1("{$data}.{$decodedConfigKey}");
     $c = '';
     if ($len > 17) {
       $len = 17;
@@ -117,4 +123,6 @@ class Kount_Util_Khash {
     }
     return $c;
   }
+
+  //TODO hash validation function
 } // end Kount_Util_Khash
