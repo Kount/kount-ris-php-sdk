@@ -142,4 +142,7 @@ class Kount_Util_Khash {
 
     return $c;
   }
+
+  //TODO : sha256 validation of the salt phrase
+
 } // end Kount_Util_Khash
