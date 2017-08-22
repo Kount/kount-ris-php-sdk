@@ -235,11 +235,11 @@ abstract class Kount_Ris_Request
 
     if ($settings instanceof Kount_Ris_ArraySettings) {
       $this->settings = $settings;
-      Kount_Util_Khash::createKhash($this->settings, false);
+      Kount_Util_Khash::createKhash($this->settings);
     } else {
       $configReader = Kount_Util_ConfigFileReader::instance($settings);
       $this->settings = new Kount_Ris_ArraySettings($configReader->getSettings());
-      Kount_Util_Khash::createKhash($this->settings, false);
+      Kount_Util_Khash::createKhash($this->settings);
     }
     if ($this->settings->getConfigKey()) {
       Kount_Util_Khash::setConfigKey($this->settings->getConfigKey());
