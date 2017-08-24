@@ -110,13 +110,13 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
   }
 
   /**
-   * The Salt phrase for hashing credit card numbers.
+   * The config key for hashing credit card numbers.
    *
-   * @return string SALT PHRASE
+   * @return string CONFIG_KEY
    */
 
-  public function getSaltPhrase() {
-    return $this->settings['SALT_PHRASE'];
+  public function getConfigKey () {
+    return $this->settings['CONFIG_KEY'];
   }
 
 } //end Kount_Ris_ArraySettings

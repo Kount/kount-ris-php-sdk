@@ -83,7 +83,7 @@ class Kount_Util_ConfigFileReader {
 
   /**
    * Get static RIS settings from an ini file.
-   * @return settings Hash map
+   * @return array Hash map
    */
   public function getSettings () {
     return $this->settings;

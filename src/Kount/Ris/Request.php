@@ -7,7 +7,7 @@
  */
 
 define('RSA_PUBLIC_KEY', realpath(dirname(__FILE__) .
-    DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'rsa.public.key'));
+  DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'rsa.public.key'));
 
 /**
  * Common abstract class for Kount_Ris_Request_Inquiry and Kount_Ris_Request_Update objects.
@@ -21,8 +21,8 @@ define('RSA_PUBLIC_KEY', realpath(dirname(__FILE__) .
  * @see Kount_Ris_Inquiry
  * @see Kount_Ris_Update
  */
-
-abstract class Kount_Ris_Request {
+abstract class Kount_Ris_Request
+{
 
   /**
    * RIS API Version
@@ -44,7 +44,7 @@ abstract class Kount_Ris_Request {
 
   /**
    * Settings cache
-   * @var Kount_Ris_Settings
+   * @var Kount_Ris_ArraySettings
    */
   protected $settings;
 
@@ -225,33 +225,34 @@ abstract class Kount_Ris_Request {
    * See Kount_Util_ConfigFileReader for details on setting an alternate path
    * for this file.
    *
-   * @param Kount_Ris_Settings $settings Configuration settings
-   * @param Kount_Util_Khash $khashObject instance of the Khash utility class with the option for custom settings file.
+   * @param Kount_Ris_ArraySettings|string $settings Configuration settings
    * @see Kount_Util_ConfigFileReader
    */
-  public function __construct($khashObject, $settings = null) {
+  public function __construct($settings = null)
+  {
     $loggerFactory = Kount_Log_Factory_LogFactory::getLoggerFactory();
     $this->logger = $loggerFactory->getLogger(__CLASS__);
 
-    if($khashObject == NULL || !isset($khashObject)) {
-      Kount_Util_Khash::createDefaultKhash();
+    if ($settings instanceof Kount_Ris_ArraySettings) {
+      $this->settings = $settings;
+      Kount_Util_Khash::createKhash($this->settings);
+    } else {
+      $configReader = Kount_Util_ConfigFileReader::instance($settings);
+      $this->settings = new Kount_Ris_ArraySettings($configReader->getSettings());
+      Kount_Util_Khash::createKhash($this->settings);
     }
-
-    if (null === $settings) {
-      // try to load settings via ini file
-      $configReader = Kount_Util_ConfigFileReader::instance();
-      $settings = new Kount_Ris_ArraySettings($configReader->getSettings());
+    if ($this->settings->getConfigKey()) {
+      Kount_Util_Khash::setConfigKey($this->settings->getConfigKey());
     }
-    $this->settings = $settings;
 
     $this->setMerchantId($this->settings->getMerchantId());
     $this->setVersion(self::VERSION);
     $this->setUrl($this->settings->getRisUrl());
     $this->setApiKey($this->settings->getApiKey());
     $this->setCertificate(
-        $this->settings->getX509CertPath(),
-        $this->settings->getX509KeyPath(),
-        $this->settings->getX509Passphrase());
+      $this->settings->getX509CertPath(),
+      $this->settings->getX509KeyPath(),
+      $this->settings->getX509Passphrase());
     $this->setConnectionTimeout($this->settings->getConnectionTimeout());
 
     // KHASH payment encoding is enabled by default.
@@ -262,7 +263,8 @@ abstract class Kount_Ris_Request {
    * Get errors encountered during client side data validation.
    * @return string
    */
-  public function getErrorMessage() {
+  public function getErrorMessage()
+  {
     return $this->errorMessage;
   }
 
@@ -273,13 +275,14 @@ abstract class Kount_Ris_Request {
    * @throws Kount_Ris_Exception Upon a bad response.
    * @throws Kount_Ris_ValidationException Upon unsuccessful validation of $this->data.
    */
-  public function getResponse() {
+  public function getResponse()
+  {
     $this->logger->debug(__METHOD__);
     if ($this->isSetKhashPaymentEncoding() && (empty($this->data['PTOK']) || is_null($this->data['PTOK']))) {
       $this->setKhashPaymentEncoding(false);
       $this->logger->debug(__METHOD__ . " KHASH payment encoding disabled " .
-          "due to empty payment token. Request mode [" . $this->data['MODE'] .
-          "]");
+        "due to empty payment token. Request mode [" . $this->data['MODE'] .
+        "]");
     }
 
     //start RIS call timer
@@ -329,7 +332,7 @@ abstract class Kount_Ris_Request {
         curl_setopt($ch, CURLOPT_SSLKEYPASSWD, $this->password);
       } else {
         $this->logger->warn(__METHOD__ .
-            " No RIS client authentication certificate set.");
+          " No RIS client authentication certificate set.");
       }
     }
 
@@ -340,7 +343,7 @@ abstract class Kount_Ris_Request {
       // SDK languages.
       $payload[] = urlencode($key) . '=' . urlencode($value);
       $value = ('PTOK' == $key && !empty($value)) ?
-          'payment token hidden' : $value;
+        'payment token hidden' : $value;
       $this->logger->debug(__METHOD__ . " [{$key}]={$value}");
     }
     curl_setopt($ch, CURLOPT_POSTFIELDS, implode('&', $payload));
@@ -360,7 +363,7 @@ abstract class Kount_Ris_Request {
     $time = microtime(true) - $startTimer;
     $timeInMs = round($time * 1000) . "ms";
 
-    if($this->logger->getRisLogger()) {
+    if ($this->logger->getRisLogger()) {
       $risLogMessage = "merc=" . $this->data['MERC'] . " " . "sess=" . $this->data['SESS'] . " " . "sdk_elapsed=" . $timeInMs;
       $this->logger->debug("{$risLogMessage}");
     }
@@ -376,7 +379,8 @@ abstract class Kount_Ris_Request {
    * @return string Value found in data or null if key not present.
    */
 
-  protected function safeGet ($key) {
+  protected function safeGet($key)
+  {
     return array_key_exists($key, $this->data) ? $this->data[$key] : null;
   }
 
@@ -387,7 +391,8 @@ abstract class Kount_Ris_Request {
    * @param string $value The value for the parameter.
    * @return this
    */
-  public function setParm($key, $value) {
+  public function setParm($key, $value)
+  {
     $this->data["{$key}"] = $value;
     return $this;
   }
@@ -398,7 +403,8 @@ abstract class Kount_Ris_Request {
    * @param string $key The key for the parameter.
    * @return string value of the key.
    */
-  public function getParm($key) {
+  public function getParm($key)
+  {
     return $this->safeGet("{$key}");
   }
 
@@ -416,7 +422,8 @@ abstract class Kount_Ris_Request {
    * @param int $merchantId Merchant Id
    * @return this
    */
-  public function setMerchantId($merchantId) {
+  public function setMerchantId($merchantId)
+  {
     $this->data['MERC'] = $merchantId;
     return $this;
   }
@@ -427,7 +434,8 @@ abstract class Kount_Ris_Request {
    * @param string $customerId Customer Id
    * @return this
    */
-  public function setKcCustomerId($customerId) {
+  public function setKcCustomerId($customerId)
+  {
     $this->data['CUSTOMER_ID'] = $customerId;
     return $this;
   }
@@ -437,7 +445,8 @@ abstract class Kount_Ris_Request {
    * @param int $timeout Number of seconds to timeout
    * @return this
    */
-  public function setConnectionTimeout($timeout) {
+  public function setConnectionTimeout($timeout)
+  {
     $this->connectionTimeout = $timeout;
     return $this;
   }
@@ -449,7 +458,8 @@ abstract class Kount_Ris_Request {
    * @return this
    * @throws Kount_Ris_IllegalArgumentException thrown when $version is not a string.
    */
-  public function setVersion($version) {
+  public function setVersion($version)
+  {
     if (is_int($version)) {
       $this->logger->error(__METHOD__ . " Invalid version number [{$version}]");
       throw new Kount_Ris_IllegalArgumentException("Version must be a string");
@@ -464,7 +474,8 @@ abstract class Kount_Ris_Request {
    * @param string $sessionId Id of the current session
    * @return this
    */
-  public function setSessionId($sessionId) {
+  public function setSessionId($sessionId)
+  {
     $this->data['SESS'] = $sessionId;
     return $this;
   }
@@ -475,7 +486,8 @@ abstract class Kount_Ris_Request {
    * @param string $orderNumber Merchant unique order number
    * @return this
    */
-  public function setOrderNumber($orderNumber) {
+  public function setOrderNumber($orderNumber)
+  {
     $this->data['ORDR'] = $orderNumber;
     return $this;
   }
@@ -488,7 +500,8 @@ abstract class Kount_Ris_Request {
    * @param string $mack Merchant acknowledgement
    * @return this
    */
-  public function setMack($mack) {
+  public function setMack($mack)
+  {
     $this->data['MACK'] = $mack;
     return $this;
   }
@@ -503,7 +516,8 @@ abstract class Kount_Ris_Request {
    * @param string $auth Auth status by issuer (A/D)
    * @return this
    */
-  public function setAuth($auth) {
+  public function setAuth($auth)
+  {
     $this->data['AUTH'] = $auth;
     return $this;
   }
@@ -517,7 +531,8 @@ abstract class Kount_Ris_Request {
    * @param string $avsz Bankcard AVS zip code reply (M/N/X)
    * @return this
    */
-  public function setAvsz($avsz) {
+  public function setAvsz($avsz)
+  {
     $this->data['AVSZ'] = $avsz;
     return $this;
   }
@@ -531,7 +546,8 @@ abstract class Kount_Ris_Request {
    * @param string $avst Bankcard AVS street address reply (M/N/X)
    * @return this
    */
-  public function setAvst($avst) {
+  public function setAvst($avst)
+  {
     $this->data['AVST'] = $avst;
     return $this;
   }
@@ -544,7 +560,8 @@ abstract class Kount_Ris_Request {
    * @param string $cvvr Bankcard CVV/CVC/CVV2 reply (M/N/X)
    * @return this
    */
-  public function setCvvr($cvvr) {
+  public function setCvvr($cvvr)
+  {
     $this->data['CVVR'] = $cvvr;
     return $this;
   }
@@ -555,7 +572,8 @@ abstract class Kount_Ris_Request {
    * @param string $url Website URL
    * @return this
    */
-  public function setUrl($url) {
+  public function setUrl($url)
+  {
     $this->url = $url;
     return $this;
   }
@@ -566,7 +584,8 @@ abstract class Kount_Ris_Request {
    * @param string $key The Api key used for Api key authentication
    * @return this
    */
-  public function setApiKey($key) {
+  public function setApiKey($key)
+  {
     $this->apiKey = $key;
     return $this;
   }
@@ -579,7 +598,8 @@ abstract class Kount_Ris_Request {
    * @param string $password Password for the private key
    * @return this
    */
-  public function setCertificate($certificate, $key, $password) {
+  public function setCertificate($certificate, $key, $password)
+  {
     $this->certificate = $certificate;
     $this->key = $key;
     $this->password = $password;
@@ -591,7 +611,8 @@ abstract class Kount_Ris_Request {
    * @param string $paymentId Payment ID number
    * @return this
    */
-  public function setGreenDotMoneyPakPayment($paymentId) {
+  public function setGreenDotMoneyPakPayment($paymentId)
+  {
     $this->data['PTYP'] = self::GDMP_TYPE;
     return $this->setPaymentToken($paymentId);
   }
@@ -600,7 +621,8 @@ abstract class Kount_Ris_Request {
    * Set no payment.
    * @return this
    */
-  public function setNoPayment() {
+  public function setNoPayment()
+  {
     $this->data['PTYP'] = self::NONE_TYPE;
     $this->data['PTOK'] = null;
     return $this;
@@ -612,7 +634,8 @@ abstract class Kount_Ris_Request {
    * @param string $payPalId PayPal payer id
    * @return this
    */
-  public function setPayPalPayment($payPalId) {
+  public function setPayPalPayment($payPalId)
+  {
     $this->data['PTYP'] = self::PYPL_TYPE;
     return $this->setPaymentToken($payPalId);
   }
@@ -623,7 +646,8 @@ abstract class Kount_Ris_Request {
    * @param string $googleId Google Checkout id
    * @return this
    */
-  public function setGooglePayment($googleId) {
+  public function setGooglePayment($googleId)
+  {
     $this->data['PTYP'] = self::GOOG_TYPE;
     return $this->setPaymentToken($googleId);
   }
@@ -633,7 +657,8 @@ abstract class Kount_Ris_Request {
    * @param string $giftCardNumber Gift card number
    * @return this
    */
-  public function setGiftCardPayment($giftCardNumber) {
+  public function setGiftCardPayment($giftCardNumber)
+  {
     $this->data['PTYP'] = self::GIFT_CARD_TYPE;
     return $this->setPaymentToken($giftCardNumber);
   }
@@ -644,7 +669,8 @@ abstract class Kount_Ris_Request {
    * @param string $cardNumber Raw card number
    * @return this
    */
-  public function setCardPayment($cardNumber) {
+  public function setCardPayment($cardNumber)
+  {
     $this->data['PTYP'] = self::CARD_TYPE;
     return $this->setPaymentToken($cardNumber);
   }
@@ -655,7 +681,8 @@ abstract class Kount_Ris_Request {
    * @param string $micr Micr line on the check
    * @return this
    */
-  public function setCheckPayment($micr) {
+  public function setCheckPayment($micr)
+  {
     $this->data['PTYP'] = self::CHEK_TYPE;
     return $this->setPaymentToken($micr);
   }
@@ -666,7 +693,8 @@ abstract class Kount_Ris_Request {
    * @param string $blmlId Bill-me-later id
    * @return this
    */
-  public function setBillMeLaterPayment($blmlId) {
+  public function setBillMeLaterPayment($blmlId)
+  {
     $this->data['PTYP'] = self::BLML_TYPE;
     return $this->setPaymentToken($blmlId);
   }
@@ -677,7 +705,8 @@ abstract class Kount_Ris_Request {
    * @param string $appleId apple pay id
    * @return this
    */
-  public function setApplePayment($appleId) {
+  public function setApplePayment($appleId)
+  {
     $this->data['PTYP'] = self::APAY_TYPE;
     return $this->setPaymentToken($appleId);
   }
@@ -688,7 +717,8 @@ abstract class Kount_Ris_Request {
    * @param string $bppId BPAY id
    * @return this
    */
-  public function setBpayPayment($bppId) {
+  public function setBpayPayment($bppId)
+  {
     $this->data['PTYP'] = self::BPAY_TYPE;
     return $this->setPaymentToken($bppId);
   }
@@ -699,7 +729,8 @@ abstract class Kount_Ris_Request {
    * @param string $cbpId Carte Bleue id
    * @return this
    */
-  public function setCarteBleuePayment($cbpId) {
+  public function setCarteBleuePayment($cbpId)
+  {
     $this->data['PTYP'] = self::CARTE_BLEUE_TYPE;
     return $this->setPaymentToken($cbpId);
   }
@@ -710,7 +741,8 @@ abstract class Kount_Ris_Request {
    * @param string $elvpId ELV id
    * @return this
    */
-  public function setElvPayment($elvpId) {
+  public function setElvPayment($elvpId)
+  {
     $this->data['PTYP'] = self::ELV_TYPE;
     return $this->setPaymentToken($elvpId);
   }
@@ -721,7 +753,8 @@ abstract class Kount_Ris_Request {
    * @param string $giroPayId GiroPay id
    * @return this
    */
-  public function setGiroPayPayment($giroPayId) {
+  public function setGiroPayPayment($giroPayId)
+  {
     $this->data['PTYP'] = self::GIROPAY_TYPE;
     return $this->setPaymentToken($giroPayId);
   }
@@ -732,7 +765,8 @@ abstract class Kount_Ris_Request {
    * @param string $interacId Interac id
    * @return this
    */
-  public function setInteracPayment($interacId) {
+  public function setInteracPayment($interacId)
+  {
     $this->data['PTYP'] = self::INTERAC_TYPE;
     return $this->setPaymentToken($interacId);
   }
@@ -743,7 +777,8 @@ abstract class Kount_Ris_Request {
    * @param string $mercadoPagoId Mercado Pago id
    * @return this
    */
-  public function setMercadoPagoPayment($mercadoPagoId) {
+  public function setMercadoPagoPayment($mercadoPagoId)
+  {
     $this->data['PTYP'] = self::MERCADE_PAGO_TYPE;
     return $this->setPaymentToken($mercadoPagoId);
   }
@@ -754,7 +789,8 @@ abstract class Kount_Ris_Request {
    * @param string $netellerId Neteller id
    * @return this
    */
-  public function setNetellerPayment($netellerId) {
+  public function setNetellerPayment($netellerId)
+  {
     $this->data['PTYP'] = self::NETELLER_TYPE;
     return $this->setPaymentToken($netellerId);
   }
@@ -765,7 +801,8 @@ abstract class Kount_Ris_Request {
    * @param string $popId POLI id
    * @return this
    */
-  public function setPoliPayment($popId) {
+  public function setPoliPayment($popId)
+  {
     $this->data['PTYP'] = self::POLI_TYPE;
     return $this->setPaymentToken($popId);
   }
@@ -776,7 +813,8 @@ abstract class Kount_Ris_Request {
    * @param string $sepaId Single Euro Payments Area id
    * @return this
    */
-  public function setSepaPayment($sepaId) {
+  public function setSepaPayment($sepaId)
+  {
     $this->data['PTYP'] = self::SEPA_TYPE;
     return $this->setPaymentToken($sepaId);
   }
@@ -787,7 +825,8 @@ abstract class Kount_Ris_Request {
    * @param string $skrillId Skrill/Mooneybookers id
    * @return this
    */
-  public function setSkrillPayment($skrillId) {
+  public function setSkrillPayment($skrillId)
+  {
     $this->data['PTYP'] = self::SKRILL_TYPE;
     return $this->setPaymentToken($skrillId);
   }
@@ -798,7 +837,8 @@ abstract class Kount_Ris_Request {
    * @param string $sofortId Sofort id
    * @return this
    */
-  public function setSofortPayment($sofortId) {
+  public function setSofortPayment($sofortId)
+  {
     $this->data['PTYP'] = self::SOFORT_TYPE;
     return $this->setPaymentToken($sofortId);
   }
@@ -809,7 +849,8 @@ abstract class Kount_Ris_Request {
    * @param string $tokenId Token id
    * @return this
    */
-  public function setTokenPayment($tokenId) {
+  public function setTokenPayment($tokenId)
+  {
     $this->data['PTYP'] = self::TOKEN_TYPE;
     return $this->setPaymentToken($tokenId);
   }
@@ -821,10 +862,11 @@ abstract class Kount_Ris_Request {
    * @param boolean $enabled Default to TRUE to enable KHASH/MASK payment encoding.
    * @return this
    */
-  public function setPaymentEncoding($encoding = 'KHASH', $enabled = true) {
-    if($encoding == 'MASK') {
+  public function setPaymentEncoding($encoding = 'KHASH', $enabled = true)
+  {
+    if ($encoding == 'MASK') {
       $this->data["PENC"] = $enabled ? "MASK" : "";
-    } else if($encoding == 'KHASH'){
+    } else if ($encoding == 'KHASH') {
       $this->data["PENC"] = $enabled ? "KHASH" : "";
     }
     return $this;
@@ -836,7 +878,8 @@ abstract class Kount_Ris_Request {
    * @param boolean $enabled Default to TRUE to enable KHASH payment encoding.
    * @return this
    */
-  public function setKhashPaymentEncoding($enabled = true) {
+  public function setKhashPaymentEncoding($enabled = true)
+  {
     $this->data["PENC"] = $enabled ? "KHASH" : "";
     return $this;
   }
@@ -845,9 +888,10 @@ abstract class Kount_Ris_Request {
    * Check if KHASH payment encoding has been set.
    * @return boolean TRUE when set.
    */
-  protected function isSetKhashPaymentEncoding() {
+  protected function isSetKhashPaymentEncoding()
+  {
     return array_key_exists("PENC", $this->data) &&
-        "KHASH" == $this->data["PENC"];
+      "KHASH" == $this->data["PENC"];
   }
 
   /**
@@ -855,7 +899,8 @@ abstract class Kount_Ris_Request {
    * @param string $token Payment token
    * @return this
    */
-  protected function setPaymentToken($token) {
+  protected function setPaymentToken($token)
+  {
     if (!empty($token) && empty($this->data['LAST4'])) {
       if (mb_strlen($token) >= 4) {
         $this->data['LAST4'] = mb_substr($token, mb_strlen($token) - 4);
@@ -865,9 +910,12 @@ abstract class Kount_Ris_Request {
     }
 
     if ($this->isSetKhashPaymentEncoding()) {
+      if ($this->settings->getConfigKey()) {
+        Kount_Util_Khash::setConfigKey($this->settings->getConfigKey());
+      }
       $token = (self::GIFT_CARD_TYPE == $this->data['PTYP']) ?
-          Kount_Util_Khash::hashGiftCard($this->data['MERC'], $token) :
-          Kount_Util_Khash::hashPaymentToken($token);
+        Kount_Util_Khash::hashGiftCard($this->data['MERC'], $token) :
+        Kount_Util_Khash::hashPaymentToken($token);
     }
     $this->data['PTOK'] = $token;
     return $this;
@@ -881,7 +929,8 @@ abstract class Kount_Ris_Request {
    *
    */
 
-  public function setPaymentMasked($cardNumber){
+  public function setPaymentMasked($cardNumber)
+  {
     $this->logger->debug(__METHOD__);
     if (!empty($cardNumber) && empty($this->data['LAST4'])) {
       if (mb_strlen($cardNumber) >= 4) {
@@ -908,9 +957,10 @@ abstract class Kount_Ris_Request {
    * @param string $token Payment token
    * @return this
    */
-  protected function maskPaymentToken($token) {
+  protected function maskPaymentToken($token)
+  {
     $result = mb_strimwidth($token, 0, 6);
-    for($i = 6; $i < (mb_strlen($token) - 4); $i++) {
+    for ($i = 6; $i < (mb_strlen($token) - 4); $i++) {
       $result .= 'X';
     }
     $result .= substr($token, -4);
@@ -923,7 +973,8 @@ abstract class Kount_Ris_Request {
    * @param string $last4 Last 4 characters of payment token
    * @return this
    */
-  public function setPaymentTokenLast4($last4) {
+  public function setPaymentTokenLast4($last4)
+  {
     $this->data['LAST4'] = $last4;
     return $this;
   }
@@ -936,7 +987,8 @@ abstract class Kount_Ris_Request {
    * @param string $paymentToken The payment token
    * @return this
    */
-  public function setPayment($paymentType, $paymentToken) {
+  public function setPayment($paymentType, $paymentToken)
+  {
     $this->logger->debug(__METHOD__);
     if (!empty($paymentToken) && empty($this->data['LAST4'])) {
       if (mb_strlen($paymentToken) >= 4) {
@@ -947,6 +999,9 @@ abstract class Kount_Ris_Request {
       }
     }
 
+    if ($this->settings->getConfigKey()) {
+      Kount_Util_Khash::setConfigKey($this->settings->getConfigKey());
+    }
     $token = (self::GIFT_CARD_TYPE == $paymentType) ?
       Kount_Util_Khash::hashGiftCard($this->data['MERC'], $paymentToken) :
       Kount_Util_Khash::hashPaymentToken($paymentToken);
