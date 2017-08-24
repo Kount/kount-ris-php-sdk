@@ -64,9 +64,6 @@ class Kount_Util_Khash {
    * @param Kount_Ris_ArraySettings|string $settings Existing settings or path to custom settings file.
    */
   private function __construct($settings = null) {
-    $loggerFactory = Kount_Log_Factory_LogFactory::getLoggerFactory();
-    self::$logger = $loggerFactory->getLogger(__CLASS__);
-
     if ($settings instanceof Kount_Ris_ArraySettings) {
       self::$configKey = $settings->getConfigKey();
     } else {
@@ -74,6 +71,9 @@ class Kount_Util_Khash {
       $settings = new Kount_Ris_ArraySettings($configReader->getSettings());
       self::$configKey = $settings->getConfigKey();
     }
+
+    $loggerFactory = Kount_Log_Factory_LogFactory::getLoggerFactory();
+    self::$logger = $loggerFactory->getLogger(__CLASS__);
   }
   /**
    * Creates instance of this class.
