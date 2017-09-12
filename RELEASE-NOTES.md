@@ -1,3 +1,11 @@
+Version 7.0.0
+=====================
+09/12/2017
+1. Introduced configuration key - this breaks backward compatibility with older releases.
+2. Removed the SALT phrase.
+3. Introduced base85 encoding and decoding.
+4. Added sha256 validation for the config key.
+
 Version 6.5.4
 =====================
 08/14/2017

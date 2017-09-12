@@ -76,10 +76,9 @@ class Kount_Ris_Request_Update extends Kount_Ris_Request {
   /**
    * Update constructor, sets the "Inquiry" mode to "U".
    * @param Kount_Ris_Settings $settings Configuration settings
-   * @param string $customSettings path to custom settings file.
    */
-  public function __construct ($customSettings = null, $settings = null) {
-    parent::__construct($customSettings, $settings);
+  public function __construct ($settings = null) {
+    parent::__construct($settings);
     // defaults
     $this->setMode(self::MODE_U);
   }
