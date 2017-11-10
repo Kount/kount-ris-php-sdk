@@ -198,6 +198,12 @@ abstract class Kount_Ris_Request
    * @var string
    */
   const TOKEN_TYPE = "TOKEN";
+  
+  /**
+   * Connection timeout value.
+   * @var int
+   */
+  const CONNECTION_TIMEOUT = 30;
 
   /**
    * A logger binding.
@@ -248,11 +254,15 @@ abstract class Kount_Ris_Request
     $this->setMerchantId($this->settings->getMerchantId());
     $this->setVersion(self::VERSION);
     $this->setUrl($this->settings->getRisUrl());
-    $this->setApiKey($this->settings->getApiKey());
-    $this->setCertificate(
-      $this->settings->getX509CertPath(),
-      $this->settings->getX509KeyPath(),
-      $this->settings->getX509Passphrase());
+    if ($this->settings->getApiKey()) {
+      $this->setApiKey($this->settings->getApiKey());
+    } else {
+      $this->setCertificate(
+        $this->settings->getX509CertPath(),
+        $this->settings->getX509KeyPath(),
+        $this->settings->getX509Passphrase()
+      );
+    }
     $this->setConnectionTimeout($this->settings->getConnectionTimeout());
 
     // KHASH payment encoding is enabled by default.
