@@ -101,6 +101,14 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request
     $this->setParm('SDK_VERSION', 'Sdk-Ris-Php-0631-20150506T1139');
   }
 
+	/**
+	 * Retrieve the array of data parameters sent to RIS.
+	 *
+	 * @return array of params
+	 */
+  public function getParams() {
+  	return $this->data;
+  }
 
   /**
    * Set the date of birth in the format YYYY-MM-DD.
