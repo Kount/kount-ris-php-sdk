@@ -1,4 +1,4 @@
-Version 7.0.1
+Version 7.1.0
 =====================
 06/28/2018
 1. KOUNT-12435: ipv6 addresses now allowed by SDK validation
