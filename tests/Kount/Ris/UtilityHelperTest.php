@@ -81,6 +81,15 @@ class UtilityHelperTest {
     $orderNum = $this->orderNum = mb_strimwidth($uniq, 0, 10);
   }
 
+  public function createInquiryForValidatorTest($merchantId) {
+  	$inquiry = $this->defaultInquiry();
+
+  	$inquiry->setMerchantId($merchantId);
+  	$inquiry->setNoPayment();
+
+	  return $inquiry;
+  }
+
   public function createInquiry($merchantId, $url, $apiKey) {
     $inquiry = $this->defaultInquiry();
 
