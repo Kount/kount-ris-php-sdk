@@ -73,7 +73,7 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * @return string Filesystem path to PEM encoded x509 certificate
    */
   public function getX509CertPath () {
-    return $this->settings['PEM_CERTIFICATE'] ?? null;
+    return $this->settings['PEM_CERTIFICATE'] ? $this->settings['PEM_CERTIFICATE'] : null;
   }
 
   /**
@@ -81,7 +81,7 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * @return string Filesystem path to PEM encoded x509 private key
    */
   public function getX509KeyPath () {
-    return $this->settings['PEM_KEY_FILE'] ?? null;
+    return $this->settings['PEM_KEY_FILE'] ? $this->settings['PEM_KEY_FILE'] : null;
   }
 
   /**
@@ -89,7 +89,7 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * @return string Passphrase needed to decrypt PEM encoded x509 private key
    */
   public function getX509Passphrase () {
-    return $this->settings['PEM_PASS_PHRASE'] ?? null;
+    return $this->settings['PEM_PASS_PHRASE'] ? $this->settings['PEM_PASS_PHRASE'] : null;
   }
 
   /**
@@ -97,7 +97,7 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * @return int Number of seconds to timeout
    */
   public function getConnectionTimeout () {
-    return $this->settings['CONNECT_TIMEOUT'] ?? Kount_Ris_Request::CONNECTION_TIMEOUT;
+    return $this->settings['CONNECT_TIMEOUT'] ? $this->settings['CONNECT_TIMEOUT'] : Kount_Ris_Request::CONNECTION_TIMEOUT;
   }
 
   /**
@@ -106,7 +106,7 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * @return string API key
    */
   public function getApiKey () {
-    return $this->settings['API_KEY'] ?? null;
+    return $this->settings['API_KEY'] ? $this->settings['API_KEY'] : null;
   }
 
   /**
