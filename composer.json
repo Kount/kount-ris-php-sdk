@@ -4,7 +4,7 @@
   "keywords": ["test", "payments", "sdk"],
   "homepage": "https://github.com/Kount/kount-ris-php-sdk",
   "type" : "Library",
-  "license": "Custom",
+  "license": "proprietary",
   "authors": [{
     "name": "Kount",
     "email": "support@kount.com"
