@@ -172,6 +172,16 @@ class Kount_Ris_Response {
     return $this->safeGet('SCOR');
   }
 
+
+  /**
+   * Get the Kount OMNI score
+   *
+   * @return float
+   */
+  public function getOmniscore () {
+    return $this->safeGet('OMNISCORE');
+  }
+
   /**
    * Get the geox
    *
