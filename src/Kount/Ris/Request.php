@@ -28,7 +28,7 @@ abstract class Kount_Ris_Request
    * RIS API Version
    * @var string
    */
-  const VERSION = '0695';
+  const VERSION = '0700';
 
   /**
    * RIS data collection for the post

@@ -7,7 +7,7 @@ class UtilityHelperTest {
   const PTOK = '0007380568572514';
   //last four numbers of credit card
   const LAST4 = '2514';
-  const VERS = '0695';
+  const VERS = '0700';
   const EMAIL = 'sdkTest@kountsdktestdomain.com';
   const SITE = 'DEFAULT';
   const CURR = 'USD';
