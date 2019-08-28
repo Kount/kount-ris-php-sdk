@@ -203,7 +203,7 @@ class RisSuiteTest extends PHPUnit_Framework_TestCase
     $update = new Kount_Ris_Request_Update();
     $update->setMode('U');
     $update->setSessionId($session);
-    $update->setVersion('0695');
+    $update->setVersion('0700');
     $update->setTransactionId($transaction);
     $update->setOrderNumber($order);
     $update->setParm('PTOK', Kount_Util_Khash::hashPaymentToken('5386460135176807'));
@@ -240,7 +240,7 @@ class RisSuiteTest extends PHPUnit_Framework_TestCase
     $update = new Kount_Ris_Request_Update();
     $update->setMode('X');
     $update->setSessionId($session);
-    $update->setVersion('0695');
+    $update->setVersion('0700');
     $update->setTransactionId($transaction);
     $update->setOrderNumber($order);
     $update->setMerchantId(self::MERCHANT_ID);
