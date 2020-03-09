@@ -1,6 +1,6 @@
 <?php
-
-class Base85SuiteTest extends PHPUnit_Framework_TestCase
+# use \PHPUnit\Framework\TestCase;
+class Base85SuiteTest extends \PHPUnit\Framework\TestCase
 {
 
   const PLAIN_TEXT = "This is sample text for testing purposes.";

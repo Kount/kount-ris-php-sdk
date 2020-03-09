@@ -1,6 +1,6 @@
 <?php
 
-class RisValidatorTest extends PHPUnit_Framework_TestCase
+class RisValidatorTest extends \PHPUnit\Framework\TestCase
 {
 	const MERCHANT_ID = 900420;
 

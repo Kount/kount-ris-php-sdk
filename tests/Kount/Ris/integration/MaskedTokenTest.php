@@ -1,6 +1,6 @@
 <?php
 
-class MaskedTokenTest extends PHPUnit_Framework_TestCase {
+class MaskedTokenTest extends \PHPUnit\Framework\TestCase {
 
   public function testCorrectMasking() {
     $inquiry = new Kount_Ris_Request_Inquiry();

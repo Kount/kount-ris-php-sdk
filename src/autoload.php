@@ -42,8 +42,14 @@ if (function_exists('spl_autoload_register')) {
    *
    * @param string $class Classname
    * @return void
+   * Not supported for PHP 7.2.5 version
    */
-  function __autoload ($class) {
+  // function __autoload ($class) {
+  //   kount_sdk_autoload($class);
+  // }
+
+  //Change function _autoload to spl_autoload_register()
+  function spl_autoload_register($class){
     kount_sdk_autoload($class);
   }
 

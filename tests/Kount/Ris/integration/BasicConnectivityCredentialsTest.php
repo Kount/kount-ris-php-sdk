@@ -1,6 +1,6 @@
 <?php
 
-class BasicConnectivityCredentialsTest extends PHPUnit_Framework_TestCase
+class BasicConnectivityCredentialsTest extends \PHPUnit\Framework\TestCase
 {
   const MERCHANT_ID = 999667;
   const EMAIL = 'predictive@kount.com';
