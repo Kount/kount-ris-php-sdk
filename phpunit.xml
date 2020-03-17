@@ -1,7 +1,6 @@
 <phpunit bootstrap="tests/bootstrap.php"
          colors="true"
-         processIsolation="false"
-         syntaxCheck="false">
+         processIsolation="false">
 
   <testsuites>
     <testsuite name="unit">
@@ -9,10 +8,10 @@
     </testsuite>
   </testsuites>
 
-  <logging>
+  <!-- <logging>
     <log type="coverage-html" target="build/coverage/clover.html" lowUpperBound="35" charset="UTF-8"
          highlight="true" highLowerBound="75"/>
-  </logging>
+  </logging> -->
 
   <filter>
     <whitelist>

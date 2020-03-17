@@ -1,7 +1,7 @@
 <?php
 
 
-class ConfigurationSaltTest extends PHPUnit_Framework_TestCase
+class ConfigurationSaltTest extends \PHPUnit\Framework\TestCase
 {
   const  CARD_NUM_1 = "4111111111111111";
   const  CARD_NUM_2 = "5199185454061655";

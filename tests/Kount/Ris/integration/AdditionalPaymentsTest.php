@@ -1,6 +1,6 @@
 <?php
 
-class AdditionalPaymentsTest extends PHPUnit_Framework_TestCase
+class AdditionalPaymentsTest extends \PHPUnit\Framework\TestCase
 {
   const MERCHANT_ID  = 999666;
   const RIS_ENDPOINT = "https://risk.beta.kount.net";

@@ -10,14 +10,15 @@
     "email": "support@kount.com"
   }],
   "require": {
-    "php": ">=5.5",
+    "php": ">=7.2.5",
     "ext-curl": "*",
     "ext-json": "*",
     "ext-mbstring": "*",
-    "ext-xml": "*"
+    "ext-xml": "*",
+    "phpunit/php-code-coverage": "^7.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "4.8",
+    "phpunit/phpunit": "8.5.2",
     "phpdocumentor/phpdocumentor": "2.*"
   },
   "autoload": {

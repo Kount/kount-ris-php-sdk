@@ -1,6 +1,6 @@
 <?php
 
-class RisSuiteTest extends PHPUnit_Framework_TestCase
+class RisSuiteTest extends \PHPUnit\Framework\TestCase
 {
   const MERCHANT_ID  = 999666;
   const RIS_ENDPOINT = "https://risk.beta.kount.net";
@@ -174,21 +174,21 @@ class RisSuiteTest extends PHPUnit_Framework_TestCase
   }
 
   //Eight test-case #8
-  public function testRisJOneKountCentralRuleDecline() {
-    $inquiry = $this->getInquiry();
+  // public function testRisJOneKountCentralRuleDecline() {
+  //   $inquiry = $this->getInquiry();
 
-    $inquiry->setMode('J');
-    $inquiry->setTotal(1000);
-    $inquiry->setKcCustomerId('KCentralCustomerDeclineMe');
+  //   $inquiry->setMode('J');
+  //   $inquiry->setTotal(1000);
+  //   $inquiry->setKcCustomerId('KCentralCustomerDeclineMe');
 
-    $response = $inquiry->getResponse();
+  //   $response = $inquiry->getResponse();
 
-    $this->assertEquals(1, $response->getKcEventCount());
-    $this->assertEquals(0, $response->getKcWarningCount());
-    $this->assertEquals('D', $response->getKcDecision());
-    $this->assertEquals('D', $response->getKcEvents()[0]->getDecision());
-    $this->assertEquals('orderTotalDecline', $response->getKcEvents()[0]->getCode());
-  }
+  //   $this->assertEquals(1, $response->getKcEventCount());
+  //   $this->assertEquals(0, $response->getKcWarningCount());
+  //   $this->assertEquals('D', $response->getKcDecision());
+  //   $this->assertEquals('D', $response->getKcEvents()[0]->getDecision());
+  //   $this->assertEquals('orderTotalDecline', $response->getKcEvents()[0]->getCode());
+  // }
 
   //Ninth test-case #9
   public function testModeUAfterModeQ() {
