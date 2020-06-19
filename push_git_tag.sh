@@ -10,11 +10,11 @@ chmod 400 ./gitlab-deploy-key
 
 # set the git username/email to be able to perform git operations
 echo git version: $(git --version)
-git config --global user.name "@sanjee"
-git config --global user.email "sanjeev@gmail.com"
+git config --global user.name "@kount"
+git config --global user.email "kount@gmail.com"
 
 # set the push URL differently to leverage SSH protocol
-git remote set-url --push origin git@gitlab.com:gitlab-ci-cd-pipeine/phpcicdproject.git
+git remote set-url --push origin git@gitlab.gs.kount.com:kount/third_party/kount-ris-php-sdk.git
 git remote -v
 
 # getting version from setting.ini file
