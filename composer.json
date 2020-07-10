@@ -1,5 +1,5 @@
 {
-  "name": "kount/kount-ris-php-sdk",
+  "name": "sanjeev.kumar/phpcicduat",
   "description": "PHP client for Kount Risk Inquiry Service.",
   "keywords": ["test", "payments", "sdk"],
   "homepage": "https://github.com/Kount/kount-ris-php-sdk",
@@ -27,3 +27,4 @@
     ]
   }
 }
+
