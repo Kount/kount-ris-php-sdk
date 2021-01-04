@@ -43,22 +43,22 @@ class Kount_Util_ConfigFileReader {
   private function __construct ($path = null) {
     if($path == null) {
       $file = KOUNT_SETTINGS_FILE;
-      if (!is_readable($file)) {
-        throw new Exception(
-          "Unable to read configuration file '{$file}'. " .
-          "Check that the file exists and is readable by the process " .
-          "running this script.");
-      }
+      // if (!is_readable($file)) {
+      //   throw new Exception(
+      //     "Unable to read configuration file '{$file}'. " .
+      //     "Check that the file exists and is readable by the process " .
+      //     "running this script.");
+      // }
 
       $this->settings = parse_ini_file($file, false);
     } else {
       $file = KOUNT_CUSTOM_SETTINGS_FILE;
-      if (!is_readable($file)) {
-        throw new Exception(
-          "Unable to read configuration file '{$file}'. " .
-          "Check that the file exists and is readable by the process " .
-          "running this script.");
-      }
+      // if (!is_readable($file)) {
+      //   throw new Exception(
+      //     "Unable to read configuration file '{$file}'. " .
+      //     "Check that the file exists and is readable by the process " .
+      //     "running this script.");
+      // }
 
       $this->settings = parse_ini_file($file, false);
     }
@@ -70,13 +70,19 @@ class Kount_Util_ConfigFileReader {
    * @return Kount_Util_ConfigFileReader
    */
   public static function instance ($path = null) {
-    if (null == self::$instance) {
-      if($path == null) {
-        self::$instance = new Kount_Util_ConfigFileReader();
-      } else {
-        define('KOUNT_CUSTOM_SETTINGS_FILE', realpath($path));
-        self::$instance = new Kount_Util_ConfigFileReader($path);
-      }
+    // if (null == self::$instance) {
+    //   if($path == null) {
+    //     self::$instance = new Kount_Util_ConfigFileReader();
+    //   } else {
+    //     define('KOUNT_CUSTOM_SETTINGS_FILE', realpath($path));
+    //     self::$instance = new Kount_Util_ConfigFileReader($path);
+    //   }
+    // }
+    if($path == null) {
+      self::$instance = new Kount_Util_ConfigFileReader();
+    } else {
+      define('KOUNT_CUSTOM_SETTINGS_FILE', realpath($path));
+      self::$instance = new Kount_Util_ConfigFileReader($path);
     }
     return self::$instance;
   }
@@ -97,10 +103,11 @@ class Kount_Util_ConfigFileReader {
    */
   public function getConfigSetting ($name) {
     $settings = $this->getSettings();
-    if (array_key_exists($name, $settings)) {
-      return $settings[$name];
-    }
-    throw new Exception("The configuration setting [{$name}] is not defined");
+    // if (array_key_exists($name, $settings)) {
+    //   return $settings[$name];
+    // }
+    return $settings[$name];
+    // throw new Exception("The configuration setting [{$name}] is not defined");
   }
 
 } // end Kount_Util_ConfigFileReader
