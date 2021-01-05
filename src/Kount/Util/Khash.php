@@ -81,9 +81,6 @@ class Kount_Util_Khash {
    * @return Kount_Util_Khash
    */
   public static function createKhash($settings = null) {
-    // if(self::$instance == null) {
-    //   self::$instance = new Kount_Util_Khash($settings);
-    // }
     self::$instance = new Kount_Util_Khash($settings);
     return self::$instance;
   }
@@ -99,7 +96,6 @@ class Kount_Util_Khash {
   public static function hashPaymentToken ($token) {
     $firstSix = mb_substr($token, 0, 6, 'latin1');
     $hash = self::hash($token, 14);
-    // return (null == $token) ? '' : "{$firstSix}{$hash}";
     return "{$firstSix}{$hash}";
   }
   /**
@@ -148,24 +144,7 @@ class Kount_Util_Khash {
    */
   public static function validateConfigKey($configKey)
   {
-    // if ($configKey == null || !isset($configKey)) {
-    //   throw new Exception("Unable to get configuration setting 'CONFIG_KEY'. " .
-    //     "Check that the CONFIG_KEY setting exists and is not set to null or empty string. ");
-    // }
-
-    // try {
-    //   $encryptedConfigKey = self::getEncryptedConfigKey();
-
-    //   if($encryptedConfigKey !== hash('sha256', $configKey)) {
-    //     self::$logger->error("The configuration key is incorrect.");
-    //     throw new Kount_Ris_IllegalArgumentException("The configuration key is incorrect.");
-    //   }
-    // } catch (Exception $e) {
-    //   self::$logger->error("Could not validate the Configuration key.", $e);
-    //   throw new Kount_Ris_IllegalArgumentException("Could not verify the Configuration key");
-    // };
     $encryptedConfigKey = self::getEncryptedConfigKey();
-
   }
 
   /**
@@ -177,18 +156,7 @@ class Kount_Util_Khash {
   {
     $file = ENCRYPTED_CONFIG_KEY . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'correctConfigKey.txt';
 
-    // if (!is_readable($file)) {
-    //   throw new Exception(
-    //     "Unable to read configuration file " .
-    //     "Check that the file exists and is readable by the process " .
-    //     "running this script.");
-    // }
-
-    $cryptedConfigKey = parse_ini_file($file);
-
-    // if (!array_key_exists('ENCRYPTED_CONFIG_KEY', $cryptedConfigKey)) {
-    //   throw new Exception("The configuration setting is not defined.");
-    // }
+    $cryptedConfigKey = parse_ini_file($file)
 
     return $cryptedConfigKey['ENCRYPTED_CONFIG_KEY'];
   }
