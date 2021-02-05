@@ -2,9 +2,9 @@
 
 class AdditionalPaymentsTest extends \PHPUnit\Framework\TestCase
 {
-  const MERCHANT_ID  = 999666;
-  const RIS_ENDPOINT = "https://risk.beta.kount.net";
-  const API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI5OTk2NjYiLCJhdWQiOiJLb3VudC4xIiwiaWF0IjoxNDk0NTM0Nzk5LCJzY3AiOnsia2EiOm51bGwsImtjIjpudWxsLCJhcGkiOmZhbHNlLCJyaXMiOnRydWV9fQ.eMmumYFpIF-d1up_mfxA5_VXBI41NSrNVe9CyhBUGck';
+  const MERCHANT_ID  = 'Placeholder';
+  const RIS_ENDPOINT = "Placeholder";
+  const API_KEY = 'Placeholder';
 
   private function getInquiry() {
     $inquiry = (new UtilityHelperTest())->createInquiryForPayments(self::MERCHANT_ID, self::RIS_ENDPOINT, self::API_KEY);

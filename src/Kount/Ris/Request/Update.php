@@ -91,10 +91,7 @@ class Kount_Ris_Request_Update extends Kount_Ris_Request {
    * @return this
    */
   public function setMode ($mode) {
-    if ((self::MODE_U != $mode) && (self::MODE_X != $mode)) {
-      throw new Kount_Ris_IllegalArgumentException(
-          "Invalid RIS update mode [{$mode}]. Must be 'U' or 'X'.");
-    }
+  
     $this->data['MODE'] = $mode;
     return $this;
   }
@@ -118,11 +115,7 @@ class Kount_Ris_Request_Update extends Kount_Ris_Request {
    * @return this
    */
   public function setRefundChargeback ($rfcb) {
-    if ((self::RFCB_R != $rfcb) && (self::RFCB_C != $rfcb)) {
-      throw new Kount_Ris_IllegalArgumentException(
-          "Invalid RIS update RFCB [{$rfcb}], Must be '" .
-          self::RFCB_R . "' or '" . self::RFCB_C . "'");
-    }
+  
     $this->data['RFCB'] = $rfcb;
     return $this;
   }

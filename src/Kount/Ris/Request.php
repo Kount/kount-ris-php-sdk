@@ -247,10 +247,8 @@ abstract class Kount_Ris_Request
       $this->settings = new Kount_Ris_ArraySettings($configReader->getSettings());
       Kount_Util_Khash::createKhash($this->settings);
     }
-    if ($this->settings->getConfigKey()) {
-      Kount_Util_Khash::setConfigKey($this->settings->getConfigKey());
-    }
 
+    Kount_Util_Khash::setConfigKey($this->settings->getConfigKey());
     $this->setMerchantId($this->settings->getMerchantId());
     $this->setVersion(self::VERSION);
     $this->setUrl($this->settings->getRisUrl());
@@ -294,7 +292,6 @@ abstract class Kount_Ris_Request
         "due to empty payment token. Request mode [" . $this->data['MODE'] .
         "]");
     }
-
     //start RIS call timer
     $startTimer = microtime(true);
 
@@ -366,7 +363,6 @@ abstract class Kount_Ris_Request
       $result = curl_error($ch);
       $this->logger->error(__METHOD__ . " An error occurred posting to RIS. " .
         "Curl error [$result]");
-      throw new Kount_Ris_Exception($result);
     }
     curl_close($ch);
 
@@ -470,10 +466,7 @@ abstract class Kount_Ris_Request
    */
   public function setVersion($version)
   {
-    if (is_int($version)) {
-      $this->logger->error(__METHOD__ . " Invalid version number [{$version}]");
-      throw new Kount_Ris_IllegalArgumentException("Version must be a string");
-    }
+
     $this->data['VERS'] = $version;
     return $this;
   }
@@ -911,22 +904,16 @@ abstract class Kount_Ris_Request
    */
   protected function setPaymentToken($token)
   {
-    if (!empty($token) && empty($this->data['LAST4'])) {
-      if (mb_strlen($token) >= 4) {
-        $this->data['LAST4'] = mb_substr($token, mb_strlen($token) - 4);
-      } else {
-        $this->data['LAST4'] = $token;
-      }
-    }
 
-    if ($this->isSetKhashPaymentEncoding()) {
-      if ($this->settings->getConfigKey()) {
-        Kount_Util_Khash::setConfigKey($this->settings->getConfigKey());
-      }
-      $token = (self::GIFT_CARD_TYPE == $this->data['PTYP']) ?
+    if (mb_strlen($token) >= 4) {
+          $this->data['LAST4'] = mb_substr($token, mb_strlen($token) - 4);
+    } else {
+        $this->data['LAST4'] = $token;
+    }
+    Kount_Util_Khash::setConfigKey($this->settings->getConfigKey());
+    $token = (self::GIFT_CARD_TYPE == $this->data['PTYP']) ?
         Kount_Util_Khash::hashGiftCard($this->data['MERC'], $token) :
         Kount_Util_Khash::hashPaymentToken($token);
-    }
     $this->data['PTOK'] = $token;
     return $this;
   }
@@ -942,13 +929,13 @@ abstract class Kount_Ris_Request
   public function setPaymentMasked($cardNumber)
   {
     $this->logger->debug(__METHOD__);
-    if (!empty($cardNumber) && empty($this->data['LAST4'])) {
-      if (mb_strlen($cardNumber) >= 4) {
-        $this->data['LAST4'] = mb_substr($cardNumber, mb_strlen($cardNumber) - 4);
-      } else {
-        $this->data['LAST4'] = $cardNumber;
-      }
+
+    if (mb_strlen($cardNumber) >= 4) {
+      $this->data['LAST4'] = mb_substr($cardNumber, mb_strlen($cardNumber) - 4);
+    } else {
+      $this->data['LAST4'] = $cardNumber;
     }
+
     $result = $this->maskPaymentToken($cardNumber);
 
     $this->data['PTOK'] = $result;
@@ -1000,18 +987,17 @@ abstract class Kount_Ris_Request
   public function setPayment($paymentType, $paymentToken)
   {
     $this->logger->debug(__METHOD__);
-    if (!empty($paymentToken) && empty($this->data['LAST4'])) {
-      if (mb_strlen($paymentToken) >= 4) {
-        $this->data['LAST4'] =
-          mb_substr($paymentToken, mb_strlen($paymentToken) - 4);
-      } else {
-        $this->data['LAST4'] = $paymentToken;
-      }
+
+
+    if (mb_strlen($paymentToken) >= 4) {
+      $this->data['LAST4'] =
+        mb_substr($paymentToken, mb_strlen($paymentToken) - 4);
+    } else {
+      $this->data['LAST4'] = $paymentToken;
     }
 
-    if ($this->settings->getConfigKey()) {
-      Kount_Util_Khash::setConfigKey($this->settings->getConfigKey());
-    }
+    Kount_Util_Khash::setConfigKey($this->settings->getConfigKey());
+
     $token = (self::GIFT_CARD_TYPE == $paymentType) ?
       Kount_Util_Khash::hashGiftCard($this->data['MERC'], $paymentToken) :
       Kount_Util_Khash::hashPaymentToken($paymentToken);

@@ -160,11 +160,6 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request
 	 */
 	public function setMode($mode)
 	{
-		if ((self::MODE_Q != $mode) && (self::MODE_P != $mode) &&
-			(self::MODE_W != $mode) && (self::MODE_J != $mode)) {
-			throw new Kount_Ris_IllegalArgumentException(
-				"Invalid RIS inquiry mode [{$mode}]. Must be 'Q', 'P', 'W' or 'J'");
-		}
 		$this->data['MODE'] = $mode;
 		return $this;
 	}
@@ -450,15 +445,9 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request
 	 */
 	public function setCart($cart)
 	{
-		if (!is_array($cart)) {
-			throw new Kount_Ris_IllegalArgumentException("Cart must be an array");
-		}
+		
 		for ($i = 0; $i < count($cart); $i++) {
-			if ('Kount_Ris_Data_CartItem' != get_class($cart[$i])) {
-				throw new Kount_Ris_IllegalArgumentException("Cart item #{$i} " .
-					print_r($cart[$i], true) . " must be of type " .
-					"Kount_Ris_Data_CartItem");
-			}
+	
 			$this->data["PROD_TYPE[{$i}]"] = $cart[$i]->getProductType();
 			$this->data["PROD_ITEM[{$i}]"] = $cart[$i]->getItemName();
 			$this->data["PROD_DESC[{$i}]"] = $cart[$i]->getDescription();

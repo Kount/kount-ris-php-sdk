@@ -45,11 +45,7 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * @return int Kount Merchant ID (MERC)
    */
   public function getMerchantId () {
-    if(!$this->settings['MERCHANT_ID']) {
-      throw new Exception(
-        "Unable to get configuration setting 'MERCHANT_ID'. " .
-        "Check that the MERCHANT_ID setting exists and is not set to null or empty string. ");
-    }
+
     return $this->settings['MERCHANT_ID'];
   }
 
@@ -60,11 +56,7 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * @return string RIS server URL
    */
   public function getRisUrl () {
-    if(!$this->settings['URL']) {
-      throw new Exception(
-        "Unable to get configuration setting 'URL'. " .
-        "Check that the URL setting exists and is not set to null or empty string. ");
-    }
+  
     return $this->settings['URL'];
   }
 
