@@ -295,17 +295,6 @@ abstract class Kount_Ris_Request
     //start RIS call timer
     $startTimer = microtime(true);
 
-    // validate first
-    $errors = Kount_Ris_Validate::validate($this->data);
-    if (count($errors) > 0) {
-      $errorMsg = "";
-      foreach ($errors as $error) {
-        $errorMsg .= $error . "\n";
-      }
-      $this->errorMessage = $errorMsg;
-      throw new Kount_Ris_ValidationException($errorMsg);
-    }
-
     $this->logger->debug(__METHOD__ . " RIS endpoint URL: [{$this->url}]");
     // Initialize CURL settings
     $ch = curl_init();

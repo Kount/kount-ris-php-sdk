@@ -156,7 +156,7 @@ class Kount_Util_Khash {
   {
     $file = ENCRYPTED_CONFIG_KEY . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'correctConfigKey.txt';
 
-    $cryptedConfigKey = parse_ini_file($file)
+    $cryptedConfigKey = parse_ini_file($file);
 
     return $cryptedConfigKey['ENCRYPTED_CONFIG_KEY'];
   }
