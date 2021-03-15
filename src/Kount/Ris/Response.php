@@ -818,4 +818,22 @@ class Kount_Ris_Response {
     return $events;
   }
 
+  /**
+   * Get the whitelisted fields
+   *
+   * @return string
+   */
+  public function getPreviousWhitelisted () {
+    return $this->safeGet('PREVIOUSLY_WHITELISTED');
+  }
+
+  /**
+   * Get the secure merchant response
+   *
+   * @return string
+   */
+  public function getSecureMerchantResponse () {
+    return $this->safeGet('3D_SECURE_MERCHANT_RESPONSE');
+  }
+
 } // Kount_Ris_Response
