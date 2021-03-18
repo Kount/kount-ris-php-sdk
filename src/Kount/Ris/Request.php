@@ -301,7 +301,6 @@ abstract class Kount_Ris_Request
     curl_setopt($ch, CURLOPT_URL, $this->url);
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLINFO_SSL_VERIFYRESULT, 0);
     curl_setopt($ch, CURLOPT_TIMEOUT, $this->connectionTimeout);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
