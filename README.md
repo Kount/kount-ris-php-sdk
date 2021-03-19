@@ -16,7 +16,7 @@ Our Kount-PHP-SDK Page includes all the documentation related to PHP SDK. Everyt
 
 ## Prerequisities
 * PHP 7.2.5 or above
-* PHPUnit 8 (v8.5.2) (unit test framework for PHP)
+* PHPUnit 9 (v9.5.3) (unit test framework for PHP)
 * curl, json & openssl extensions must be enabled
 
 ## License
