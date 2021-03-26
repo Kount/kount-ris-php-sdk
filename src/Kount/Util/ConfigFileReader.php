@@ -43,11 +43,10 @@ class Kount_Util_ConfigFileReader {
   private function __construct ($path = null) {
     if($path == null) {
       $file = KOUNT_SETTINGS_FILE;
-      $this->settings = parse_ini_file($file, false);
     } else {
-      $file = KOUNT_CUSTOM_SETTINGS_FILE;
-      $this->settings = parse_ini_file($file, false);
+      $file = $path;
     }
+    $this->settings = parse_ini_file($file, false);
   }
 
   /**
@@ -59,7 +58,6 @@ class Kount_Util_ConfigFileReader {
     if($path == null) {
       self::$instance = new Kount_Util_ConfigFileReader();
     } else {
-      define('KOUNT_CUSTOM_SETTINGS_FILE', realpath($path));
       self::$instance = new Kount_Util_ConfigFileReader($path);
     }
     return self::$instance;
