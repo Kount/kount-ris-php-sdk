@@ -1,3 +1,8 @@
+Version 7.3.9
+=====================
+26/03/2021
+1. Removed warning for KOUNT_CUSTOM_SETTINGS_FILE constant
+
 Version 7.3.7
 =====================
 19/03/2021
