@@ -22,8 +22,6 @@ build:
   stage: build
   script:
     - composer install
-  # only:
-  #   - master
 
 
 # test:app:
