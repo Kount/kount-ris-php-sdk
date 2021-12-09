@@ -1,0 +1,32 @@
+# image: tetraweb/php
+image: roadiz/php73-runner
+
+stages:
+  - build
+  - test
+
+before_script:
+  # install dependies
+  - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+  - bash docker_install.sh
+  - apt-get update
+  - apt-get install zip unzip -y
+  - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+  - php composer-setup.php
+  - php -r "unlink('composer-setup.php');"
+  - php composer.phar install
+
+
+
+build:
+  stage: build
+  script:
+    - composer install
+
+
+# test:app:
+#   script:
+#     - phpunit --configuration phpunit.xml
+#   only:
+#     - master
+
