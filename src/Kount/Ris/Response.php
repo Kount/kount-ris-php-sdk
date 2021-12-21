@@ -45,8 +45,10 @@ class Kount_Ris_Response {
     $this->raw = $output;
     $lines = preg_split('/[\r\n]+/', $output, -1, PREG_SPLIT_NO_EMPTY);
     foreach ($lines as $line) {
-      list($key, $value) = explode('=', $line, 2);
-      $this->response[$key] = $value;
+        if (false !== strpos($line, '=')) {
+            list($key, $value) = explode('=', $line, 2);
+            $this->response[$key] = $value;
+        }
     }
   }
 
