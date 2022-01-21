@@ -1,27 +1,69 @@
-# image: tetraweb/php
-image: roadiz/php73-runner
+include:
+  - project: kount/third_party/tpa-ci-shared
+    file:
+      - core/rules.yml
+      - version.yml
+    ref: 2.2.1
 
 stages:
+  - version
+  - version check
   - build
   - test
 
-before_script:
-  # install dependies
-  - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-  - bash docker_install.sh
-  - apt-get update
-  - apt-get install zip unzip -y
-  - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-  - php composer-setup.php
-  - php -r "unlink('composer-setup.php');"
-  - php composer.phar install
-
-
+version check:
+  stage: version check
+  rules:
+    # on master, allow failure
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      allow_failure: true
+    # on mr, allow failure
+    - if: '$CI_MERGE_REQUEST_ID != null || $CI_PIPELINE_SOURCE == "merge_request_event"'
+      allow_failure: true
+    - !reference [.rule-on-tag]
+  script:
+    - COMMIT_DATE=${CI_COMMIT_TIMESTAMP%%T*}
+    - SDK_VERSION=${BUILD_VERSION%%-*}
+    - EXIT_WITH_FAILURE=false
+    - |
+      if [ "$(grep -q 'SDK_VERSION=${SDK_VERSION}' src/settings.ini)" != "0" ]
+      then
+        echo "'SDK_VERSION=${SDK_VERSION}' not found"
+        echo "Change SDK_VERSION to be the next expected tag version in src/settings.ini"
+        EXIT_WITH_FAILURE=true
+      fi
+    - |
+      if [ "$(grep -q 'Sdk-Ris-Php-${SDK_VERSION}-${COMMIT_DATE}' src/Kount/Ris/Request/Inquiry.php)" != "0" ]
+      then
+        echo "'Sdk-Ris-Php-${SDK_VERSION}-${COMMIT_DATE}' not found"
+        echo "Change SDK_VERSION to be 'Sdk-Ris-Php-<expected-tag-version>-${COMMIT_DATE}' in src/Kount/Ris/Request/Inquiry.php"
+        EXIT_WITH_FAILURE=true
+      fi
+    - |
+      if [ "$EXIT_WITH_FAILURE" = "true" ]
+      then
+        exit 1
+      fi
 
 build:
   stage: build
+  image: roadiz/php73-runner
+  rules:
+    - !reference [.rule-on-master]
+    - !reference [.rule-on-mr]
+  before_script:
+    # install dependencies
+    - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+    - bash docker_install.sh
+    - apt-get update
+    - apt-get install zip unzip -y
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php composer-setup.php
+    - php -r "unlink('composer-setup.php');"
+    - php composer.phar install
   script:
     - composer install
+
 
 
 # test:app:
