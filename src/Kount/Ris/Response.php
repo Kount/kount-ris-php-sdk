@@ -833,7 +833,7 @@ class Kount_Ris_Response {
    * @return string
    */
   public function getSecureMerchantResponse () {
-    return $this->safeGet('3D_SECURE_MERCHANT_RESPONSE');
+    return $this->safeGet('THREE_DS_MERCHANT_RESPONSE');
   }
 
 } // Kount_Ris_Response
