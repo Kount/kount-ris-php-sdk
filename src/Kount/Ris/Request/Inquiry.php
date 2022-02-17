@@ -94,7 +94,7 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request
 	 * Which SDK is this
 	 * @var string
 	 */
-	const SDK = 'PHP'
+	const SDK = 'PHP';
 
 	/**
 	 * SDK version. This will be set by the build process.
@@ -113,9 +113,9 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request
 		parent::__construct($settings);
 		// defaults
 		$this->setMode(self::MODE_Q);
-		$this->setCurrency(self:DEFAULT_CURRENCY);
-		$this->setParm('SDK', self:SDK);
-		$this->setParm('SDK_VERSION', self:SDK_VERSION);
+		$this->setCurrency(self::DEFAULT_CURRENCY);
+		$this->setParm('SDK', self::SDK);
+		$this->setParm('SDK_VERSION', self::SDK_VERSION);
 	}
 
 	/**
