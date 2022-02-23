@@ -22,26 +22,13 @@ version check:
       allow_failure: true
     - !reference [.rule-on-tag]
   script:
-    - COMMIT_DATE=${CI_COMMIT_TIMESTAMP%%T*}
-    - SDK_VERSION=${BUILD_VERSION%%-*}
-    - EXIT_WITH_FAILURE=false
+    - BUILD_VERSION=`echo $BUILD_VERSION | cut -c-17`
+    - SDK_VERSION="Sdk-Ris-PHP-"${BUILD_VERSION}
     - |
-      if [ "$(grep -q 'SDK_VERSION=${SDK_VERSION}' src/settings.ini)" != "0" ]
+      if [ "$(grep -q 'SDK_VERSION=\"${SDK_VERSION}\"' src/settings.ini)" != "0" ]
       then
-        echo "'SDK_VERSION=${SDK_VERSION}' not found"
-        echo "Change SDK_VERSION to be the next expected tag version in src/settings.ini"
-        EXIT_WITH_FAILURE=true
-      fi
-    - |
-      if [ "$(grep -q 'Sdk-Ris-Php-${SDK_VERSION}-${COMMIT_DATE}' src/Kount/Ris/Request/Inquiry.php)" != "0" ]
-      then
-        echo "'Sdk-Ris-Php-${SDK_VERSION}-${COMMIT_DATE}' not found"
-        echo "Change SDK_VERSION to be 'Sdk-Ris-Php-<expected-tag-version>-${COMMIT_DATE}' in src/Kount/Ris/Request/Inquiry.php"
-        EXIT_WITH_FAILURE=true
-      fi
-    - |
-      if [ "$EXIT_WITH_FAILURE" = "true" ]
-      then
+        echo "'SDK_VERSION=\"${SDK_VERSION}\"' not found"
+        echo "Change SDK_VERSION to 'Sdk-Ris-PHP-next_expected_tag' in src/settings.ini"
         exit 1
       fi
 

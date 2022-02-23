@@ -23,13 +23,6 @@ define('RSA_PUBLIC_KEY', realpath(dirname(__FILE__) .
  */
 abstract class Kount_Ris_Request
 {
-
-  /**
-   * RIS API Version
-   * @var string
-   */
-  const VERSION = '0710';
-
   /**
    * RIS data collection for the post
    * @var array
@@ -250,7 +243,7 @@ abstract class Kount_Ris_Request
 
     Kount_Util_Khash::setConfigKey($this->settings->getConfigKey());
     $this->setMerchantId($this->settings->getMerchantId());
-    $this->setVersion(self::VERSION);
+    $this->setVersion($this->settings->getVERS());
     $this->setUrl($this->settings->getRisUrl());
     if ($this->settings->getApiKey()) {
       $this->setApiKey($this->settings->getApiKey());
