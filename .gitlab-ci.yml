@@ -3,13 +3,15 @@ include:
     file:
       - core/rules.yml
       - version.yml
-    ref: 2.2.1
+      - base/sq-scan.yml
+    ref: 2.4.0
 
 stages:
   - version
   - version check
   - build
   - test
+  - sonarqube scan
 
 version check:
   stage: version check
@@ -72,3 +74,9 @@ build:
 #   only:
 #     - master
 
+sonarqube scan:
+  extends: .sq-scan
+  stage: sonarqube scan
+  allow_failure: true
+  variables:
+    SRC_EXCLUSIONS: "**/.git/**,**/build/**,**/vendor/**,**/docs/**,**/phpdocs/**,**/DS_Store/**,**/idea/**,**/*LICENSE,**/*.cache,**/*.lock,**/*.phar,**/*.gitignore,**/*.yml"
