@@ -22,7 +22,7 @@ version check:
       allow_failure: true
     - !reference [.rule-on-tag]
   script:
-    - BUILD_VERSION=`echo $BUILD_VERSION | cut -c-17`
+    - BUILD_VERSION=`echo $BUILD_VERSION | cut -c-20`
     - SDK_VERSION="Sdk-Ris-PHP-"${BUILD_VERSION}
     - |
       if [ "$(grep -q 'SDK_VERSION=\"${SDK_VERSION}\"' src/settings.ini)" != "0" ]
