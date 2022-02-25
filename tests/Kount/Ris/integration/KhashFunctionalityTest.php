@@ -43,10 +43,4 @@ class ConfigurationSaltTest extends \PHPUnit\Framework\TestCase
 
     $this->assertEquals('666666FEXQI1QS6TH2O5', $token);
   }
-
-  public function testHashWithNull() {
-    $token = Kount_Util_Khash::hashPaymentToken(null);
-
-    $this->assertEquals(null, $token);
-  }
 }
