@@ -91,18 +91,6 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request
 	const DEFAULT_CURRENCY = 'USD';
 
 	/**
-	 * Which SDK is this
-	 * @var string
-	 */
-	const SDK = 'PHP';
-
-	/**
-	 * SDK version. This will be set by the build process.
-	 * @var string
-	 */
-	const SDK_VERSION = 'Sdk-Ris-Php-8.0.0-2021-01-18';
-
-	/**
 	 * Inquiry constructor. Sets the RIS mode to "Inquiry" ("Q"), sets currency to "USD",
 	 * sets the PHP SDK identifier.
 	 *
@@ -114,8 +102,8 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request
 		// defaults
 		$this->setMode(self::MODE_Q);
 		$this->setCurrency(self::DEFAULT_CURRENCY);
-		$this->setParm('SDK', self::SDK);
-		$this->setParm('SDK_VERSION', self::SDK_VERSION);
+		$this->setParm('SDK',$this->settings->getSdk());
+		$this->setParm('SDK_VERSION', $this->settings->getSdkVersion());
 	}
 
 	/**

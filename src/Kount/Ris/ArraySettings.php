@@ -111,4 +111,31 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
     return $this->settings['CONFIG_KEY'];
   }
 
+  /**
+   * Kount RIS release version.
+   *
+   * @return string VERS
+   */
+  public function getVERS () {
+    return $this->settings['VERS'];
+  }
+
+  /**
+   * Which SDK is this.
+   *
+   * @return string SDK
+   */
+  public function getSdk () {
+    return $this->settings['SDK'];
+  }
+
+  /**
+   * SDK release version.
+   *
+   * @return string SDK_VERSION
+   */
+  public function getSdkVersion () {
+    return $this->settings['SDK_VERSION'];
+  }
+
 } //end Kount_Ris_ArraySettings
