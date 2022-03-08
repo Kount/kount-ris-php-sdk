@@ -57,7 +57,7 @@ build:
     - !reference [.rule-on-master]
     - !reference [.rule-on-mr]
   
-test:
+test:app:
   extends: .php
   rules:
   - !reference [.rule-on-tag]
