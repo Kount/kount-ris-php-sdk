@@ -13,6 +13,21 @@ stages:
   - test
   - sonarqube scan
 
+.php:
+  image: roadiz/php73-runner
+  before_script:
+    # install dependencies
+    - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+    - bash docker_install.sh
+    - apt-get update
+    - apt-get install zip unzip -y
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php composer-setup.php
+    - php -r "unlink('composer-setup.php');"
+    - php composer.phar install
+  script:
+    - composer install
+
 version check:
   stage: version check
   rules:
@@ -36,30 +51,20 @@ version check:
 
 build:
   stage: build
-  image: roadiz/php73-runner
+  extends: .php
   rules:
+    - !reference [.rule-on-tag]
     - !reference [.rule-on-master]
     - !reference [.rule-on-mr]
-  before_script:
-    # install dependencies
-    - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-    - bash docker_install.sh
-    - apt-get update
-    - apt-get install zip unzip -y
-    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    - php composer-setup.php
-    - php -r "unlink('composer-setup.php');"
-    - php composer.phar install
+  
+test:
+  extends: .php
+  rules:
+  - !reference [.rule-on-tag]
+  - !reference [.rule-on-master]
+  - !reference [.rule-on-mr]
   script:
-    - composer install
-
-
-
-# test:app:
-#   script:
-#     - phpunit --configuration phpunit.xml
-#   only:
-#     - master
+    - phpunit --configuration phpunit.xml
 
 sonarqube scan:
   extends: .sq-scan
