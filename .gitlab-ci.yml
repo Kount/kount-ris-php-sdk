@@ -57,14 +57,14 @@ build:
     - !reference [.rule-on-master]
     - !reference [.rule-on-mr]
   
-test:app:
+test:
   extends: .php
   rules:
   - !reference [.rule-on-tag]
   - !reference [.rule-on-master]
   - !reference [.rule-on-mr]
   script:
-    - phpunit --configuration phpunit.xml
+    - phpunit --configuration phpunit.integration.xml
 
 sonarqube scan:
   extends: .sq-scan
