@@ -114,7 +114,7 @@ class UtilityHelperTest {
         'VERS' => 0710,
         'CONNECT_TIMEOUT' => 30,
         'SDK' => 'PHP',
-        'SDK_VERSION' => "Sdk-Ris-PHP-8.0.0"
+        'SDK_VERSION' => "Sdk-Ris-PHP-0.0.0"
       ]);
     }
     
