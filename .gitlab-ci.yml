@@ -25,8 +25,6 @@ stages:
     - php composer-setup.php
     - php -r "unlink('composer-setup.php');"
     - php composer.phar install
-  script:
-    - composer install
 
 version check:
   stage: version check
@@ -56,14 +54,19 @@ build:
     - !reference [.rule-on-tag]
     - !reference [.rule-on-master]
     - !reference [.rule-on-mr]
+  script:
+    - composer install
   
 test:
+  stage: test
   extends: .php
+  allow_failure: true
   rules:
   - !reference [.rule-on-tag]
   - !reference [.rule-on-master]
   - !reference [.rule-on-mr]
   script:
+    - composer install
     - phpunit --configuration phpunit.integration.xml
 
 sonarqube scan:
