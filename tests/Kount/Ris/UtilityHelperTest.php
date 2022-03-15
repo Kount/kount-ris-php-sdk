@@ -102,11 +102,23 @@ class UtilityHelperTest {
   }
 
   public function createInquiryForPayments($merchantId, $url, $apiKey) {
-    $inquiry = $this->defaultInquiry();
 
-    $inquiry->setMerchantId($merchantId);
-    $inquiry->setApiKey($apiKey);
-    $inquiry->setUrl($url);
+    $settings = null;
+    $configReader = Kount_Util_ConfigFileReader::instance();
+    if ($configReader->getConfigSetting('CONFIG_KEY') == '$CONFIG_KEY') {
+      $settings = new Kount_Ris_ArraySettings([
+        'CONFIG_KEY' => base64_decode(getenv("RIS_CONFIG_KEY_BASE64")),
+        'MERCHANT_ID' => $merchantId,
+        'URL' => $url,
+        'API_KEY' => $apiKey,
+        'VERS' => 0710,
+        'CONNECT_TIMEOUT' => 30,
+        'SDK' => 'PHP',
+        'SDK_VERSION' => "Sdk-Ris-PHP-0.0.0"
+      ]);
+    }
+    
+    $inquiry = $this->defaultInquiry($settings);
 
     return $inquiry;
   }
@@ -121,8 +133,8 @@ class UtilityHelperTest {
     return $inquiry;
   }
 
-  public function defaultInquiry() {
-    $inquiry = new Kount_Ris_Request_Inquiry();
+  public function defaultInquiry($settings = null) {
+    $inquiry = new Kount_Ris_Request_Inquiry($settings);
 
     $inquiry->setName(self::NAME);
     $inquiry->setMode(self::MODE);

@@ -94,6 +94,9 @@ class Kount_Util_Khash {
    * @return string Hashed token
    */
   public static function hashPaymentToken ($token) {
+    if (is_null($token)) {
+      return null;
+    }
     $firstSix = mb_substr($token, 0, 6, 'latin1');
     $hash = self::hash($token, 14);
     return "{$firstSix}{$hash}";

@@ -9,6 +9,12 @@ class ConfigurationSaltTest extends \PHPUnit\Framework\TestCase
   const  MERCHANT_ID = 666666;
 
   public function testCorrectCreditCard1() {
+    
+    $configReader = Kount_Util_ConfigFileReader::instance();
+    if ($configReader->getConfigSetting('CONFIG_KEY') == '$CONFIG_KEY') {
+      Kount_Util_Khash::setConfigKey(base64_decode(getenv("RIS_CONFIG_KEY_BASE64")));
+    }
+    
     $token = Kount_Util_Khash::hashPaymentToken(self::CARD_NUM_1);
 
     $this->assertEquals('411111WMS5YA6FUZA1KC', $token);
