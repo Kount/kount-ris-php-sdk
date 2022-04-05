@@ -277,4 +277,19 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
     $this->assertEquals('P', $response->getMode());
     $this->assertEquals('A', $response->getAuto());
   }
+
+  // Test case to vrify weather RIS request sent successfully with 'LBIN' field
+  public function testLbinWithValue () {
+    $inquiry = $this->getInquiry();
+    $inquiry->setLbin('12345678');
+    $response = $inquiry->getResponse();
+    $this->assertEquals(0, $response->getErrorCount());
+  }
+
+  // Test case to vrify weather RIS request sent successfully without 'LBIN' field
+  public function testLbinWitoutValue () {
+    $inquiry = $this->getInquiry();
+    $response = $inquiry->getResponse();
+    $this->assertEquals(0, $response->getErrorCount());
+  }
 }
