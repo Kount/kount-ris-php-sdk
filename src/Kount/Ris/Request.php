@@ -988,4 +988,17 @@ abstract class Kount_Ris_Request
     return $this;
   }
 
+  /**
+   * Set the Bank Identification Number.
+   * Supports BIN lengths of 6 digits or greater
+   * 
+   * @param string $lbin Long Bank Identification Number
+   * @return this
+   */
+  public function setLbin($lbin)
+  {
+    $this->data['LBIN'] = $lbin;
+    return $this;
+  }
+
 } // end Kount_Ris_Request
