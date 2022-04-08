@@ -81,59 +81,38 @@ class UtilityHelperTest {
     $orderNum = $this->orderNum = mb_strimwidth($uniq, 0, 10);
   }
 
-  public function createInquiryForValidatorTest($merchantId) {
-  	$inquiry = $this->defaultInquiry();
-
-  	$inquiry->setMerchantId($merchantId);
-  	$inquiry->setNoPayment();
-
-	  return $inquiry;
-  }
-
-  public function createInquiry($merchantId, $url, $apiKey) {
-    $inquiry = $this->defaultInquiry();
-
-    $inquiry->setPayment(self::PTYP, self::PTOK);
-    $inquiry->setMerchantId($merchantId);
-    $inquiry->setApiKey($apiKey);
-    $inquiry->setUrl($url);
-
-    return $inquiry;
-  }
-
-  public function createInquiryForPayments($merchantId, $url, $apiKey) {
-
-    $settings = null;
+  public function getArraySettings() {
     $configReader = Kount_Util_ConfigFileReader::instance();
-    if ($configReader->getConfigSetting('CONFIG_KEY') == '$CONFIG_KEY') {
-      $settings = new Kount_Ris_ArraySettings([
-        'CONFIG_KEY' => base64_decode(getenv("RIS_CONFIG_KEY_BASE64")),
-        'MERCHANT_ID' => $merchantId,
-        'URL' => $url,
-        'API_KEY' => $apiKey,
-        'VERS' => 0710,
-        'CONNECT_TIMEOUT' => 30,
-        'SDK' => 'PHP',
-        'SDK_VERSION' => "Sdk-Ris-PHP-0.0.0"
-      ]);
-    }
-    
-    $inquiry = $this->defaultInquiry($settings);
 
-    return $inquiry;
+    $configKey = $configReader->getConfigSetting('CONFIG_KEY') != '$CONFIG_KEY' ?
+      $configReader->getConfigSetting('CONFIG_KEY') : base64_decode(getenv("RIS_CONFIG_KEY_BASE64"));
+    $configKey = str_replace(PHP_EOL, '',$configKey);
+
+    $apiKey = $configReader->getConfigSetting('API_KEY') != '$API_KEY' ? 
+      $configReader->getConfigSetting('API_KEY') : getenv("RIS_SDK_SANDBOX_API_KEY");
+
+    $merchantId = $configReader->getConfigSetting('MERCHANT_ID') != '$MERCHANT_ID' ? 
+      $configReader->getConfigSetting('MERCHANT_ID') : getenv("RIS_SDK_SANDBOX_MERCHANT_ID");
+
+    $settings = new Kount_Ris_ArraySettings([
+      'CONFIG_KEY' => $configKey,
+      'MERCHANT_ID' => $merchantId,
+      'URL' => 'https://risk.test.kount.net',
+      'API_KEY' => $apiKey,
+      'VERS' => '0720',
+      'CONNECT_TIMEOUT' => '30',
+      'SDK' => 'PHP',
+      'SDK_VERSION' => "Sdk-Ris-PHP-0.0.0",
+      'PEM_CERTIFICATE' => '/path/to/certificate.pem',
+      'PEM_KEY_FILE' => '/path/to/keyfile.pem',
+      'PEM_PASS_PHRASE' => 'passphrase'
+    ]);
+
+    return $settings;
   }
 
-  public function createMaskedInquiry($cardNumber, $url, $merchantId) {
-    $inquiry = $this->defaultInquiry();
-
-    $inquiry->setPaymentMasked($cardNumber);
-    $inquiry->setMerchantId($merchantId);
-    $inquiry->setUrl($url);
-
-    return $inquiry;
-  }
-
-  public function defaultInquiry($settings = null) {
+  public function createInquiry() { 
+    $settings = $this->getArraySettings();
     $inquiry = new Kount_Ris_Request_Inquiry($settings);
 
     $inquiry->setName(self::NAME);
@@ -162,6 +141,7 @@ class UtilityHelperTest {
 
     $inquiry->setWebsite(self::SITE);
     $inquiry->setCurrency(self::CURR);
+    $inquiry->setPayment(self::PTYP, self::PTOK);
 
     //Create a cartItem
     $cart = new Kount_Ris_Data_CartItem(

@@ -2,16 +2,25 @@
 
 class RisSuiteTest extends \PHPUnit\Framework\TestCase
 {
-  const MERCHANT_ID  = 999666;
-  const RIS_ENDPOINT = "https://risk.beta.kount.net";
-  const API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI5OTk2NjYiLCJhdWQiOiJLb3VudC4xIiwiaWF0IjoxNDk0NTM0Nzk5LCJzY3AiOnsia2EiOm51bGwsImtjIjpudWxsLCJhcGkiOmZhbHNlLCJyaXMiOnRydWV9fQ.eMmumYFpIF-d1up_mfxA5_VXBI41NSrNVe9CyhBUGck';
-
   private function getInquiry() {
-    $inquiry = (new UtilityHelperTest())->createInquiry(self::MERCHANT_ID, self::RIS_ENDPOINT, self::API_KEY);
-
-    $inquiry->setApiKey(self::API_KEY);
+    $inquiry = (new UtilityHelperTest())->createInquiry();
 
     return $inquiry;
+  }
+
+  private function getUpdate() {
+    $settings = (new UtilityHelperTest())->getArraySettings();
+
+    $update = new Kount_Ris_Request_Update($settings);
+    $update->setParm('PTOK', Kount_Util_Khash::hashPaymentToken('5386460135176807'));
+    $update->setPaymentTokenLast4('6807');
+    $update->setMack('Y');
+    $update->setAuth('A');
+    $update->setAvsz('M');
+    $update->setAvst('M');
+    $update->setCvvr('M');
+
+    return $update;
   }
 
   // First test-case #1
@@ -200,23 +209,11 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
     $session = $response->getSessionId();
     $order = $response->getOrderNumber();
 
-    $update = new Kount_Ris_Request_Update();
+    $update = $this->getUpdate();
     $update->setMode('U');
     $update->setSessionId($session);
-    $update->setVersion('0700');
     $update->setTransactionId($transaction);
     $update->setOrderNumber($order);
-    $update->setParm('PTOK', Kount_Util_Khash::hashPaymentToken('5386460135176807'));
-    $update->setMerchantId(self::MERCHANT_ID);
-    $update->setUrl(self::RIS_ENDPOINT);
-    $update->setPaymentTokenLast4('6807');
-    $update->setApiKey(self::API_KEY);
-    $update->setMack('Y');
-    $update->setAuth('A');
-    $update->setAvsz('M');
-    $update->setAvst('M');
-    $update->setCvvr('M');
-
     $updateResponse = $update->getResponse();
 
     $this->assertEquals('U', $updateResponse->getMode());
@@ -237,23 +234,11 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
     $session = $response->getSessionId();
     $order = $response->getOrderNumber();
 
-    $update = new Kount_Ris_Request_Update();
+    $update = $this->getUpdate();
     $update->setMode('X');
     $update->setSessionId($session);
-    $update->setVersion('0700');
     $update->setTransactionId($transaction);
     $update->setOrderNumber($order);
-    $update->setMerchantId(self::MERCHANT_ID);
-    $update->setUrl(self::RIS_ENDPOINT);
-    $update->setApiKey(self::API_KEY);
-    $update->setParm('PTOK', Kount_Util_Khash::hashPaymentToken('5386460135176807'));
-    $update->setPaymentTokenLast4('6807');
-    $update->setMack('Y');
-    $update->setAuth('A');
-    $update->setAvsz('M');
-    $update->setAvst('M');
-    $update->setCvvr('M');
-
     $updateResponse = $update->getResponse();
 
     $this->assertEquals('X', $updateResponse->getMode());
