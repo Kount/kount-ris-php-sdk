@@ -121,7 +121,6 @@ class Kount_Util_Khash {
    */
   public static function hash ($data, $len) {
     $configKey = self::getConfigKey();
-
     $decodedConfigKey = base85::decode($configKey);
     self::validateConfigKey($decodedConfigKey);
 

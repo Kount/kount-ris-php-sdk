@@ -2,12 +2,8 @@
 
 class AdditionalPaymentsTest extends \PHPUnit\Framework\TestCase
 {
-  const MERCHANT_ID  = 'Placeholder';
-  const RIS_ENDPOINT = "Placeholder";
-  const API_KEY = 'Placeholder';
-
   private function getInquiry() {
-    $inquiry = (new UtilityHelperTest())->createInquiryForPayments(self::MERCHANT_ID, self::RIS_ENDPOINT, self::API_KEY);
+    $inquiry = (new UtilityHelperTest())->createInquiry();
 
     return $inquiry;
   }

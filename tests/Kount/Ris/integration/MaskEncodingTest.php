@@ -2,15 +2,9 @@
 
 class MaskEncodingTest extends \PHPUnit\Framework\TestCase {
 
-  const MERCHANT_ID  = 999666;
-  const RIS_ENDPOINT = "https://risk.beta.kount.net";
-  const API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI5OTk2NjYiLCJhdWQiOiJLb3VudC4xIiwiaWF0IjoxNDk0NTM0Nzk5LCJzY3AiOnsia2EiOm51bGwsImtjIjpudWxsLCJhcGkiOmZhbHNlLCJyaXMiOnRydWV9fQ.eMmumYFpIF-d1up_mfxA5_VXBI41NSrNVe9CyhBUGck';
-
   private function getInquiry($cardNumber) {
-    $inquiry = (new UtilityHelperTest())->createMaskedInquiry($cardNumber, self::RIS_ENDPOINT, self::MERCHANT_ID);
-
-    $inquiry->setApiKey(self::API_KEY);
-
+    $inquiry = (new UtilityHelperTest())->createInquiry();
+    $inquiry->setPaymentMasked($cardNumber);
     return $inquiry;
   }
 
