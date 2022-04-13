@@ -40,10 +40,9 @@ version check:
     - BUILD_VERSION=`echo $BUILD_VERSION | cut -c-20`
     - SDK_VERSION="Sdk-Ris-PHP-"${BUILD_VERSION}
     - |
-      if [ "$(grep -q 'SDK_VERSION=\"${SDK_VERSION}\"' src/settings.ini)" != "0" ]
+      if ! grep -q SDK_VERSION=\"${SDK_VERSION}\" src/settings.ini
       then
-        echo "'SDK_VERSION=\"${SDK_VERSION}\"' not found"
-        echo "Change SDK_VERSION to 'Sdk-Ris-PHP-next_expected_tag' in src/settings.ini"
+        echo "'SDK_VERSION=\"${SDK_VERSION}\"' not found in src/settings.ini"
         exit 1
       fi
 
