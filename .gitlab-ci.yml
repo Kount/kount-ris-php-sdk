@@ -79,7 +79,7 @@ sonarqube scan:
   extends: .sq-scan
   stage: sonarqube scan
   variables:
-    SRC_EXCLUSIONS: "**/.git/**,**/build/**,**/vendor/**,**/docs/**,**/phpdocs/**,**/DS_Store/**,**/idea/**,**/*LICENSE,**/*.cache,**/*.lock,**/*.phar,**/*.gitignore,**/*.yml"
+    SRC_EXCLUSIONS: "**/.git/**,**/build/**,**/vendor/**,**/tests/**,**/docs/**,**/phpdocs/**,**/DS_Store/**,**/idea/**,**/*LICENSE,**/*.cache,**/*.lock,**/*.phar,**/*.gitignore,**/*.yml"
     PHP_TEST_COVERAGE_REPORT_PATHS: "${CI_PROJECT_DIR}/phpunit-coverage-result.xml"
     PHP_TEST_EXECUTION_REPORT_PATHS: "${CI_PROJECT_DIR}/phpunit-execution-result.xml"
 
