@@ -117,7 +117,8 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * @return string VERS
    */
   public function getVERS () {
-    return $this->settings['VERS'];
+    return array_key_exists('VERS', $this->settings) ? $this->settings['VERS'] :  
+    Kount_Util_ConfigFileReader::instance()->getConfigSetting('VERS');
   }
 
   /**
@@ -126,7 +127,8 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * @return string SDK
    */
   public function getSdk () {
-    return $this->settings['SDK'];
+    return array_key_exists('SDK', $this->settings) ? $this->settings['SDK'] : 
+    Kount_Util_ConfigFileReader::instance()->getConfigSetting('SDK');
   }
 
   /**
@@ -135,7 +137,8 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * @return string SDK_VERSION
    */
   public function getSdkVersion () {
-    return $this->settings['SDK_VERSION'];
+    return array_key_exists('SDK_VERSION', $this->settings) ? $this->settings['SDK_VERSION'] :  
+    Kount_Util_ConfigFileReader::instance()->getConfigSetting('SDK_VERSION');
   }
 
 } //end Kount_Ris_ArraySettings
