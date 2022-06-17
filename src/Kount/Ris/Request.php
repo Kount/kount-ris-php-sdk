@@ -329,7 +329,7 @@ abstract class Kount_Ris_Request
     foreach ($this->data as $key => $value) {
       // OK to pass empty strings to backend, for consistency with other
       // SDK languages.
-      $payload[] = urlencode($key) . '=' . urlencode($value);
+      $payload[] = urlencode($key ?? '') . '=' . urlencode($value ?? '');
       $value = ('PTOK' == $key && !empty($value)) ?
         'payment token hidden' : $value;
       $this->logger->debug(__METHOD__ . " [{$key}]={$value}");
