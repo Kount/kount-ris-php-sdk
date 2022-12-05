@@ -25,6 +25,10 @@
     "classmap": [
       "./src/"
     ]
+  },
+  "config": {
+    "allow-plugins": {
+      "symfony/flex": true
+    }
   }
 }
-

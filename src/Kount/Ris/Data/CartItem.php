@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CarItem.php file containing Kount_Ris_Data_CartItem data class.
  */
@@ -12,7 +13,8 @@
  * @version $Id: Exception.php 228 2009-10-26 18:04:59Z mmn $
  * @copyright 2012 Kount, Inc. All Rights Reserved.
  */
-class Kount_Ris_Data_CartItem {
+class Kount_Ris_Data_CartItem
+{
 
   /**
    * Product type
@@ -58,8 +60,13 @@ class Kount_Ris_Data_CartItem {
    * @param string $quantity The quantity
    * @param string $price The price of the item
    */
-  public function __construct ($productType, $itemName, $description,
-      $quantity, $price) {
+  public function __construct(
+    $productType,
+    $itemName,
+    $description,
+    $quantity,
+    $price
+  ) {
     $this->productType = $productType;
     $this->itemName = $itemName;
     $this->description = $description;
@@ -72,7 +79,8 @@ class Kount_Ris_Data_CartItem {
    *
    * @return string
    */
-  public function getProductType () {
+  public function getProductType()
+  {
     return $this->productType;
   }
 
@@ -81,7 +89,8 @@ class Kount_Ris_Data_CartItem {
    *
    * @return string
    */
-  public function getItemName () {
+  public function getItemName()
+  {
     return $this->itemName;
   }
 
@@ -90,7 +99,8 @@ class Kount_Ris_Data_CartItem {
    *
    * @return string
    */
-  public function getDescription () {
+  public function getDescription()
+  {
     return $this->description;
   }
 
@@ -99,7 +109,8 @@ class Kount_Ris_Data_CartItem {
    *
    * @return int
    */
-  public function getQuantity () {
+  public function getQuantity()
+  {
     return $this->quantity;
   }
 
@@ -108,7 +119,8 @@ class Kount_Ris_Data_CartItem {
    *
    * @return int
    */
-  public function getPrice () {
+  public function getPrice()
+  {
     return $this->price;
   }
 
@@ -118,7 +130,8 @@ class Kount_Ris_Data_CartItem {
    * @param string $productType Product type
    * @return this
    */
-  public function setProductType ($productType) {
+  public function setProductType($productType)
+  {
     $this->productType = $productType;
     return $this;
   }
@@ -129,7 +142,8 @@ class Kount_Ris_Data_CartItem {
    * @param string $itemName Item name
    * @return this
    */
-  public function setItemName ($itemName) {
+  public function setItemName($itemName)
+  {
     $this->itemName = $itemName;
     return $this;
   }
@@ -140,7 +154,8 @@ class Kount_Ris_Data_CartItem {
    * @param string $description Description of the item
    * @return this
    */
-  public function setDescription ($description) {
+  public function setDescription($description)
+  {
     $this->description = $description;
     return $this;
   }
@@ -151,7 +166,8 @@ class Kount_Ris_Data_CartItem {
    * @param int $quantity Quantity
    * @return this
    */
-  public function setQuantity ($quantity) {
+  public function setQuantity($quantity)
+  {
     $this->quantity = $quantity;
     return $this;
   }
@@ -162,9 +178,9 @@ class Kount_Ris_Data_CartItem {
    * @param int $price Price of the item
    * @return this
    */
-  public function setPrice ($price) {
+  public function setPrice($price)
+  {
     $this->price = $price;
     return $this;
   }
-
 } // Kount_Ris_Data_CartItem

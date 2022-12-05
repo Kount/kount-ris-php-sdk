@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ConfigFileReader.php file containing Kount_Util_ConfigFileReader class.
  */
@@ -9,8 +10,8 @@ if (!defined('KOUNT_SETTINGS_FILE')) {
    * @var string
    */
   define('KOUNT_SETTINGS_FILE', realpath(dirname(__FILE__) .
-      DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' .
-      DIRECTORY_SEPARATOR . 'settings.ini'));
+    DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' .
+    DIRECTORY_SEPARATOR . 'settings.ini'));
 }
 
 /**
@@ -21,7 +22,8 @@ if (!defined('KOUNT_SETTINGS_FILE')) {
  * @version $Id: Request.php 11177 2010-08-16 21:44:19Z bst $
  * @copyright 2012 Kount, Inc. All Rights Reserved.
  */
-class Kount_Util_ConfigFileReader {
+class Kount_Util_ConfigFileReader
+{
 
   /**
    * An instance of this class.
@@ -40,8 +42,9 @@ class Kount_Util_ConfigFileReader {
    * @param string $path absolute path to custom settings file.
    * @throws Exception when reading a file fails.
    */
-  private function __construct ($path = null) {
-    if($path == null) {
+  private function __construct($path = null)
+  {
+    if ($path == null) {
       $file = KOUNT_SETTINGS_FILE;
     } else {
       $file = $path;
@@ -54,8 +57,9 @@ class Kount_Util_ConfigFileReader {
    * @param string @path Absolute path to custom settings file.
    * @return Kount_Util_ConfigFileReader
    */
-  public static function instance ($path = null) {
-    if($path == null) {
+  public static function instance($path = null)
+  {
+    if ($path == null) {
       self::$instance = new Kount_Util_ConfigFileReader();
     } else {
       self::$instance = new Kount_Util_ConfigFileReader($path);
@@ -67,7 +71,8 @@ class Kount_Util_ConfigFileReader {
    * Get static RIS settings from an ini file.
    * @return array Hash map
    */
-  public function getSettings () {
+  public function getSettings()
+  {
     return $this->settings;
   }
 
@@ -77,9 +82,9 @@ class Kount_Util_ConfigFileReader {
    * @return string
    * @throws Exception If the specified setting name does not exist.
    */
-  public function getConfigSetting ($name) {
+  public function getConfigSetting($name)
+  {
     $settings = $this->getSettings();
     return $settings[$name];
   }
-
 } // end Kount_Util_ConfigFileReader

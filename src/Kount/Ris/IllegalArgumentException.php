@@ -1,4 +1,5 @@
 <?php
+
 /**
  * IllegalArgumentException.php file containing Kount_Ris_IllegalArgumentException class.
  */
@@ -11,5 +12,6 @@
  * @author Kount <custserv@kount.com>
  * @copyright 2012 Kount, Inc. All Rights Reserved.
  */
-class Kount_Ris_IllegalArgumentException extends Exception {
+class Kount_Ris_IllegalArgumentException extends Exception
+{
 } // end Kount_Ris_IllegalArgumentException

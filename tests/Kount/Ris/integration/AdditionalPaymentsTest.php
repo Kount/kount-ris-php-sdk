@@ -2,13 +2,15 @@
 
 class AdditionalPaymentsTest extends \PHPUnit\Framework\TestCase
 {
-  private function getInquiry() {
+  private function getInquiry()
+  {
     $inquiry = (new UtilityHelperTest())->createInquiry();
 
     return $inquiry;
   }
 
-  public function testTokenPayment1() {
+  public function testTokenPayment1()
+  {
     $inquiry = $this->getInquiry();
     $inquiry->setTokenPayment('6011476613608633');
 
@@ -17,7 +19,8 @@ class AdditionalPaymentsTest extends \PHPUnit\Framework\TestCase
     $this->assertEquals($inquiry->getParm('PENC'), 'KHASH');
   }
 
-  public function testTokenPayment2 () {
+  public function testTokenPayment2()
+  {
     $inquiry = $this->getInquiry();
     $inquiry->setTokenPayment('1A2B3C6613608633');
 
@@ -26,7 +29,8 @@ class AdditionalPaymentsTest extends \PHPUnit\Framework\TestCase
     $this->assertEquals($inquiry->getParm('PENC'), 'KHASH');
   }
 
-  public function testCarteBleuePayment() {
+  public function testCarteBleuePayment()
+  {
     $inquiry = $this->getInquiry();
     $inquiry->setCarteBleuePayment('AABBCC661360DDD');
 
@@ -35,7 +39,8 @@ class AdditionalPaymentsTest extends \PHPUnit\Framework\TestCase
     $this->assertEquals($inquiry->getParm('PENC'), 'KHASH');
   }
 
-  public function testSkrillPayment() {
+  public function testSkrillPayment()
+  {
     $inquiry = $this->getInquiry();
     $inquiry->setSkrillPayment('XYZ123661360SKMB');
 

@@ -1,6 +1,7 @@
 <?php
 
-class UtilityHelperTest {
+class UtilityHelperTest
+{
 
   const MODE = 'Q';
   const NAME = 'SdkTestFirstName SdkTestLastName';
@@ -66,32 +67,34 @@ class UtilityHelperTest {
   const PROD_PRICE_0 = 68990;
 
   //Non-constant variables :
-   private $sessionId = '';
-   private $uniq      = '';
-   private $orderNum  = '';
+  private $sessionId = '';
+  private $uniq      = '';
+  private $orderNum  = '';
 
   public function __construct($name = null, array $data = [], $dataName = '')
   {
     $this->setUp();
   }
 
-  protected function setUp() {
+  protected function setUp()
+  {
     $sessionId = $this->sessionId = substr(md5(rand()), 0, 32);
     $uniq      = $this->uniq = mb_strimwidth($this->sessionId, 0, 20);
     $orderNum = $this->orderNum = mb_strimwidth($uniq, 0, 10);
   }
 
-  public function getArraySettings() {
+  public function getArraySettings()
+  {
     $configReader = Kount_Util_ConfigFileReader::instance();
 
     $configKey = $configReader->getConfigSetting('CONFIG_KEY') != '$CONFIG_KEY' ?
       $configReader->getConfigSetting('CONFIG_KEY') : base64_decode(getenv("RIS_CONFIG_KEY_BASE64"));
-    $configKey = str_replace(PHP_EOL, '',$configKey);
+    $configKey = str_replace(PHP_EOL, '', $configKey);
 
-    $apiKey = $configReader->getConfigSetting('API_KEY') != '$API_KEY' ? 
+    $apiKey = $configReader->getConfigSetting('API_KEY') != '$API_KEY' ?
       $configReader->getConfigSetting('API_KEY') : getenv("RIS_SDK_SANDBOX_API_KEY");
 
-    $merchantId = $configReader->getConfigSetting('MERCHANT_ID') != '$MERCHANT_ID' ? 
+    $merchantId = $configReader->getConfigSetting('MERCHANT_ID') != '$MERCHANT_ID' ?
       $configReader->getConfigSetting('MERCHANT_ID') : getenv("RIS_SDK_SANDBOX_MERCHANT_ID");
 
     $settings = new Kount_Ris_ArraySettings([
@@ -111,7 +114,8 @@ class UtilityHelperTest {
     return $settings;
   }
 
-  public function createInquiry() { 
+  public function createInquiry()
+  {
     $settings = $this->getArraySettings();
     $inquiry = new Kount_Ris_Request_Inquiry($settings);
 

@@ -2,12 +2,12 @@
 
 require __DIR__ . "/../resources/base85.class.php";
 
-if(!defined('ENCRYPTED_CONFIG_KEY')) {
+if (!defined('ENCRYPTED_CONFIG_KEY')) {
 
   /**
    * Path to file storing the encrypted value of the configuration key.
    */
-  define('ENCRYPTED_CONFIG_KEY', realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR ));
+  define('ENCRYPTED_CONFIG_KEY', realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR));
 }
 
 /**
@@ -27,7 +27,8 @@ if(!defined('ENCRYPTED_CONFIG_KEY')) {
  * @author Kount <custserv@kount.com>
  * @copyright 2011 Kount Inc. All Rights Reverved.
  */
-class Kount_Util_Khash {
+class Kount_Util_Khash
+{
 
   private static $configKey;
   /**
@@ -48,7 +49,8 @@ class Kount_Util_Khash {
    * @param $configKey|string - config key set when user instantiates a RIS request.
    * @return string Config key used for hashing in hash function.
    */
-  public static function setConfigKey($configKey) {
+  public static function setConfigKey($configKey)
+  {
     self::$configKey = $configKey;
   }
   /**
@@ -56,14 +58,16 @@ class Kount_Util_Khash {
    *
    * @return string Config key used for hashing in hash function
    */
-  public static function getConfigKey() {
+  public static function getConfigKey()
+  {
     return self::$configKey;
   }
   /**
    * Kount_Util_Khash constructor. Initializes the Config Key used in hashing operations.
    * @param Kount_Ris_ArraySettings|string $settings Existing settings or path to custom settings file.
    */
-  private function __construct($settings = null) {
+  private function __construct($settings = null)
+  {
     if ($settings instanceof Kount_Ris_ArraySettings) {
       self::$configKey = $settings->getConfigKey();
     } else {
@@ -80,7 +84,8 @@ class Kount_Util_Khash {
    * @param Kount_Ris_ArraySettings|string $settings Existing settings or path to custom settings file.
    * @return Kount_Util_Khash
    */
-  public static function createKhash($settings = null) {
+  public static function createKhash($settings = null)
+  {
     self::$instance = new Kount_Util_Khash($settings);
     return self::$instance;
   }
@@ -93,7 +98,8 @@ class Kount_Util_Khash {
    * @param string $token String to be hashed
    * @return string Hashed token
    */
-  public static function hashPaymentToken ($token) {
+  public static function hashPaymentToken($token)
+  {
     if (is_null($token)) {
       return null;
     }
@@ -108,7 +114,8 @@ class Kount_Util_Khash {
    * @param string $cardNumber Gift card number
    * @return string Hashed card number
    */
-  public static function hashGiftCard ($merchantId, $cardNumber) {
+  public static function hashGiftCard($merchantId, $cardNumber)
+  {
     $hash = self::hash($cardNumber, 14);
     return "{$merchantId}{$hash}";
   }
@@ -119,7 +126,8 @@ class Kount_Util_Khash {
    * @param int $len Length of hash to retain
    * @return string Hashed data
    */
-  public static function hash ($data, $len) {
+  public static function hash($data, $len)
+  {
     $configKey = self::getConfigKey();
     $decodedConfigKey = base85::decode($configKey);
     self::validateConfigKey($decodedConfigKey);

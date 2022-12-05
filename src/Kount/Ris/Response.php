@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Response.php file containing Kount_Ris_Response class.
  */
@@ -11,12 +12,13 @@
  * @version $Id$
  * @copyright 2012 Kount, Inc. All Rights Reserved.
  */
-class Kount_Ris_Response {
+class Kount_Ris_Response
+{
 
   /**
    * Response data
    *
-   * @var Hash map
+   * @var array
    */
   private $response = array();
 
@@ -38,15 +40,18 @@ class Kount_Ris_Response {
    *
    * @param string $output Response string comes in as key=value\n pairs
    */
-  public function __construct ($output) {
+  public function __construct($output)
+  {
     $loggerFactory = Kount_Log_Factory_LogFactory::getLoggerFactory();
     $this->logger = $loggerFactory->getLogger(__CLASS__);
 
     $this->raw = $output;
     $lines = preg_split('/[\r\n]+/', $output, -1, PREG_SPLIT_NO_EMPTY);
     foreach ($lines as $line) {
-      list($key, $value) = explode('=', $line, 2);
-      $this->response[$key] = $value;
+      if (false !== strpos($line, '=')) {
+        list($key, $value) = explode('=', $line, 2);
+        $this->response[$key] = $value;
+      }
     }
   }
 
@@ -56,7 +61,8 @@ class Kount_Ris_Response {
    * @param string $key The key for the parameter
    * @return string
    */
-  public function getParm ($key) {
+  public function getParm($key)
+  {
     return $this->safeGet("{$key}");
   }
 
@@ -65,7 +71,8 @@ class Kount_Ris_Response {
    *
    * @return string
    */
-  public function getVersion () {
+  public function getVersion()
+  {
     return $this->safeGet('VERS');
   }
 
@@ -74,7 +81,8 @@ class Kount_Ris_Response {
    *
    * @return string
    */
-  public function getMode () {
+  public function getMode()
+  {
     return $this->safeGet('MODE');
   }
 
@@ -83,7 +91,8 @@ class Kount_Ris_Response {
    *
    * @return string
    */
-  public function getTransactionId () {
+  public function getTransactionId()
+  {
     return $this->safeGet('TRAN');
   }
 
@@ -92,7 +101,8 @@ class Kount_Ris_Response {
    *
    * @return int
    */
-  public function getMerchantId () {
+  public function getMerchantId()
+  {
     return $this->safeGet('MERC');
   }
 
@@ -101,7 +111,8 @@ class Kount_Ris_Response {
    *
    * @return string
    */
-  public function getKcCustomerId () {
+  public function getKcCustomerId()
+  {
     return $this->safeGet('KC_CUSTOMER_ID');
   }
 
@@ -110,7 +121,8 @@ class Kount_Ris_Response {
    *
    * @return string
    */
-  public function getSessionId () {
+  public function getSessionId()
+  {
     return $this->safeGet('SESS');
   }
 
@@ -119,7 +131,8 @@ class Kount_Ris_Response {
    *
    * @return string
    */
-  public function getSite () {
+  public function getSite()
+  {
     return $this->safeGet('SITE');
   }
 
@@ -128,7 +141,8 @@ class Kount_Ris_Response {
    *
    * @return string
    */
-  public function getOrderNumber () {
+  public function getOrderNumber()
+  {
     return $this->safeGet('ORDR');
   }
 
@@ -137,7 +151,8 @@ class Kount_Ris_Response {
    *
    * @return string
    */
-  public function getAuto () {
+  public function getAuto()
+  {
     return $this->safeGet('AUTO');
   }
 
@@ -148,7 +163,8 @@ class Kount_Ris_Response {
    * @deprecated version 5.0.0 - 2012.
    *     Use Kount_Ris_Response->getReasonCode() instead.
    */
-  public function getReason () {
+  public function getReason()
+  {
     $this->logger->info('The method Kount_Ris_Response->getReason() is " +
         "deprecated. Use Kount_Ris_Response->getReasonCode() instead.');
     return $this->safeGet('REAS');
@@ -159,7 +175,8 @@ class Kount_Ris_Response {
    *
    * @return string
    */
-  public function getReasonCode () {
+  public function getReasonCode()
+  {
     return $this->safeGet('REASON_CODE');
   }
 
@@ -168,7 +185,8 @@ class Kount_Ris_Response {
    *
    * @return int
    */
-  public function getScore () {
+  public function getScore()
+  {
     return $this->safeGet('SCOR');
   }
 
@@ -178,7 +196,8 @@ class Kount_Ris_Response {
    *
    * @return float
    */
-  public function getOmniscore () {
+  public function getOmniscore()
+  {
     return $this->safeGet('OMNISCORE');
   }
 
@@ -187,7 +206,8 @@ class Kount_Ris_Response {
    *
    * @return string
    */
-  public function getGeox () {
+  public function getGeox()
+  {
     return $this->safeGet('GEOX');
   }
 
@@ -196,7 +216,8 @@ class Kount_Ris_Response {
    *
    * @return string
    */
-  public function getBrand () {
+  public function getBrand()
+  {
     return $this->safeGet('BRND');
   }
 
@@ -205,7 +226,8 @@ class Kount_Ris_Response {
    *
    * @return int
    */
-  public function getVelo () {
+  public function getVelo()
+  {
     return $this->safeGet('VELO');
   }
 
@@ -214,7 +236,8 @@ class Kount_Ris_Response {
    *
    * @return int
    */
-  public function getVmax () {
+  public function getVmax()
+  {
     return $this->safeGet('VMAX');
   }
 
@@ -223,7 +246,8 @@ class Kount_Ris_Response {
    *
    * @return string
    */
-  public function getNetwork () {
+  public function getNetwork()
+  {
     return $this->safeGet('NETW');
   }
 
@@ -232,7 +256,8 @@ class Kount_Ris_Response {
    *
    * @return string
    */
-  public function getKnowYourCustomer () {
+  public function getKnowYourCustomer()
+  {
     return $this->safeGet('KYCF');
   }
 
@@ -241,7 +266,8 @@ class Kount_Ris_Response {
    *
    * @return string
    */
-  public function getRegion () {
+  public function getRegion()
+  {
     return $this->safeGet('REGN');
   }
 
@@ -250,7 +276,8 @@ class Kount_Ris_Response {
    *
    * @return string
    */
-  public function getKaptcha () {
+  public function getKaptcha()
+  {
     return $this->safeGet('KAPT');
   }
 
@@ -259,7 +286,8 @@ class Kount_Ris_Response {
    * Get a string representing whether the remote device is using a proxy
    * @return string "Y" or "N"
    */
-  public function getProxy () {
+  public function getProxy()
+  {
     return $this->safeGet('PROXY');
   }
 
@@ -267,7 +295,8 @@ class Kount_Ris_Response {
    * Get the number of transactions associated with the email
    * @return string
    */
-  public function getEmails () {
+  public function getEmails()
+  {
     return $this->safeGet('EMAILS');
   }
 
@@ -276,7 +305,8 @@ class Kount_Ris_Response {
    * browser
    * @return string
    */
-  public function getHttpCountry () {
+  public function getHttpCountry()
+  {
     return $this->safeGet('HTTP_COUNTRY');
   }
 
@@ -285,7 +315,8 @@ class Kount_Ris_Response {
    * number
    * @return string
    */
-  public function getTimeZone () {
+  public function getTimeZone()
+  {
     return $this->safeGet('TIMEZONE');
   }
 
@@ -293,7 +324,8 @@ class Kount_Ris_Response {
    * Get the number of transactions associated with the credit card
    * @return string
    */
-  public function getCards () {
+  public function getCards()
+  {
     return $this->safeGet('CARDS');
   }
 
@@ -302,7 +334,8 @@ class Kount_Ris_Response {
    * controlled computer
    * @return string "Y" or "N"
    */
-  public function getPcRemote () {
+  public function getPcRemote()
+  {
     return $this->safeGet('PC_REMOTE');
   }
 
@@ -310,7 +343,8 @@ class Kount_Ris_Response {
    * Get the number of transactions associated with the particular device
    * @return string
    */
-  public function getDevices () {
+  public function getDevices()
+  {
     return $this->safeGet('DEVICES');
   }
 
@@ -319,7 +353,8 @@ class Kount_Ris_Response {
    * Flash, JavaScript) of the remote device
    * @return string
    */
-  public function getDeviceLayers () {
+  public function getDeviceLayers()
+  {
     return $this->safeGet('DEVICE_LAYERS');
   }
 
@@ -327,7 +362,8 @@ class Kount_Ris_Response {
    * Get the mobile device's wireless application protocol
    * @return string
    */
-  public function getMobileForwarder () {
+  public function getMobileForwarder()
+  {
     return $this->safeGet('MOBILE_FORWARDER');
   }
 
@@ -336,7 +372,8 @@ class Kount_Ris_Response {
    * controlled
    * @return string "Y" or "N"
    */
-  public function getVoiceDevice () {
+  public function getVoiceDevice()
+  {
     return $this->safeGet('VOICE_DEVICE');
   }
 
@@ -344,7 +381,8 @@ class Kount_Ris_Response {
    * Get local time of the remote device in the YYYY-MM-DD format
    * @return string
    */
-  public function getLocalTime () {
+  public function getLocalTime()
+  {
     return $this->safeGet('LOCALTIME');
   }
 
@@ -352,7 +390,8 @@ class Kount_Ris_Response {
    * Get the mobile device type
    * @return string
    */
-  public function getMobileType () {
+  public function getMobileType()
+  {
     return $this->safeGet('MOBILE_TYPE');
   }
 
@@ -360,7 +399,8 @@ class Kount_Ris_Response {
    * Get the device finger print
    * @return string
    */
-  public function getFingerPrint () {
+  public function getFingerPrint()
+  {
     return $this->safeGet('FINGERPRINT');
   }
 
@@ -368,7 +408,8 @@ class Kount_Ris_Response {
    * Get a string representing whether or not the remote device allows flash
    * @return string "Y" or "N"
    */
-  public function getFlash () {
+  public function getFlash()
+  {
     return $this->safeGet('FLASH');
   }
 
@@ -376,7 +417,8 @@ class Kount_Ris_Response {
    * Get the language setting on the remote device
    * @return string
    */
-  public function getLanguage () {
+  public function getLanguage()
+  {
     return $this->safeGet('LANGUAGE');
   }
 
@@ -384,7 +426,8 @@ class Kount_Ris_Response {
    * Get the remote device's country of origin as a two character code
    * @return string
    */
-  public function getCountry () {
+  public function getCountry()
+  {
     return $this->safeGet('COUNTRY');
   }
 
@@ -392,7 +435,8 @@ class Kount_Ris_Response {
    * Get a string representing whether the remote device allows JavaScript
    * @return string "Y" or "N"
    */
-  public function getJavaScript () {
+  public function getJavaScript()
+  {
     return $this->safeGet('JAVASCRIPT');
   }
 
@@ -400,7 +444,8 @@ class Kount_Ris_Response {
    * Get a string representing whether the remote device allows cookies
    * @return string "Y" or "N"
    */
-  public function getCookies () {
+  public function getCookies()
+  {
     return $this->safeGet('COOKIES');
   }
 
@@ -408,7 +453,8 @@ class Kount_Ris_Response {
    * Get a string representing whether the remote device is a mobile device
    * @return string "Y" or "N"
    */
-  public function getMobileDevice () {
+  public function getMobileDevice()
+  {
     return $this->safeGet('MOBILE_DEVICE');
   }
 
@@ -418,7 +464,8 @@ class Kount_Ris_Response {
    * your merchant account.
    * @return string MasterCard Fraud Score
    */
-  public function getMasterCardFraudScore () {
+  public function getMasterCardFraudScore()
+  {
     return $this->safeGet('MASTERCARD');
   }
 
@@ -426,7 +473,8 @@ class Kount_Ris_Response {
    * Get pierced IP address
    * @return string Pierced IP address
    */
-  public function getPiercedIPAddress () {
+  public function getPiercedIPAddress()
+  {
     return $this->safeGet('PIP_IPAD');
   }
 
@@ -434,7 +482,8 @@ class Kount_Ris_Response {
    * Get latitude of pierced IP address
    * @return string Latitude of pierced IP address
    */
-  public function getPiercedIPAddressLatitude () {
+  public function getPiercedIPAddressLatitude()
+  {
     return $this->safeGet('PIP_LAT');
   }
 
@@ -442,7 +491,8 @@ class Kount_Ris_Response {
    * Get longitude of pierced IP address
    * @return string Longitude of pierced IP address
    */
-  public function getPiercedIPAddressLongitude () {
+  public function getPiercedIPAddressLongitude()
+  {
     return $this->safeGet('PIP_LON');
   }
 
@@ -450,7 +500,8 @@ class Kount_Ris_Response {
    * Get country of pierced IP address
    * @return string Country of pierced IP address
    */
-  public function getPiercedIPAddressCountry () {
+  public function getPiercedIPAddressCountry()
+  {
     return $this->safeGet('PIP_COUNTRY');
   }
 
@@ -458,7 +509,8 @@ class Kount_Ris_Response {
    * Get region of pierced IP address
    * @return string Region of pierced IP address
    */
-  public function getPiercedIPAddressRegion () {
+  public function getPiercedIPAddressRegion()
+  {
     return $this->safeGet('PIP_REGION');
   }
 
@@ -466,7 +518,8 @@ class Kount_Ris_Response {
    * Get city of pierced IP address
    * @return string City of pierced IP address
    */
-  public function getPiercedIPAddressCity () {
+  public function getPiercedIPAddressCity()
+  {
     return $this->safeGet('PIP_CITY');
   }
 
@@ -474,7 +527,8 @@ class Kount_Ris_Response {
    * Get organization of pierced IP address
    * @return string Organization of pierced IP address
    */
-  public function getPiercedIPAddressOrganization () {
+  public function getPiercedIPAddressOrganization()
+  {
     return $this->safeGet('PIP_ORG');
   }
 
@@ -482,7 +536,8 @@ class Kount_Ris_Response {
    * Get proxy IP address
    * @return string Proxy IP address
    */
-  public function getIPAddress () {
+  public function getIPAddress()
+  {
     return $this->safeGet('IP_IPAD');
   }
 
@@ -490,7 +545,8 @@ class Kount_Ris_Response {
    * Get latitude of proxy IP address
    * @return string Latitude of proxy IP address
    */
-  public function getIPAddressLatitude () {
+  public function getIPAddressLatitude()
+  {
     return $this->safeGet('IP_LAT');
   }
 
@@ -498,7 +554,8 @@ class Kount_Ris_Response {
    * Get longitude of proxy IP address
    * @return string Longitude of proxy IP address
    */
-  public function getIPAddressLongitude () {
+  public function getIPAddressLongitude()
+  {
     return $this->safeGet('IP_LON');
   }
 
@@ -506,7 +563,8 @@ class Kount_Ris_Response {
    * Get country of proxy IP address
    * @return string Country of proxy IP address
    */
-  public function getIPAddressCountry () {
+  public function getIPAddressCountry()
+  {
     return $this->safeGet('IP_COUNTRY');
   }
 
@@ -514,7 +572,8 @@ class Kount_Ris_Response {
    * Get region of proxy IP address
    * @return string Region of proxy IP address
    */
-  public function getIPAddressRegion () {
+  public function getIPAddressRegion()
+  {
     return $this->safeGet('IP_REGION');
   }
 
@@ -522,7 +581,8 @@ class Kount_Ris_Response {
    * Get city of proxy IP address
    * @return string City of proxy IP address
    */
-  public function getIPAddressCity () {
+  public function getIPAddressCity()
+  {
     return $this->safeGet('IP_CITY');
   }
 
@@ -530,7 +590,8 @@ class Kount_Ris_Response {
    * Get organization of proxy IP address
    * @return string Organization of proxy IP address
    */
-  public function getIPAddressOrganization () {
+  public function getIPAddressOrganization()
+  {
     return $this->safeGet('IP_ORG');
   }
 
@@ -538,7 +599,8 @@ class Kount_Ris_Response {
    * Get date device first seen
    * @return string Date device first seen
    */
-  public function getDateDeviceFirstSeen () {
+  public function getDateDeviceFirstSeen()
+  {
     return $this->safeGet('DDFS');
   }
 
@@ -546,7 +608,8 @@ class Kount_Ris_Response {
    * Get user agent string
    * @return string User agent string
    */
-  public function getUserAgentString () {
+  public function getUserAgentString()
+  {
     return $this->safeGet('UAS');
   }
 
@@ -554,7 +617,8 @@ class Kount_Ris_Response {
    * Get device screen resolution
    * @return string Device screen resolution (HxW - Height by Width)
    */
-  public function getDeviceScreenResolution () {
+  public function getDeviceScreenResolution()
+  {
     return $this->safeGet('DSR');
   }
 
@@ -562,7 +626,8 @@ class Kount_Ris_Response {
    * Get operating system (derived from user agent string)
    * @return string OS (operating system)
    */
-  public function getOS () {
+  public function getOS()
+  {
     return $this->safeGet('OS');
   }
 
@@ -570,7 +635,8 @@ class Kount_Ris_Response {
    * Get browser (derived from user agent string)
    * @return string Browser
    */
-  public function getBrowser () {
+  public function getBrowser()
+  {
     return $this->safeGet('BROWSER');
   }
 
@@ -578,7 +644,8 @@ class Kount_Ris_Response {
    * Print all values in the object
    * @return string The string representation of the response
    */
-  public function __toString () {
+  public function __toString()
+  {
     return $this->raw;
   }
 
@@ -587,7 +654,8 @@ class Kount_Ris_Response {
    *
    * @return string
    */
-  public function getErrorCode () {
+  public function getErrorCode()
+  {
     return $this->safeGet('ERRO');
   }
 
@@ -596,7 +664,8 @@ class Kount_Ris_Response {
    * @param string $key Value to get
    * @return string Value found in response or null if key not present
    */
-  protected function safeGet ($key) {
+  protected function safeGet($key)
+  {
     return array_key_exists($key, $this->response) ? $this->response[$key] : null;
   }
 
@@ -606,7 +675,8 @@ class Kount_Ris_Response {
    *
    * @return array Response fields
    */
-  public function getResponseAsDict () {
+  public function getResponseAsDict()
+  {
     return !is_null($this->response) ? $this->response : '';
   }
 
@@ -614,7 +684,8 @@ class Kount_Ris_Response {
    * Get an array of the rules triggered by this Response.
    * @return array Rules triggered
    */
-  public function getRulesTriggered () {
+  public function getRulesTriggered()
+  {
     $rules = array();
     $ruleCount = $this->getNumberRulesTriggered();
     for ($i = 0; $i < $ruleCount; $i++) {
@@ -628,7 +699,8 @@ class Kount_Ris_Response {
    * Get the number of rules triggered with the response.
    * @return int Number of rules triggered
    */
-  public function getNumberRulesTriggered () {
+  public function getNumberRulesTriggered()
+  {
     // A RIS response will always contain the field RULES_TRIGGERED which
     // will be set to zero if there are no rules triggered.
     return (int) $this->safeGet("RULES_TRIGGERED");
@@ -638,7 +710,8 @@ class Kount_Ris_Response {
    * Get an array of the warnings associated with this response.
    * @return array Array of warning messages
    */
-  public function getWarnings () {
+  public function getWarnings()
+  {
     $warnings = array();
     $warningCount = $this->getWarningCount();
     for ($i = 0; $i < $warningCount; $i++) {
@@ -651,7 +724,8 @@ class Kount_Ris_Response {
    * Get the number of warnings associated with the response.
    * @return int Number of warnings
    */
-  public function getWarningCount () {
+  public function getWarningCount()
+  {
     // A RIS response will always contain the field WARNING_COUNT which
     // will be set to zero if there are no warnings.
     return (int) $this->safeGet("WARNING_COUNT");
@@ -661,7 +735,8 @@ class Kount_Ris_Response {
    * Get the errors associated with the response.
    * @return array Array of error messages
    */
-  public function getErrors () {
+  public function getErrors()
+  {
     $errors = array();
     $errorCount = $this->getErrorCount();
     for ($i = 0; $i < $errorCount; $i++) {
@@ -674,7 +749,8 @@ class Kount_Ris_Response {
    * Get the number of errors associated with the response.
    * @return int Number of errors
    */
-  public function getErrorCount () {
+  public function getErrorCount()
+  {
     // A normal response will not contain any errors in which case the
     // RIS response field ERROR_COUNT will not be sent.
     return (int) $this->safeGet("ERROR_COUNT");
@@ -688,7 +764,8 @@ class Kount_Ris_Response {
    * @return array The array keys are the attribute names and the values are the
    *     attribute values.
    */
-  public function getLexisNexisCbdAttributes () {
+  public function getLexisNexisCbdAttributes()
+  {
     return $this->getPrefixedResponseDataMap("CBD_");
   }
 
@@ -700,7 +777,8 @@ class Kount_Ris_Response {
    * @return array The array keys are the attribute names and the values are the
    *     attribute values.
    */
-  public function getLexisNexisInstantIdAttributes () {
+  public function getLexisNexisInstantIdAttributes()
+  {
     return $this->getPrefixedResponseDataMap("INSTANTID_");
   }
 
@@ -710,7 +788,8 @@ class Kount_Ris_Response {
    * @param string $prefix Key prefix.
    * @return map Map of key-value pairs for a specified RIS key prefix.
    */
-  protected function getPrefixedResponseDataMap ($prefix) {
+  protected function getPrefixedResponseDataMap($prefix)
+  {
     $data = array();
     foreach ($this->response as $key => $value) {
       $prefixLength = mb_strlen($prefix);
@@ -725,7 +804,8 @@ class Kount_Ris_Response {
    * Get the number of rules counters triggered in the response.
    * @return int Number of counters triggered
    */
-  public function getNumberCountersTriggered () {
+  public function getNumberCountersTriggered()
+  {
     return (int) $this->safeGet("COUNTERS_TRIGGERED");
   }
 
@@ -733,7 +813,8 @@ class Kount_Ris_Response {
    * Get an associative array of the rules counters associated with the response.
    * @return array Rules counters
    */
-  public function getCountersTriggered () {
+  public function getCountersTriggered()
+  {
     $counters = array();
     $numCounters = $this->getNumberCountersTriggered();
     for ($i = 0; $i < $numCounters; $i++) {
@@ -747,7 +828,8 @@ class Kount_Ris_Response {
    * Get the number of Kount Central warnings associated with the response.
    * @return int Number of warnings
    */
-  public function getKcWarningCount () {
+  public function getKcWarningCount()
+  {
     return (int) $this->safeGet("KC_WARNING_COUNT");
   }
 
@@ -755,7 +837,8 @@ class Kount_Ris_Response {
    * Get an array of the Kount Central warnings associated with this response.
    * @return array Array of warning messages associated with response.
    */
-  public function getKcWarnings () {
+  public function getKcWarnings()
+  {
     $warnings = array();
     $warningCount = $this->getKcWarningCount();
     for ($i = 1; $i <= $warningCount; $i++) {
@@ -768,7 +851,8 @@ class Kount_Ris_Response {
    * Get the number of Kount Central errors associated with the response.
    * @return int Number of errors
    */
-  public function getKcErrorCount () {
+  public function getKcErrorCount()
+  {
     return (int) $this->safeGet("KC_ERROR_COUNT");
   }
 
@@ -776,7 +860,8 @@ class Kount_Ris_Response {
    * Get the Kount Central errors associated with the response.
    * @return array Array of error messages
    */
-  public function getKcErrors () {
+  public function getKcErrors()
+  {
     $errors = array();
     $errorCount = (int) $this->safeGet("KC_ERROR_COUNT");
     for ($i = 1; $i <= $errorCount; $i++) {
@@ -789,7 +874,8 @@ class Kount_Ris_Response {
    * Get the Kount Central decision
    * @return string The decision from Kount Central
    */
-  public function getKcDecision () {
+  public function getKcDecision()
+  {
     return $this->safeGet("KC_DECISION");
   }
 
@@ -797,7 +883,8 @@ class Kount_Ris_Response {
    * Get the number of Kount Central events associated with the response.
    * @return int Number of events
    */
-  public function getKcEventCount () {
+  public function getKcEventCount()
+  {
     return (int) $this->safeGet("KC_TRIGGERED_COUNT");
   }
 
@@ -805,14 +892,16 @@ class Kount_Ris_Response {
    * Get the Kount Central threshold events associated with the decision
    * @return array An array of Kount Central Event objects
    */
-  public function getKcEvents () {
+  public function getKcEvents()
+  {
     $events = array();
     $eventCount = $this->getKcEventCount();
     for ($i = 1; $i <= $eventCount; $i++) {
       $event = new Kount_Ris_Data_KcEvent(
         $this->safeGet("KC_EVENT_{$i}_DECISION"),
         $this->safeGet("KC_EVENT_{$i}_EXPRESSION"),
-        $this->safeGet("KC_EVENT_{$i}_CODE"));
+        $this->safeGet("KC_EVENT_{$i}_CODE")
+      );
       $events[] = $event;
     }
     return $events;
@@ -823,7 +912,8 @@ class Kount_Ris_Response {
    *
    * @return string
    */
-  public function getPreviousWhitelisted () {
+  public function getPreviousWhitelisted()
+  {
     return $this->safeGet('PREVIOUSLY_WHITELISTED');
   }
 
@@ -832,8 +922,8 @@ class Kount_Ris_Response {
    *
    * @return string
    */
-  public function getSecureMerchantResponse () {
+  public function getSecureMerchantResponse()
+  {
     return $this->safeGet('THREE_DS_MERCHANT_RESPONSE');
   }
-
 } // Kount_Ris_Response

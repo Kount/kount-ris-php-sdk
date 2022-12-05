@@ -1,3 +1,9 @@
+Version 7.4.3
+=====================
+5/12/2022
+1. Only load lines from the RIS response that contain '='. Otherwise, those lines will not be parseable as key-value pairs.
+2. Reformatted the SDK
+
 Version 7.3.9
 =====================
 26/03/2021

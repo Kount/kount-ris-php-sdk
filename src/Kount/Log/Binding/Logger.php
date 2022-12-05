@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Logger.php file containing Kount_Log_Binding_Logger interface.
  */
@@ -12,7 +13,8 @@
  * @version $Id$
  * @copyright 2012 Kount, Inc. All Rights Reserved.
  */
-interface Kount_Log_Binding_Logger {
+interface Kount_Log_Binding_Logger
+{
 
   /**
    * Log a debug level message.
@@ -20,7 +22,7 @@ interface Kount_Log_Binding_Logger {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function debug ($message, $exception = null);
+  public function debug($message, $exception = null);
 
   /**
    * Log an info level message.
@@ -28,7 +30,7 @@ interface Kount_Log_Binding_Logger {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function info ($message, $exception = null);
+  public function info($message, $exception = null);
 
   /**
    * Log a warn level message.
@@ -36,7 +38,7 @@ interface Kount_Log_Binding_Logger {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function warn ($message, $exception = null);
+  public function warn($message, $exception = null);
 
   /**
    * Log an error level message.
@@ -44,7 +46,7 @@ interface Kount_Log_Binding_Logger {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function error ($message, $exception = null);
+  public function error($message, $exception = null);
 
   /**
    * Log a fatal level message.
@@ -52,11 +54,10 @@ interface Kount_Log_Binding_Logger {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function fatal ($message, $exception = null);
+  public function fatal($message, $exception = null);
 
   /**
    * Getter function for receiving the value for configurable ris metrics log.
    */
   public function getRisLogger();
-
 } // end Kount_Log_Binding_Logger

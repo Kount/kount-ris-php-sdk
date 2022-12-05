@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Inquiry.php file containing Kount_Ris_Request_Inquiry class.
  */
@@ -102,7 +103,7 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request
 		// defaults
 		$this->setMode(self::MODE_Q);
 		$this->setCurrency(self::DEFAULT_CURRENCY);
-		$this->setParm('SDK',$this->settings->getSdk());
+		$this->setParm('SDK', $this->settings->getSdk());
 		$this->setParm('SDK_VERSION', $this->settings->getSdkVersion());
 	}
 
@@ -319,9 +320,16 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request
 	 * @param string $street Billing street
 	 * @return this
 	 */
-	public function setBillingAddress($address1, $address2, $city, $state,
-	                                  $postalCode, $country, $premise = null, $street = null)
-	{
+	public function setBillingAddress(
+		$address1,
+		$address2,
+		$city,
+		$state,
+		$postalCode,
+		$country,
+		$premise = null,
+		$street = null
+	) {
 		$this->data['B2A1'] = $address1;
 		$this->data['B2A2'] = $address2;
 		$this->data['B2CI'] = $city;
@@ -362,9 +370,16 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request
 	 * @param string $street Shipping street
 	 * @return this
 	 */
-	public function setShippingAddress($address1, $address2, $city, $state,
-	                                   $postalCode, $country, $premise = null, $street = null)
-	{
+	public function setShippingAddress(
+		$address1,
+		$address2,
+		$city,
+		$state,
+		$postalCode,
+		$country,
+		$premise = null,
+		$street = null
+	) {
 		$this->data['S2A1'] = $address1;
 		$this->data['S2A2'] = $address2;
 		$this->data['S2CI'] = $city;
@@ -450,9 +465,9 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request
 	 */
 	public function setCart($cart)
 	{
-		
+
 		for ($i = 0; $i < count($cart); $i++) {
-	
+
 			$this->data["PROD_TYPE[{$i}]"] = $cart[$i]->getProductType();
 			$this->data["PROD_ITEM[{$i}]"] = $cart[$i]->getItemName();
 			$this->data["PROD_DESC[{$i}]"] = $cart[$i]->getDescription();
@@ -461,5 +476,4 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request
 		}
 		return $this;
 	}
-
 } // end Kount_Ris_Request_Inquiry

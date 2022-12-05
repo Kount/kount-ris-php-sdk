@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ArraySettings.php file containing Kount_Ris_ArraySettings class.
  */
@@ -22,7 +23,8 @@
  * @version SVN: $Id$
  * @copyright 2012 Kount, Inc. All Rights Reserved.
  */
-class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
+class Kount_Ris_ArraySettings implements Kount_Ris_Settings
+{
 
   /**
    * Settings array
@@ -34,7 +36,8 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * ArraySettings constructor, sets $settings.
    * @param array $settings Configuration settings
    */
-  public function __construct ($settings) {
+  public function __construct($settings)
+  {
     $this->settings = $settings;
   }
 
@@ -44,7 +47,8 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * does not exist or is set to null or empty value.
    * @return int Kount Merchant ID (MERC)
    */
-  public function getMerchantId () {
+  public function getMerchantId()
+  {
 
     return $this->settings['MERCHANT_ID'];
   }
@@ -55,8 +59,9 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * does not exist or is set to null or empty value.
    * @return string RIS server URL
    */
-  public function getRisUrl () {
-  
+  public function getRisUrl()
+  {
+
     return $this->settings['URL'];
   }
 
@@ -64,7 +69,8 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * Get the path to the Merchant's x509 public certificate.
    * @return string Filesystem path to PEM encoded x509 certificate
    */
-  public function getX509CertPath () {
+  public function getX509CertPath()
+  {
     return $this->settings['PEM_CERTIFICATE'] ? $this->settings['PEM_CERTIFICATE'] : null;
   }
 
@@ -72,7 +78,8 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * Get the path to the Merchant's x509 private key.
    * @return string Filesystem path to PEM encoded x509 private key
    */
-  public function getX509KeyPath () {
+  public function getX509KeyPath()
+  {
     return $this->settings['PEM_KEY_FILE'] ? $this->settings['PEM_KEY_FILE'] : null;
   }
 
@@ -80,7 +87,8 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * Get the passphrase for the Merchant's x509 private key.
    * @return string Passphrase needed to decrypt PEM encoded x509 private key
    */
-  public function getX509Passphrase () {
+  public function getX509Passphrase()
+  {
     return $this->settings['PEM_PASS_PHRASE'] ? $this->settings['PEM_PASS_PHRASE'] : null;
   }
 
@@ -88,7 +96,8 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * Get the maximum number of seconds for RIS connection functions to timeout.
    * @return int Number of seconds to timeout
    */
-  public function getConnectionTimeout () {
+  public function getConnectionTimeout()
+  {
     return $this->settings['CONNECT_TIMEOUT'] ? $this->settings['CONNECT_TIMEOUT'] : Kount_Ris_Request::CONNECTION_TIMEOUT;
   }
 
@@ -97,7 +106,8 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * have been deprecated.
    * @return string API key
    */
-  public function getApiKey () {
+  public function getApiKey()
+  {
     return $this->settings['API_KEY'] ? $this->settings['API_KEY'] : null;
   }
 
@@ -107,7 +117,8 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    * @return string CONFIG_KEY
    */
 
-  public function getConfigKey () {
+  public function getConfigKey()
+  {
     return $this->settings['CONFIG_KEY'];
   }
 
@@ -116,9 +127,10 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    *
    * @return string VERS
    */
-  public function getVERS () {
-    return array_key_exists('VERS', $this->settings) ? $this->settings['VERS'] :  
-    Kount_Util_ConfigFileReader::instance()->getConfigSetting('VERS');
+  public function getVERS()
+  {
+    return array_key_exists('VERS', $this->settings) ? $this->settings['VERS'] :
+      Kount_Util_ConfigFileReader::instance()->getConfigSetting('VERS');
   }
 
   /**
@@ -126,9 +138,10 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    *
    * @return string SDK
    */
-  public function getSdk () {
-    return array_key_exists('SDK', $this->settings) ? $this->settings['SDK'] : 
-    Kount_Util_ConfigFileReader::instance()->getConfigSetting('SDK');
+  public function getSdk()
+  {
+    return array_key_exists('SDK', $this->settings) ? $this->settings['SDK'] :
+      Kount_Util_ConfigFileReader::instance()->getConfigSetting('SDK');
   }
 
   /**
@@ -136,9 +149,9 @@ class Kount_Ris_ArraySettings implements Kount_Ris_Settings {
    *
    * @return string SDK_VERSION
    */
-  public function getSdkVersion () {
-    return array_key_exists('SDK_VERSION', $this->settings) ? $this->settings['SDK_VERSION'] :  
-    Kount_Util_ConfigFileReader::instance()->getConfigSetting('SDK_VERSION');
+  public function getSdkVersion()
+  {
+    return array_key_exists('SDK_VERSION', $this->settings) ? $this->settings['SDK_VERSION'] :
+      Kount_Util_ConfigFileReader::instance()->getConfigSetting('SDK_VERSION');
   }
-
 } //end Kount_Ris_ArraySettings
