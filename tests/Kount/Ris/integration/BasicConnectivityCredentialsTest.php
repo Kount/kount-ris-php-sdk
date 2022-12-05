@@ -4,7 +4,8 @@ class BasicConnectivityCredentialsTest extends \PHPUnit\Framework\TestCase
 {
   const EMAIL = 'predictive@kount.com';
 
-  private function getInquiryCustomCreds() {
+  private function getInquiryCustomCreds()
+  {
     $inquiry = (new UtilityHelperTest())->createInquiry();
 
     $inquiry->setEmail(self::EMAIL);
@@ -12,7 +13,8 @@ class BasicConnectivityCredentialsTest extends \PHPUnit\Framework\TestCase
     return $inquiry;
   }
 
-  public function testExpectedScore() {
+  public function testExpectedScore()
+  {
     $inquiry = $this->getInquiryCustomCreds();
 
     $inquiry->setParm('UDF[~K!_SCOR]', 42);
@@ -20,7 +22,8 @@ class BasicConnectivityCredentialsTest extends \PHPUnit\Framework\TestCase
     $this->assertEquals(42, $response->getScore());
   }
 
-  public function testExpectedDecision() {
+  public function testExpectedDecision()
+  {
     $inquiry = $this->getInquiryCustomCreds();
 
     $inquiry->setParm('UDF[~K!_AUTO]', 'R');

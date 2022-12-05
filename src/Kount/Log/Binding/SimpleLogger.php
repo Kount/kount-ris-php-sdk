@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SimpleLogger.php containing Kount_Log_Binding_SimpleLogger class.
  */
@@ -11,7 +12,8 @@
  * @version $Id$
  * @copyright 2012 Kount, Inc. All Rights Reserved.
  */
-class Kount_Log_Binding_SimpleLogger implements Kount_Log_Binding_Logger {
+class Kount_Log_Binding_SimpleLogger implements Kount_Log_Binding_Logger
+{
 
   /**
    * A simple logger instance.
@@ -29,7 +31,8 @@ class Kount_Log_Binding_SimpleLogger implements Kount_Log_Binding_Logger {
    * Constructor for a simple logger binding.
    * @param string $name Name of the logger
    */
-  public function __construct ($name) {
+  public function __construct($name)
+  {
     $this->logger = new Kount_SimpleLogger_File($name);
     $this->risLogger = $this->logger->isRisDebugEnabled;
   }
@@ -40,7 +43,8 @@ class Kount_Log_Binding_SimpleLogger implements Kount_Log_Binding_Logger {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function debug ($message, $exception = null) {
+  public function debug($message, $exception = null)
+  {
     $this->logger->debug($message, $exception);
   }
 
@@ -50,7 +54,8 @@ class Kount_Log_Binding_SimpleLogger implements Kount_Log_Binding_Logger {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function info ($message, $exception = null) {
+  public function info($message, $exception = null)
+  {
     $this->logger->info($message, $exception);
   }
 
@@ -60,7 +65,8 @@ class Kount_Log_Binding_SimpleLogger implements Kount_Log_Binding_Logger {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function warn ($message, $exception = null) {
+  public function warn($message, $exception = null)
+  {
     $this->logger->warn($message, $exception);
   }
 
@@ -70,7 +76,8 @@ class Kount_Log_Binding_SimpleLogger implements Kount_Log_Binding_Logger {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function error ($message, $exception = null) {
+  public function error($message, $exception = null)
+  {
     $this->logger->error($message, $exception);
   }
 
@@ -80,7 +87,8 @@ class Kount_Log_Binding_SimpleLogger implements Kount_Log_Binding_Logger {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function fatal ($message, $exception = null) {
+  public function fatal($message, $exception = null)
+  {
     $this->logger->fatal($message, $exception);
   }
 
@@ -88,8 +96,8 @@ class Kount_Log_Binding_SimpleLogger implements Kount_Log_Binding_Logger {
    * Getter function for receiving the value for configurable ris metrics log.
    * @return risLogger
    */
-  public function getRisLogger() {
+  public function getRisLogger()
+  {
     return $this->risLogger;
   }
-
 } // end Kount_Log_Binding_SimpleLogger

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Exception.php file containing Kount_Ris_Exception class.
  */
@@ -11,5 +12,6 @@
  * @version $Id$
  * @copyright 2012 Kount, Inc. All Rights Reserved.
  */
-class Kount_Ris_Exception extends Exception {
+class Kount_Ris_Exception extends Exception
+{
 } // end Kount_Ris_Exception

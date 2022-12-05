@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SDK autoload.
  *
@@ -19,9 +20,10 @@
  * @param string $class Class to load
  * @return bool True if load succeeded, false otherwise
  */
-function kount_sdk_autoload ($class) {
+function kount_sdk_autoload($class)
+{
   $path = dirname(__FILE__) . DIRECTORY_SEPARATOR .
-      strtr($class, '_\\', DIRECTORY_SEPARATOR) . '.php';
+    strtr($class, '_\\', DIRECTORY_SEPARATOR) . '.php';
 
   if (file_exists($path)) {
     require_once $path;
@@ -33,7 +35,6 @@ function kount_sdk_autoload ($class) {
 if (function_exists('spl_autoload_register')) {
   // supported by PHP >= 5.1.2
   spl_autoload_register('kount_sdk_autoload');
-
 } else if (!function_exists('__autoload')) {
   // supported by PHP >= 5.0.0
 
@@ -49,11 +50,10 @@ if (function_exists('spl_autoload_register')) {
   // }
 
   //Change function _autoload to spl_autoload_register()
-  function spl_autoload_register($class){
+  function spl_autoload_register($class)
+  {
     kount_sdk_autoload($class);
   }
-
 } else {
   error_log('Unable to register kount_autoload function.');
-
 } //end if

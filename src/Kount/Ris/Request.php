@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Request.php file containing Kount_Ris_Request class.
  *
@@ -191,7 +192,7 @@ abstract class Kount_Ris_Request
    * @var string
    */
   const TOKEN_TYPE = "TOKEN";
-  
+
   /**
    * Connection timeout value.
    * @var int
@@ -887,14 +888,14 @@ abstract class Kount_Ris_Request
   {
 
     if (mb_strlen($token) >= 4) {
-          $this->data['LAST4'] = mb_substr($token, mb_strlen($token) - 4);
+      $this->data['LAST4'] = mb_substr($token, mb_strlen($token) - 4);
     } else {
-        $this->data['LAST4'] = $token;
+      $this->data['LAST4'] = $token;
     }
     Kount_Util_Khash::setConfigKey($this->settings->getConfigKey());
     $token = (self::GIFT_CARD_TYPE == $this->data['PTYP']) ?
-        Kount_Util_Khash::hashGiftCard($this->data['MERC'], $token) :
-        Kount_Util_Khash::hashPaymentToken($token);
+      Kount_Util_Khash::hashGiftCard($this->data['MERC'], $token) :
+      Kount_Util_Khash::hashPaymentToken($token);
     $this->data['PTOK'] = $token;
     return $this;
   }
@@ -1000,5 +1001,4 @@ abstract class Kount_Ris_Request
     $this->data['LBIN'] = $lbin;
     return $this;
   }
-
 } // end Kount_Ris_Request

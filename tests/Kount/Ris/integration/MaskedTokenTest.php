@@ -1,8 +1,10 @@
 <?php
 
-class MaskedTokenTest extends \PHPUnit\Framework\TestCase {
+class MaskedTokenTest extends \PHPUnit\Framework\TestCase
+{
 
-  public function testCorrectMasking() {
+  public function testCorrectMasking()
+  {
     $inquiry = new Kount_Ris_Request_Inquiry();
     $inquiry->setPaymentMasked('0007380568572514');
 

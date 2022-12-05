@@ -1,4 +1,5 @@
 <?php
+
 /**
  * File.php file containing Kount_SimpleLogger_File class.
  */
@@ -11,7 +12,8 @@
  * @version $Id$
  * @copyright 2012 Kount, Inc. All Rights Reserved.
  */
-class Kount_SimpleLogger_File {
+class Kount_SimpleLogger_File
+{
 
   /**
    * Format for a time stamp.
@@ -24,12 +26,12 @@ class Kount_SimpleLogger_File {
    * @var Map
    */
   protected $logLevels = array(
-      'FATAL' => 5,
-      'ERROR' => 4,
-      'WARN' => 3,
-      'INFO' => 2,
-      'DEBUG' => 1,
-    );
+    'FATAL' => 5,
+    'ERROR' => 4,
+    'WARN' => 3,
+    'INFO' => 2,
+    'DEBUG' => 1,
+  );
 
   /**
    * Name of the logger.
@@ -54,7 +56,8 @@ class Kount_SimpleLogger_File {
    * @param string $name Name of the logger
    * @throws Exception If an illegal log level is defined in the configuration
    */
-  public function __construct ($name) {
+  public function __construct($name)
+  {
     $this->name = $name;
     $configReader = Kount_Util_ConfigFileReader::instance();
     $logFile = $configReader->getConfigSetting('SIMPLE_LOG_FILE');
@@ -64,7 +67,7 @@ class Kount_SimpleLogger_File {
     $this->isRisDebugEnabled = $configReader->getConfigSetting('SIMPLE_LOG_RIS_METRICS');
     if (!array_key_exists($this->logLevel, $this->logLevels)) {
       throw new Exception("Illegal log level [{$this->logLevel}] " .
-          "defined in setting file");
+        "defined in setting file");
     }
   }
 
@@ -74,7 +77,8 @@ class Kount_SimpleLogger_File {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function debug ($message, $exception = null) {
+  public function debug($message, $exception = null)
+  {
     $this->processMessage($message, 'DEBUG', $exception);
   }
 
@@ -84,7 +88,8 @@ class Kount_SimpleLogger_File {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function info ($message, $exception = null) {
+  public function info($message, $exception = null)
+  {
     $this->processMessage($message, 'INFO', $exception);
   }
 
@@ -94,7 +99,8 @@ class Kount_SimpleLogger_File {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function warn ($message, $exception = null) {
+  public function warn($message, $exception = null)
+  {
     $this->processMessage($message, 'WARN', $exception);
   }
 
@@ -104,7 +110,8 @@ class Kount_SimpleLogger_File {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function error ($message, $exception = null) {
+  public function error($message, $exception = null)
+  {
     $this->processMessage($message, 'ERROR', $exception);
   }
 
@@ -114,7 +121,8 @@ class Kount_SimpleLogger_File {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function fatal ($message, $exception = null) {
+  public function fatal($message, $exception = null)
+  {
     $this->processMessage($message, 'FATAL', $exception);
   }
 
@@ -127,7 +135,8 @@ class Kount_SimpleLogger_File {
    * message
    * @return void
    */
-  protected function processMessage ($message, $level, $exception) {
+  protected function processMessage($message, $level, $exception)
+  {
     if ($this->isLoggable($level)) {
       $message = $this->formatMessage($message, $level, $exception);
       $this->log($message);
@@ -141,7 +150,8 @@ class Kount_SimpleLogger_File {
    * @param exception $exception Exception to log
    * @return string Formatted message
    */
-  protected function formatMessage ($message, $level, $exception = null) {
+  protected function formatMessage($message, $level, $exception = null)
+  {
     $exceptionStr = '';
     if ($exception instanceof Exception) {
       $exceptionStr .= $exception->getMessage() . "\n";
@@ -158,7 +168,8 @@ class Kount_SimpleLogger_File {
    * @param string $message Message to log
    * @return void
    */
-  protected function log ($message) {
+  protected function log($message)
+  {
     // Current day which will be appended to file name.
     $date = date('Y-m-d');
     file_put_contents($this->logFilePath . "." . $date, $message, FILE_APPEND);
@@ -169,7 +180,8 @@ class Kount_SimpleLogger_File {
    * @param string $level Log level
    * @return boolean True if message is loggable, false or not
    */
-  protected function isLoggable ($level) {
+  protected function isLoggable($level)
+  {
     $configLevel = $this->logLevels[$this->logLevel];
     $methodLevel = $this->logLevels[$level];
     if ($methodLevel >= $configLevel) {
@@ -177,5 +189,4 @@ class Kount_SimpleLogger_File {
     }
     return false;
   }
-
 } // end Kount_SimpleLogger_File

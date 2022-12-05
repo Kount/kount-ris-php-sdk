@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Update.php file containing Kount_Ris_Request_Update class.
  *
@@ -43,7 +44,8 @@
  * @version $Id$
  * @copyright 2012 Kount, Inc. All Rights Reserved.
  */
-class Kount_Ris_Request_Update extends Kount_Ris_Request {
+class Kount_Ris_Request_Update extends Kount_Ris_Request
+{
 
   /**
    * RIS update request (no response).
@@ -77,7 +79,8 @@ class Kount_Ris_Request_Update extends Kount_Ris_Request {
    * Update constructor, sets the "Inquiry" mode to "U".
    * @param Kount_Ris_Settings $settings Configuration settings
    */
-  public function __construct ($settings = null) {
+  public function __construct($settings = null)
+  {
     parent::__construct($settings);
     // defaults
     $this->setMode(self::MODE_U);
@@ -90,8 +93,9 @@ class Kount_Ris_Request_Update extends Kount_Ris_Request {
    * @throws Kount_Ris_IllegalArgumentException when $mode isn't 'U' or 'X'.
    * @return this
    */
-  public function setMode ($mode) {
-  
+  public function setMode($mode)
+  {
+
     $this->data['MODE'] = $mode;
     return $this;
   }
@@ -102,7 +106,8 @@ class Kount_Ris_Request_Update extends Kount_Ris_Request {
    * @param string $transactionId Transaction id
    * @return this
    */
-  public function setTransactionId ($transactionId) {
+  public function setTransactionId($transactionId)
+  {
     $this->data['TRAN'] = $transactionId;
     return $this;
   }
@@ -114,8 +119,9 @@ class Kount_Ris_Request_Update extends Kount_Ris_Request {
    * @throws Kount_Ris_IllegalArgumentException when $rfcb isn't "R" or "C"
    * @return this
    */
-  public function setRefundChargeback ($rfcb) {
-  
+  public function setRefundChargeback($rfcb)
+  {
+
     $this->data['RFCB'] = $rfcb;
     return $this;
   }
@@ -128,10 +134,10 @@ class Kount_Ris_Request_Update extends Kount_Ris_Request {
    * @deprecated version 4.1.0 - 2010. Use
    *   Kount_Ris_Update->setPayPalPayment() instead.
    */
-  public function setPayPalId ($paypalId) {
+  public function setPayPalId($paypalId)
+  {
     $this->logger->info('The method Kount_Ris_Update->setPaypalId() is " +
         "deprecated. Use Kount_Ris_Update->setPaypalPayment() instead.');
     return $this->setPayPalPayment($paypalId);
   }
-
 } // end Kount_Ris_Request_Update

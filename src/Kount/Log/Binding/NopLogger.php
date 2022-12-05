@@ -1,4 +1,5 @@
 <?php
+
 /**
  * NopLogger.php file containing Kount_Log_Binding_NopLogger class.
  */
@@ -11,13 +12,15 @@
  * @version $Id$
  * @copyright 2012 Kount, Inc. All Rights Reserved.
  */
-class Kount_Log_Binding_NopLogger implements Kount_Log_Binding_Logger {
+class Kount_Log_Binding_NopLogger implements Kount_Log_Binding_Logger
+{
 
   /**
    * Constructor for Nop logger.
    * @param string $name Logger name
    */
-  public function __construct ($name) {
+  public function __construct($name)
+  {
     //Just accept a logger name and do nothing with it.
   }
 
@@ -27,7 +30,8 @@ class Kount_Log_Binding_NopLogger implements Kount_Log_Binding_Logger {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function debug ($message, $exception = null) {
+  public function debug($message, $exception = null)
+  {
   }
 
   /**
@@ -36,7 +40,8 @@ class Kount_Log_Binding_NopLogger implements Kount_Log_Binding_Logger {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function info ($message, $exception = null) {
+  public function info($message, $exception = null)
+  {
   }
 
   /**
@@ -45,7 +50,8 @@ class Kount_Log_Binding_NopLogger implements Kount_Log_Binding_Logger {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function warn ($message, $exception = null) {
+  public function warn($message, $exception = null)
+  {
   }
 
   /**
@@ -54,7 +60,8 @@ class Kount_Log_Binding_NopLogger implements Kount_Log_Binding_Logger {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function error ($message, $exception = null) {
+  public function error($message, $exception = null)
+  {
   }
 
   /**
@@ -63,10 +70,11 @@ class Kount_Log_Binding_NopLogger implements Kount_Log_Binding_Logger {
    * @param Exception $exception Exception to log
    * @return void
    */
-  public function fatal ($message, $exception = null) {
+  public function fatal($message, $exception = null)
+  {
   }
 
-  public function getRisLogger() {
+  public function getRisLogger()
+  {
   }
-
 } // end Kount_Log_Binding_NopLogger

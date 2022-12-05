@@ -2,13 +2,15 @@
 
 class RisSuiteTest extends \PHPUnit\Framework\TestCase
 {
-  private function getInquiry() {
+  private function getInquiry()
+  {
     $inquiry = (new UtilityHelperTest())->createInquiry();
 
     return $inquiry;
   }
 
-  private function getUpdate() {
+  private function getUpdate()
+  {
     $settings = (new UtilityHelperTest())->getArraySettings();
 
     $update = new Kount_Ris_Request_Update($settings);
@@ -24,7 +26,8 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
   }
 
   // First test-case #1
-  public function testRisQOneItemRequiredFieldsOneRuleReview() {
+  public function testRisQOneItemRequiredFieldsOneRuleReview()
+  {
     $inquiry = $this->getInquiry();
     //RIS response
     $response = $inquiry->getResponse();
@@ -37,7 +40,8 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
   }
 
   // Second test-case #2
-  public function testRisQMultiCartItemsTwoOptionalFieldsTwoRulesDecline() {
+  public function testRisQMultiCartItemsTwoOptionalFieldsTwoRulesDecline()
+  {
     $inquiry = $this->getInquiry();
     $inquiry->setUserAgent('Mozilla/5.0(Macintosh; Intel Mac OSX 10_9_5)AppleWebKit/537.36(KHTML, like Gecko)Chrome/37.0.2062.124Safari/537.36');
     $inquiry->setTotal(123456789);
@@ -59,7 +63,8 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
   }
 
   // Third test-case #3
-  public function testRisQWithUserDefinedFields() {
+  public function testRisQWithUserDefinedFields()
+  {
     $inquiry = $this->getInquiry();
     $inquiry->setUserDefinedField("ARBITRARY_ALPHANUM_UDF", "alphanumerictrigger value");
     $inquiry->setUserDefinedField("ARBITRARY_NUMERIC_UDF", "777");
@@ -69,14 +74,11 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
     $aNumTriggered = false;
     $numTriggered = false;
 
-    for($i = 0; $i < sizeof($response->getRulesTriggered()); $i++)
-    {
+    for ($i = 0; $i < sizeof($response->getRulesTriggered()); $i++) {
       $rule = $response->getParm("RULE_DESCRIPTION_$i");
-      if(strpos($rule, 'ARBITRARY_ALPHANUM_UDF'))
-      {
+      if (strpos($rule, 'ARBITRARY_ALPHANUM_UDF')) {
         $aNumTriggered = true;
-      } else if(strpos($rule, 'ARBITRARY_NUMERIC_UDF'))
-      {
+      } else if (strpos($rule, 'ARBITRARY_NUMERIC_UDF')) {
         $numTriggered = true;
       }
     }
@@ -85,7 +87,8 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
   }
 
   // Fourth test-case #4
-  public function testRisQHardErrorExpected() {
+  public function testRisQHardErrorExpected()
+  {
     $inquiry = $this->getInquiry();
     $inquiry->setParm("PTOK", Kount_Util_Khash::hashPaymentToken("BADPTOK"));
 
@@ -99,7 +102,8 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
   }
 
   // Fifth test-case #5
-  public function testRisQWarningApproved() {
+  public function testRisQWarningApproved()
+  {
     $inquiry = $this->getInquiry();
     $inquiry->setUserDefinedField('UDF_DOESNOTEXIST', 'Throw a warning please!');
 
@@ -110,10 +114,10 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
 
     $response = $inquiry->getResponse();
 
-    foreach($response->getWarnings() as $warning) {
-      if($warning == '399 BAD_OPTN Field: [UDF], Value: [UDF_DOESNOTEXIST=>Throw a warning please!]') {
+    foreach ($response->getWarnings() as $warning) {
+      if ($warning == '399 BAD_OPTN Field: [UDF], Value: [UDF_DOESNOTEXIST=>Throw a warning please!]') {
         $throwAWarning = true;
-      } else if($warning == '399 BAD_OPTN Field: [UDF], Value: [The label [UDF_DOESNOTEXIST] is not defined for merchant ID [999666].]') {
+      } else if ($warning == '399 BAD_OPTN Field: [UDF], Value: [The label [UDF_DOESNOTEXIST] is not defined for merchant ID [999666].]') {
         $notDefinedForMechant = true;
       }
     }
@@ -125,7 +129,8 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
   }
 
   // Sixth test-case #6
-  public function testRisQHardSoftErrorsExpected() {
+  public function testRisQHardSoftErrorsExpected()
+  {
     $inquiry = $this->getInquiry();
 
     $inquiry->setParm("PTOK", "BADPTOK");
@@ -136,10 +141,10 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
 
     $response = $inquiry->getResponse();
 
-    foreach($response->getWarnings() as $warning) {
-      if($warning == '399 BAD_OPTN Field: [UDF], Value: [UDF_DOESNOTEXIST=>Throw a warning please!]') {
+    foreach ($response->getWarnings() as $warning) {
+      if ($warning == '399 BAD_OPTN Field: [UDF], Value: [UDF_DOESNOTEXIST=>Throw a warning please!]') {
         $throwAWarning = true;
-      } else if($warning == '399 BAD_OPTN Field: [UDF], Value: [The label [UDF_DOESNOTEXIST] is not defined for merchant ID [999666].]') {
+      } else if ($warning == '399 BAD_OPTN Field: [UDF], Value: [The label [UDF_DOESNOTEXIST] is not defined for merchant ID [999666].]') {
         $notDefinedForMechant = true;
       }
     }
@@ -151,11 +156,11 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
     $this->assertEquals('332 BAD_CARD Cause: [PTOK invalid format], Field: [PTOK], Value: [hidden]', $response->getErrors()[0]);
     $this->assertTrue($throwAWarning);
     $this->assertTrue($notDefinedForMechant);
-
   }
 
   //Seventh test-case #7
-  public function testRisWTwoKCRulesReview() {
+  public function testRisWTwoKCRulesReview()
+  {
     $inquiry = $this->getInquiry();
     $inquiry->setMode('W');
     $inquiry->setTotal(10001);
@@ -166,10 +171,10 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
 
     $response = $inquiry->getResponse();
 
-    foreach($response->getKcEvents() as $kcEvent){
-      if($kcEvent->getCode() == 'billingToShippingAddressReview' && $kcEvent->getDecision() == 'R') {
+    foreach ($response->getKcEvents() as $kcEvent) {
+      if ($kcEvent->getCode() == 'billingToShippingAddressReview' && $kcEvent->getDecision() == 'R') {
         $billisngToShippingAddress = true;
-      } else if($kcEvent->getCode() == 'orderTotalReview' && $kcEvent->getDecision() == 'R'){
+      } else if ($kcEvent->getCode() == 'orderTotalReview' && $kcEvent->getDecision() == 'R') {
         $orderTotalReview = true;
       }
     }
@@ -200,7 +205,8 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
   // }
 
   //Ninth test-case #9
-  public function testModeUAfterModeQ() {
+  public function testModeUAfterModeQ()
+  {
     $inquiry = $this->getInquiry();
 
     $response = $inquiry->getResponse();
@@ -225,7 +231,8 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
   }
 
   //Tenth test-case #10
-  public function testModeXAfterModeQ() {
+  public function testModeXAfterModeQ()
+  {
     $inquiry = $this->getInquiry();
 
     $response = $inquiry->getResponse();
@@ -252,7 +259,8 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
   }
 
   //Eleventh test-case #11
-  public function testModeP () {
+  public function testModeP()
+  {
     $inquiry = $this->getInquiry();
     $inquiry->setAnid('2085551212');
     $inquiry->setMode('P');
@@ -264,7 +272,8 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
   }
 
   // Test case to vrify weather RIS request sent successfully with 'LBIN' field
-  public function testLbinWithValue () {
+  public function testLbinWithValue()
+  {
     $inquiry = $this->getInquiry();
     $inquiry->setLbin('12345678');
     $response = $inquiry->getResponse();
@@ -272,7 +281,8 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
   }
 
   // Test case to vrify weather RIS request sent successfully without 'LBIN' field
-  public function testLbinWitoutValue () {
+  public function testLbinWitoutValue()
+  {
     $inquiry = $this->getInquiry();
     $response = $inquiry->getResponse();
     $this->assertEquals(0, $response->getErrorCount());

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LogFactory.php file containing Kount_Log_Factory_LoggerFactory class.
  */
@@ -11,7 +12,8 @@
  * @author Kount <custserv@kount.com>
  * @copyright 2012 Kount, Inc. All Rights Reserved.
  */
-class Kount_Log_Factory_LogFactory {
+class Kount_Log_Factory_LogFactory
+{
 
   /**
    * NOP logger configuration setting name.
@@ -37,7 +39,8 @@ class Kount_Log_Factory_LogFactory {
    * any of the configuration setting names.
    * @return Kount_Log_Factory_LoggerFactory
    */
-  public static function getLoggerFactory () {
+  public static function getLoggerFactory()
+  {
 
     if (self::$loggerFactory == null) {
       $configReader = Kount_Util_ConfigFileReader::instance();
@@ -49,9 +52,8 @@ class Kount_Log_Factory_LogFactory {
         self::$loggerFactory = new Kount_Log_Factory_SimpleLoggerFactory();
       } else {
         throw new Exception("Unknown logger [{$logger}] defined in setting " .
-            "file [" . Kount_Util_ConfigFileReader::SETTINGS_FILE . "]");
+          "file [" . Kount_Util_ConfigFileReader::SETTINGS_FILE . "]");
       }
-
     }
 
     return self::$loggerFactory;
@@ -62,8 +64,8 @@ class Kount_Log_Factory_LogFactory {
    * @param Kount_Log_Factory_LoggerFactory $factory The logger factory to use
    * @return void
    */
-  public static function setLoggerFactory ($factory) {
+  public static function setLoggerFactory($factory)
+  {
     self::$loggerFactory = $factory;
   }
-
 } // end Kount_Log_Factory_LogFactory
