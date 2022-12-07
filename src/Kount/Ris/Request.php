@@ -340,12 +340,9 @@ abstract class Kount_Ris_Request
     $this->logger->debug(__METHOD__ . " Posting to RIS");
     // Call the RIS server and get the response
     $output = curl_exec($ch);
-
-    if (curl_errno($ch)) {
-      $result = curl_error($ch);
-      $this->logger->error(__METHOD__ . " An error occurred posting to RIS. " .
-        "Curl error [$result]");
-    }
+    $curlErrNo = curl_errno($ch);
+    $curlError = curl_error($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
     $time = microtime(true) - $startTimer;
@@ -357,6 +354,19 @@ abstract class Kount_Ris_Request
     }
 
     $this->logger->debug(__METHOD__ . " Raw RIS response:\n {$output}");
+
+    if ($curlErrNo || $httpCode >= 400) {
+      $errorMessage = 'An error occurred posting to RIS.';
+      if ($curlErrNo) {
+        $errorMessage .= " Curl error [$curlError]";
+        $errorCode = $curlErrNo;
+      } else {
+        $errorMessage .= " HTTP code [$httpCode]";
+        $errorCode = $httpCode;
+      }
+      $this->logger->error(__METHOD__ . " $errorMessage");
+      throw new Kount_Ris_Exception($errorMessage, $errorCode);
+    }
 
     return new Kount_Ris_Response($output);
   } //end getResponse
