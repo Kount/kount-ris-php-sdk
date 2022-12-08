@@ -287,4 +287,11 @@ class RisSuiteTest extends \PHPUnit\Framework\TestCase
     $response = $inquiry->getResponse();
     $this->assertEquals(0, $response->getErrorCount());
   }
+
+  public function testThatACallFailureProducesAThrow()
+  {
+    $inquiry = new Kount_Ris_Request_Inquiry();
+    $this->expectException(Kount_Ris_Exception::class);
+    $inquiry->getResponse();
+  }
 }

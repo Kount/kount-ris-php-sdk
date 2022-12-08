@@ -275,7 +275,6 @@ abstract class Kount_Ris_Request
    *
    * @return Kount_Ris_Response
    * @throws Kount_Ris_Exception Upon a bad response.
-   * @throws Kount_Ris_ValidationException Upon unsuccessful validation of $this->data.
    */
   public function getResponse()
   {
@@ -341,13 +340,6 @@ abstract class Kount_Ris_Request
     // Call the RIS server and get the response
     $output = curl_exec($ch);
 
-    if (curl_errno($ch)) {
-      $result = curl_error($ch);
-      $this->logger->error(__METHOD__ . " An error occurred posting to RIS. " .
-        "Curl error [$result]");
-    }
-    curl_close($ch);
-
     $time = microtime(true) - $startTimer;
     $timeInMs = round($time * 1000) . "ms";
 
@@ -355,8 +347,15 @@ abstract class Kount_Ris_Request
       $risLogMessage = "merc=" . $this->data['MERC'] . " " . "sess=" . $this->data['SESS'] . " " . "sdk_elapsed=" . $timeInMs;
       $this->logger->debug("{$risLogMessage}");
     }
-
     $this->logger->debug(__METHOD__ . " Raw RIS response:\n {$output}");
+
+    if (curl_errno($ch)) {
+      $result = curl_error($ch);
+      $this->logger->error(__METHOD__ . " An error occurred posting to RIS. " .
+        "Curl error [$result]");
+      throw new Kount_Ris_Exception();
+    }
+    curl_close($ch);
 
     return new Kount_Ris_Response($output);
   } //end getResponse
