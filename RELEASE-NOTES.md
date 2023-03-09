@@ -1,3 +1,9 @@
+Version 7.5.1
+=====================
+3/9/2023
+1. Restore throw of Exception when RIS inquiry fails
+2. Add two shipping types -- Delivery (DE) and Pick-up (PU) 
+
 Version 7.4.3
 =====================
 5/12/2022
