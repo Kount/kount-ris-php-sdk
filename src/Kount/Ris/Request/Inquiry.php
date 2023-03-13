@@ -86,6 +86,20 @@ class Kount_Ris_Request_Inquiry extends Kount_Ris_Request
 	const SHIP_STD = 'ST';
 
 	/**
+	 * Delivery shipping.
+	 * @var string
+	 * @see setShipType()
+	 */
+	const SHIP_DELIVERY = 'DE';
+
+	/**
+	 * Pick-up shipping
+	 * @var string
+	 * @see setShipType()
+	 */
+	const SHIP_PICKUP = 'PU';
+
+	/**
 	 * Default currency type
 	 * @var string
 	 */
