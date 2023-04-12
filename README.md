@@ -1,27 +1,11 @@
-# Kount RIS PHP SDK 
-Repository for Kount RIS PHP SDK source code and wiki.
+# Kount RIS PHP SDK #
 
-## Please Note
+The Kount RIS PHP SDK contains the PHP SDK, tests, and build/package routines. This enables integrating the Kount fraud fighting solution into your PHP app.
 
-## SDK Documentation
-Our Kount-PHP-SDK Page includes all the documentation related to PHP SDK. Everything from SDK Wiki, to Sample Codes, to Releases. Here are few quick links to get you there faster.
-* [Wiki](https://github.com/Kount/kount-ris-php-sdk/wiki)
-* [Installation](https://github.com/Kount/kount-ris-php-sdk/wiki/Installation)
-* Sample
-* [Make your First SDK Call](https://github.com/Kount/kount-ris-php-sdk/wiki/Example-Usage)
-* Kount Developer Docs
+## Documentation ##
 
-## Latest Updates
-* Now we have a Github Page, that helps you find all helpful resources building applications using Kount-PHP-SDK.
+For official **integration documentation**, go to [How to Integrate the RIS PHP SDK](https://developer.kount.com/hc/en-us/articles/5866429971604) on the Kount Developer site.
 
-## Prerequisities
-* PHP 7.2.5 or above
-* PHPUnit 9 (v9.5.3) (unit test framework for PHP)
-* curl, json & openssl extensions must be enabled
+## Release Notes ##
 
-## License
-Read *License* for more licensing information.
-
-## Contributing
-Read *here* for more information.
-* Other community or team contact
+For the complete **release notes history**, go to [Kount RIS PHP SDK Release Notes History](https://developer.kount.com/hc/en-us/articles/10324810971540) on the Kount Developer site.
