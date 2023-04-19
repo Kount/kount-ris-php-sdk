@@ -275,7 +275,6 @@ abstract class Kount_Ris_Request
    *
    * @return Kount_Ris_Response
    * @throws Kount_Ris_Exception Upon a bad response.
-   * @throws Kount_Ris_ValidationException Upon unsuccessful validation of $this->data.
    */
   public function getResponse()
   {
@@ -340,6 +339,7 @@ abstract class Kount_Ris_Request
     $this->logger->debug(__METHOD__ . " Posting to RIS");
     // Call the RIS server and get the response
     $output = curl_exec($ch);
+
     $curlErrNo = curl_errno($ch);
     $curlError = curl_error($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -352,7 +352,6 @@ abstract class Kount_Ris_Request
       $risLogMessage = "merc=" . $this->data['MERC'] . " " . "sess=" . $this->data['SESS'] . " " . "sdk_elapsed=" . $timeInMs;
       $this->logger->debug("{$risLogMessage}");
     }
-
     $this->logger->debug(__METHOD__ . " Raw RIS response:\n {$output}");
 
     if ($curlErrNo || $httpCode >= 400) {
@@ -1002,7 +1001,7 @@ abstract class Kount_Ris_Request
   /**
    * Set the Bank Identification Number.
    * Supports BIN lengths of 6 digits or greater
-   * 
+   *
    * @param string $lbin Long Bank Identification Number
    * @return this
    */
