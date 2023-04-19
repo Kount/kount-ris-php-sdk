@@ -340,6 +340,11 @@ abstract class Kount_Ris_Request
     // Call the RIS server and get the response
     $output = curl_exec($ch);
 
+    $curlErrNo = curl_errno($ch);
+    $curlError = curl_error($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
     $time = microtime(true) - $startTimer;
     $timeInMs = round($time * 1000) . "ms";
 
@@ -349,13 +354,18 @@ abstract class Kount_Ris_Request
     }
     $this->logger->debug(__METHOD__ . " Raw RIS response:\n {$output}");
 
-    if (curl_errno($ch)) {
-      $result = curl_error($ch);
-      $this->logger->error(__METHOD__ . " An error occurred posting to RIS. " .
-        "Curl error [$result]");
-      throw new Kount_Ris_Exception();
+    if ($curlErrNo || $httpCode >= 400) {
+      $errorMessage = 'An error occurred posting to RIS.';
+      if ($curlErrNo) {
+        $errorMessage .= " Curl error [$curlError]";
+        $errorCode = $curlErrNo;
+      } else {
+        $errorMessage .= " HTTP code [$httpCode]";
+        $errorCode = $httpCode;
+      }
+      $this->logger->error(__METHOD__ . " $errorMessage");
+      throw new Kount_Ris_Exception($errorMessage, $errorCode);
     }
-    curl_close($ch);
 
     return new Kount_Ris_Response($output);
   } //end getResponse
@@ -991,7 +1001,7 @@ abstract class Kount_Ris_Request
   /**
    * Set the Bank Identification Number.
    * Supports BIN lengths of 6 digits or greater
-   * 
+   *
    * @param string $lbin Long Bank Identification Number
    * @return this
    */
