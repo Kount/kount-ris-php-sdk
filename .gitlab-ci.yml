@@ -14,7 +14,7 @@ stages:
   - sonarqube scan
 
 .php:
-  image: roadiz/php73-runner
+  image: roadiz/php82-runner
   before_script:
     # install dependencies
     - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -64,7 +64,7 @@ test:
   - !reference [.rule-on-master]
   - !reference [.rule-on-mr]
   before_script:
-    - pecl install xdebug-3.1.6
+    - pecl install xdebug-3.2.1
     - docker-php-ext-enable xdebug 
     - echo xdebug.mode=coverage > /usr/local/etc/php/conf.d/xdebug.ini
   script:

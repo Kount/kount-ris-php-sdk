@@ -1,3 +1,8 @@
+Version 7.5.2
+=====================
+5/2/2023
+1. Property isRisDebugEnabled is no longer a Dynamic Property (Dynamic Properties were deprecated in PHP 8.2). This prevents unnecessary warn/error logs.
+
 Version 7.5.1
 =====================
 3/9/2023
