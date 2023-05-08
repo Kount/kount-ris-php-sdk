@@ -34,7 +34,7 @@ class Kount_Log_Binding_SimpleLogger implements Kount_Log_Binding_Logger
   public function __construct($name)
   {
     $this->logger = new Kount_SimpleLogger_File($name);
-    $this->risLogger = $this->logger->isRisDebugEnabled;
+    $this->risLogger = $this->logger->isRisDebugEnabled();
   }
 
   /**
