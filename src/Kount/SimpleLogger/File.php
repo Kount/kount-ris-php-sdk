@@ -55,7 +55,7 @@ class Kount_SimpleLogger_File
    * Enables/Disables RIS debuging
    * @var bool
    */
-  private $isRisDebugEnabled;
+  public $isRisDebugEnabled;
 
   /**
    * Constructor for a simple file logger.

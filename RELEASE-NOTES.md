@@ -1,3 +1,8 @@
+Version 7.5.3
+=====================
+5/17/2023
+1. Changed visablity of property isRisDebugEnabled to public.
+
 Version 7.5.2
 =====================
 5/2/2023
