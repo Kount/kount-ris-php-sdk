@@ -52,7 +52,7 @@ class Kount_SimpleLogger_File
   protected $logLevel;
   
   /**
-   * Enables/Disables RIS debuging
+   * Enables/Disables RIS debugging
    * @var bool
    */
   public $isRisDebugEnabled;
@@ -194,5 +194,14 @@ class Kount_SimpleLogger_File
       return true;
     }
     return false;
+  }
+
+  /**
+   * Determine if the debug mode enabled.
+   * @return bool
+   */
+  public function isRisDebugEnabled()
+  {
+    return $this->isRisDebugEnabled;
   }
 } // end Kount_SimpleLogger_File
