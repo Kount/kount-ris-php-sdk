@@ -22,38 +22,38 @@
  */
 function kount_sdk_autoload($class)
 {
-  $path = dirname(__FILE__) . DIRECTORY_SEPARATOR .
-    strtr($class, '_\\', DIRECTORY_SEPARATOR) . '.php';
+    $path = dirname(__FILE__) . DIRECTORY_SEPARATOR .
+        strtr($class, '_\\', DIRECTORY_SEPARATOR) . '.php';
 
-  if (file_exists($path)) {
-    require_once $path;
-    return true;
-  }
-  return false;
+    if (file_exists($path)) {
+        require_once $path;
+        return true;
+    }
+    return false;
 }
 
 if (function_exists('spl_autoload_register')) {
-  // supported by PHP >= 5.1.2
-  spl_autoload_register('kount_sdk_autoload');
+    // supported by PHP >= 5.1.2
+    spl_autoload_register('kount_sdk_autoload');
 } else if (!function_exists('__autoload')) {
-  // supported by PHP >= 5.0.0
+    // supported by PHP >= 5.0.0
 
-  /**
-   * Attempt to load undefined class
-   *
-   * @param string $class Classname
-   * @return void
-   * Not supported for PHP 7.2.5 version
-   */
-  // function __autoload ($class) {
-  //   kount_sdk_autoload($class);
-  // }
+    /**
+     * Attempt to load undefined class
+     *
+     * @param string $class Classname
+     * @return void
+     * Not supported for PHP 7.2.5 version
+     */
+    // function __autoload ($class) {
+    //   kount_sdk_autoload($class);
+    // }
 
-  //Change function _autoload to spl_autoload_register()
-  function spl_autoload_register($class)
-  {
-    kount_sdk_autoload($class);
-  }
+    //Change function _autoload to spl_autoload_register()
+    function spl_autoload_register($class)
+    {
+        kount_sdk_autoload($class);
+    }
 } else {
-  error_log('Unable to register kount_autoload function.');
+    error_log('Unable to register kount_autoload function.');
 } //end if

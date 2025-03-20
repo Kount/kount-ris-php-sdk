@@ -24,6 +24,7 @@ if (!defined('KOUNT_SETTINGS_FILE')) {
  */
 class Kount_Util_ConfigFileReader
 {
+    const SETTINGS_FILE = KOUNT_SETTINGS_FILE;
 
   /**
    * An instance of this class.
@@ -33,7 +34,7 @@ class Kount_Util_ConfigFileReader
 
   /**
    * A map of the config settings.
-   * @var Map
+   * @var array
    */
   protected $settings;
 

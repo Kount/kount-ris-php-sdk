@@ -25,7 +25,7 @@ stages:
     - php composer-setup.php
     - php -r "unlink('composer-setup.php');"
     - php composer.phar install
-  
+
 version check:
   stage: version check
   rules:
@@ -35,7 +35,7 @@ version check:
     # on mr, allow failure
     - if: '$CI_MERGE_REQUEST_ID != null || $CI_PIPELINE_SOURCE == "merge_request_event"'
       allow_failure: true
-    - !reference [.rule-on-tag]
+    - !reference [ .rule-on-tag ]
   script:
     - BUILD_VERSION=`echo $BUILD_VERSION | cut -c-20`
     - SDK_VERSION="Sdk-Ris-PHP-"${BUILD_VERSION}
@@ -50,22 +50,20 @@ build:
   stage: build
   extends: .php
   rules:
-    - !reference [.rule-on-tag]
-    - !reference [.rule-on-master]
-    - !reference [.rule-on-mr]
+    - !reference [ .rule-on-tag ]
+    - !reference [ .rule-on-master ]
+    - !reference [ .rule-on-mr ]
   script:
     - composer install
-  
+
 test:
   stage: test
   extends: .php
   rules:
-  - !reference [.rule-on-tag]
-  - !reference [.rule-on-master]
-  - !reference [.rule-on-mr]
+    - !reference [ .rule-on-tag ]
+    - !reference [ .rule-on-master ]
+    - !reference [ .rule-on-mr ]
   before_script:
-    - pecl install xdebug-3.2.1
-    - docker-php-ext-enable xdebug 
     - echo xdebug.mode=coverage > /usr/local/etc/php/conf.d/xdebug.ini
   script:
     - composer install

@@ -1,23 +1,35 @@
 <phpunit bootstrap="tests/bootstrap.php"
          colors="true"
-         processIsolation="false">
+         processIsolation="false"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnTestsThatTriggerErrors="true"
+         displayDetailsOnTestsThatTriggerNotices="true"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         displayDetailsOnPhpunitDeprecations="true"
+         cacheResult="false"
+         cacheDirectory="build/cache"
+         failOnWarning="false"
+>
 
-  <testsuites>
-    <testsuite name="unit">
-      <directory suffix=".php">./tests/Kount/Ris/unit/</directory>
-    </testsuite>
-  </testsuites>
+    <testsuites>
+        <testsuite name="unit">
+            <directory suffix=".php">tests/Kount/Ris/integration/</directory>
+        </testsuite>
+    </testsuites>
 
-  <!-- <logging>
-    <log type="coverage-html" target="build/coverage/clover.html" lowUpperBound="35" charset="UTF-8"
-         highlight="true" highLowerBound="75"/>
-  </logging> -->
+    <source>
+        <include>
+            <directory suffix=".php">./src/Kount/</directory>
+        </include>
+    </source>
 
-  <filter>
-    <whitelist>
-      <directory suffix=".php">./src/Kount/</directory>
-      <exclude>
-      </exclude>
-    </whitelist>
-  </filter>
+    <coverage
+        includeUncoveredFiles="true"
+        pathCoverage="false"
+    >
+        <report>
+            <clover outputFile="build/coverage/clover.xml"/>
+        </report>
+    </coverage>
+
 </phpunit>
