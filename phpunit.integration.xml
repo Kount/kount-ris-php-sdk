@@ -3,32 +3,31 @@
          colors="true"
          processIsolation="false"
          stopOnFailure="false"
-         syntaxCheck="false"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         testSuiteLoaderFile="PHPUnit_Runner_StandardTestSuiteLoader">
+         cacheResult="false"
+         cacheDirectory="build/cache">
 
-  <php>
-    <env name="REST_MODE" value="sandbox"/>
-  </php>
+    <php>
+        <env name="REST_MODE" value="sandbox"/>
+    </php>
 
-  <testsuites>
-    <testsuite name="integration">
-      <directory>tests/Kount/Ris/integration/</directory>
-    </testsuite>
-  </testsuites>
+    <testsuites>
+        <testsuite name="unit">
+            <directory suffix=".php">tests/Kount/Ris/integration/</directory>
+        </testsuite>
+    </testsuites>
 
-  <logging>
-    <log type="coverage-html" target="build/coverage/" charset="UTF-8"
-         highlight="true" lowUpperBound="35" highLowerBound="75"/>
-  </logging>
+    <source>
+        <include>
+            <directory suffix=".php">src/Kount/</directory>
+        </include>
+    </source>
 
-  <filter>
-    <whitelist>
-      <directory suffix=".php">./src/Kount</directory>
-      <exclude>
-      </exclude>
-    </whitelist>
-  </filter>
+    <coverage
+        includeUncoveredFiles="true"
+        pathCoverage="false"
+    >
+        <report>
+            <clover outputFile="build/coverage/clover.xml"/>
+        </report>
+    </coverage>
 </phpunit>

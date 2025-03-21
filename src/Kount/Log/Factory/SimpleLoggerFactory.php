@@ -13,16 +13,16 @@
  * @copyright 2012 Kount, Inc. All Rights Reserved.
  */
 class Kount_Log_Factory_SimpleLoggerFactory implements
-  Kount_Log_Factory_LoggerFactory
+    Kount_Log_Factory_LoggerFactory
 {
 
-  /**
-   * Get a Simple Logger.
-   * @param string $name Logger name
-   * @return Kount_Log_Binding_SimpleLogger
-   */
-  public static function getLogger($name)
-  {
-    return new Kount_Log_Binding_SimpleLogger($name);
-  }
+    /**
+     * Get a Simple Logger.
+     * @param string $name Logger name
+     * @return Kount_Log_Binding_SimpleLogger
+     */
+    public static function getLogger($name)
+    {
+        return new Kount_Log_Binding_SimpleLogger($name);
+    }
 } // end Kount_Log_Factory_SimpleLoggerFactory
