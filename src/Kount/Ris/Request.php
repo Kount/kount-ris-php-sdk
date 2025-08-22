@@ -254,8 +254,10 @@ abstract class Kount_Ris_Request
             $this->settings = new Kount_Ris_ArraySettings($configReader->getSettings());
             Kount_Util_Khash::createKhash($this->settings);
         }
-            $migrationEnabled = $this->settings->getIsMigrationModeEnabled();
-        if ($migrationEnabled && strtolower(trim($migrationEnabled)) == 'true') {
+
+        $migrationEnabled = $this->settings->getIsMigrationModeEnabled();
+        $migrationModeValue = strtolower(trim($migrationEnabled));
+        if ($migrationEnabled && $migrationModeValue == 'true' || $migrationModeValue == '1') {
             if (
                 !$this->settings->getPaymentsFraudApiKey() ||
                 !$this->settings->getPaymentsFraudClientId() ||
