@@ -8,25 +8,10 @@ include:
 
 stages:
   - version
-  - version check
-  - build
-  - test
+  - build # also tests
   - sonarqube scan
 
-.php:
-  image: roadiz/php82-runner
-  before_script:
-    # install dependencies
-    - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-    - bash docker_install.sh
-    - apt-get update
-    - apt-get install zip unzip -y
-    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    - php composer-setup.php
-    - php -r "unlink('composer-setup.php');"
-    - php composer.phar install
-
-version check:
+.version check:
   stage: version check
   rules:
     # on master, allow failure
@@ -48,24 +33,20 @@ version check:
 
 build:
   stage: build
-  extends: .php
+  image: php:8.2-fpm-alpine
   rules:
     - !reference [ .rule-on-tag ]
     - !reference [ .rule-on-master ]
     - !reference [ .rule-on-mr ]
   script:
-    - composer install
-
-test:
-  stage: test
-  extends: .php
-  rules:
-    - !reference [ .rule-on-tag ]
-    - !reference [ .rule-on-master ]
-    - !reference [ .rule-on-mr ]
-  before_script:
-    - echo xdebug.mode=coverage > /usr/local/etc/php/conf.d/xdebug.ini
-  script:
+    - apk add ca-certificates zip unzip git curl libzip-dev libpng-dev libxml2-dev oniguruma-dev autoconf gcc libc-dev linux-headers make
+    - docker-php-ext-install pdo pdo_mysql zip gd bcmath xml
+    - pecl install xdebug && docker-php-ext-enable xdebug
+    - update-ca-certificates
+    - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    - export PATH="/usr/local/bin:$PATH"
+    - export LOCAL_PHP_XDEBUG=true
+    - export XDEBUG_MODE=coverage
     - composer install
     - vendor/bin/phpunit --configuration phpunit.integration.xml --coverage-clover=phpunit-coverage-result.xml --log-junit=phpunit-execution-result.xml
   artifacts:
