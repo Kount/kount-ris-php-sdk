@@ -277,6 +277,7 @@ abstract class Kount_Ris_Request
         if ($this->isMigrationModelEnabled) {
             $this->setMerchantId($this->settings->getPaymentsFraudClientId());
             $this->setUrl($this->settings->getPaymentsFraudApiUrl());
+            $this->refreshPaymentsFraudAccessToken();
         } else {
             $this->setMerchantId($this->settings->getMerchantId());
             $this->setUrl($this->settings->getRisUrl());

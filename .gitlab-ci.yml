@@ -33,6 +33,7 @@ stages:
 
 build:
   stage: build
+  tags: [aws-kount-shared-infra]
   image: php:8.2-fpm-alpine
   rules:
     - !reference [ .rule-on-tag ]
