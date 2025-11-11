@@ -30,6 +30,26 @@ class RisClient implements Serializable
         $this->updateClient = $updateClient;
     }
 
+    public function getInquiryClient(): ?Kount_Ris_Request_Inquiry
+    {
+        return $this->inquiryClient;
+    }
+
+    public function setInquiryClient(?Kount_Ris_Request_Inquiry $inquiryClient): void
+    {
+        $this->inquiryClient = $inquiryClient;
+    }
+
+    public function getUpdateClient(): ?Kount_Ris_Request_Update
+    {
+        return $this->updateClient;
+    }
+
+    public function setUpdateClient(?Kount_Ris_Request_Update $updateClient): void
+    {
+        $this->updateClient = $updateClient;
+    }
+
     public function serialize(): ?string
     {
         $data = $this->__serialize();
