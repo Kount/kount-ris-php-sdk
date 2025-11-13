@@ -228,7 +228,7 @@ abstract class Kount_Ris_Request
      * Payments Fraud Access Token
      * @var array
      */
-    private $accessToken = array();
+    protected $accessToken = array();
 
     /**
      * Constructor.
@@ -1060,7 +1060,7 @@ abstract class Kount_Ris_Request
      * @return void
      * @throws Exception
      */
-    private function refreshPaymentsFraudAccessToken(): void
+    protected function refreshPaymentsFraudAccessToken(): void
     {
         $this->logger->debug(__METHOD__);
 
