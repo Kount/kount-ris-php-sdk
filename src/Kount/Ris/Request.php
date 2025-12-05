@@ -1088,7 +1088,7 @@ abstract class Kount_Ris_Request
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_TIMEOUT, self::CONNECTION_TIMEOUT);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $this->connectionTimeout);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
