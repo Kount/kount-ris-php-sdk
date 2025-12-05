@@ -1103,7 +1103,7 @@ abstract class Kount_Ris_Request
 
         $accessToken = json_decode($output, true);
 
-        if (array_key_exists('expires_in', $accessToken)) {
+        if (is_array($accessToken) && array_key_exists('expires_in', $accessToken)) {
             $accessToken['expires_at'] = (new DateTime())->getTimestamp() + $accessToken['expires_in'] - 60;
             $this->accessToken = $accessToken;
         } else {
