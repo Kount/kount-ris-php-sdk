@@ -1097,17 +1097,18 @@ abstract class Kount_Ris_Request
         $curlError = curl_error($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        if ($curlErrNo || $httpCode >= 400) {
-            $this->logger->warn('An error occurred refreshing access token: ' . $output . ' -- ' . $curlError);
+        if (!empty($curlErrNo) || !empty($curlError) || $httpCode >= 400) {
+            $this->logger->error('An error occurred refreshing access token: ' . $output . ' -- ' . $curlError . ' errorNum: ' . $curlErrNo);
+            return;
         }
 
         $accessToken = json_decode($output, true);
 
-        if (array_key_exists('expires_in', $accessToken)) {
+        if (is_array($accessToken) && array_key_exists('expires_in', $accessToken)) {
             $accessToken['expires_at'] = (new DateTime())->getTimestamp() + $accessToken['expires_in'] - 60;
             $this->accessToken = $accessToken;
         } else {
-            $this->logger->warn('An error occurred refreshing access token expiration could not be determined.');
+            $this->logger->error('An error occurred refreshing access token expiration could not be determined.');
         }
     }
 } // end Kount_Ris_Request
