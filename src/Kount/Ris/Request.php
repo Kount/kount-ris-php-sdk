@@ -388,7 +388,6 @@ abstract class Kount_Ris_Request
         $curlErrNo = curl_errno($ch);
         $curlError = curl_error($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
 
         $time = microtime(true) - $startTimer;
         $timeInMs = round($time * 1000) . "ms";
@@ -1096,7 +1095,6 @@ abstract class Kount_Ris_Request
         $curlErrNo = curl_errno($ch);
         $curlError = curl_error($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
         if (!empty($curlErrNo) || !empty($curlError) || $httpCode >= 400) {
             $this->logger->error('An error occurred refreshing access token: ' . $output . ' -- ' . $curlError . ' errorNum: ' . $curlErrNo);
             return;
